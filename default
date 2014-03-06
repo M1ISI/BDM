@@ -1,0 +1,26 @@
+server {
+	listen 80;
+	root /var/www/bdm;
+	index index.php;
+	location / {
+		try_files $uri $uri/ /index.html;
+	}
+	location ~ \.php$ {
+		fastcgi_split_path_info ^(.+\.php)(/.+)$;
+		fastcgi_pass unix:/var/run/php5-fpm.sock;
+		fastcgi_index index.php;
+		include fastcgi_params;
+	}
+
+	#error_log /var/log/nginx/bdm.log;
+	#access_log /var/log/nginx/bdm.log;
+	#client_max_body_size 10G; # set max upload size
+	#fastcgi_buffers 64 4K;
+	# Optional: set long EXPIRES header on static assets
+	#location ~* ^.+\.(jpg|jpeg|gif|bmp|ico|png|css|js|swf|svg)$ {
+	#	expires 30d;
+	#	# Optional: Don't log access to assets
+	#	access_log off;
+	#}
+}
+
