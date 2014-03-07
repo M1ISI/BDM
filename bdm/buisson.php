@@ -20,14 +20,27 @@
 
 $(document).ready(function(){
 	$("#ok").click(function(){
-		$.getJSON("https://duckduckgo.com/?q=chat&format=json",function(result){
-			
-			$('p').html(result);
-
-			/*$.each(result, function(i, field){
-				alert("plop");
-				//$("p").html(field + " ");
-			});*/
+		$.ajax({
+			type: 'GET',
+			url: 'https://duckduckgo.com/',
+			data: {q: $("#champ").val(), format: 'json'},
+			jsonpCallback: 'jsonp',
+			dataType: 'jsonp',
+			success: function(data){
+				if(data.RelatedTopics.length > 0)
+				{
+					var premiereLigne = data.RelatedTopics[0].Text;
+					var premierMot = premiereLigne.slice(0, premiereLigne.indexOf(" "));
+					$('p').html("Resultat DuckDuckGo : " + premierMot);
+				}
+				else
+				{
+					$('p').html("Pas de resultats...");
+				}
+			},
+			error: function(xhr, status, error){
+				alert("Erreur...");
+			}
 		});
 	});
 });
