@@ -1,5 +1,10 @@
-<?php
+<html>
+<head>
+<link rel="stylesheet" href="css.css" />
+</head>
+<body>
 
-phpinfo();
+<img src="http://imageshack.com/img842/1300/nt7j.png" /> 
 
-?>
+</body>
+</html>
