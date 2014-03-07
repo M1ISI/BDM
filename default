@@ -1,26 +1,33 @@
+
 server {
 	listen 80;
 	root /var/www/bdm;
-	index index.php;
+	index index.html index.htm
+	
+	
+	# Make site accessible from http://localhost/
+	server_name localhost;
+	
+	
 	location / {
+		# First attempt to serve request as file, then
+		# as directory, then fall back to index.html
 		try_files $uri $uri/ /index.html;
 	}
+
+
+	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
 	location ~ \.php$ {
-		fastcgi_split_path_info ^(.+\.php)(/.+)$;
-		fastcgi_pass unix:/var/run/php5-fpm.sock;
 		fastcgi_index index.php;
+		
+		fastcgi_split_path_info ^(.+\.php)(/.+)$;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+	
+		# With php5-cgi alone:
+		#fastcgi_pass 127.0.0.1:9000;
+		# With php5-fpm:
+		fastcgi_pass unix:/var/run/php5-fpm.sock;
+		
 		include fastcgi_params;
 	}
-
-	#error_log /var/log/nginx/bdm.log;
-	#access_log /var/log/nginx/bdm.log;
-	#client_max_body_size 10G; # set max upload size
-	#fastcgi_buffers 64 4K;
-	# Optional: set long EXPIRES header on static assets
-	#location ~* ^.+\.(jpg|jpeg|gif|bmp|ico|png|css|js|swf|svg)$ {
-	#	expires 30d;
-	#	# Optional: Don't log access to assets
-	#	access_log off;
-	#}
 }
-
