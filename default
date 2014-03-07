@@ -9,6 +9,11 @@ server {
 	server_name localhost;
 	
 	
+	#Journaux pour le débogage.
+	access_log /var/log/nginx/bdm_access.log;
+	error_log /var/log/nginx/bdm_error.log;
+	
+	
 	location / {
 		# First attempt to serve request as file, then
 		# as directory, then fall back to index.html
@@ -24,9 +29,9 @@ server {
 		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
 	
 		# With php5-cgi alone:
-		#fastcgi_pass 127.0.0.1:9000;
+		fastcgi_pass 127.0.0.1:9000;
 		# With php5-fpm:
-		fastcgi_pass unix:/var/run/php5-fpm.sock;
+		#fastcgi_pass unix:/var/run/php5-fpm.sock;
 		
 		include fastcgi_params;
 	}
