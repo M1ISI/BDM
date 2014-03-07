@@ -27,7 +27,7 @@ function getFBFriendList(){
     }
   });
 }
-/*
+
 (function(d, s, id) {
 	var js, fjs = d.getElementsByTagName(s)[0];
 	if (d.getElementById(id)) return;
@@ -35,7 +35,7 @@ function getFBFriendList(){
 	js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&appId=1449580138609793";
 	fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
-*/
+
 
 FB.Event.subscribe('auth.login', function(response) {
 
