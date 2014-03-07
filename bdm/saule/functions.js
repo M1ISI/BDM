@@ -1,14 +1,13 @@
-function handleFacebook() {
- 
-    FB.init({appId: '1449580138609793', xfbml: true, cookie: true});
-    FB.getLoginStatus(function(response) {
-        onStatus(response); // once on page load
-        FB.Event.subscribe('auth.statusChange', onStatus); // every status change
-    });
- 
+function loginFbApi(d, s, id){
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&appId=1449580138609793";
+
+  fjs.parentNode.insertBefore(js, fjs);
 }
 
-function getFBFriendList(session){
+function getFBFriendList(){
   FB.getLoginStatus(function(response) {
     if (response.status === 'connected') {
       FB.api('/me/friends', function(response){
