@@ -17,4 +17,6 @@ service php5-fpm restart
 service fcgiwrap restart
 
 
+echo "Pour verifier l'installation, aller sur la page http://localhost."
+
 
