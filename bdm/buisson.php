@@ -18,6 +18,30 @@
 
 <script>
 
+function sort_occurences(words) {
+	/*var in_str = "";
+	for(var i in words) {
+		in_str += words[i] + " ";
+	}
+	alert(in_str);*/
+	
+	var occurences = new Array();
+	for(var i in words) {
+		if(occurences.indexOf(words[i]) == -1) {
+			occurences[words[i]] = new Array(0, words[i]);
+		}
+		occurences[words[i]][0]++;
+	}
+	occurences.sort(function(a,b){return b[0]-a[0]});
+	
+	/*var str = "";
+	for(var i in occurences) {
+		str += "(" + occurences[i][1] + ":" + occurences[i][0] + ")";
+	}
+	alert(str);*/
+	return occurences;
+}
+
 $(document).ready(function(){
 	$("#ok").click(function(){
 		$.ajax({
@@ -31,11 +55,11 @@ $(document).ready(function(){
 				{
 					var premiereLigne = data.RelatedTopics[0].Text;
 					var premierMot = premiereLigne.slice(0, premiereLigne.indexOf(" "));
-					$('p').html("Resultat DuckDuckGo : " + premierMot);
+					$('p').html("Résultat DuckDuckGo : " + premierMot);
 				}
 				else
 				{
-					$('p').html("Pas de resultats...");
+					$('p').html("Aucun résultat...");
 				}
 			},
 			error: function(xhr, status, error){
