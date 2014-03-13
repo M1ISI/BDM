@@ -249,10 +249,6 @@ $(document).ready(function(){
 						});
 						$('p').append(ret[id_max][1]);
 					}
-					else
-					{
-						
-					}
 				}
 			},
 			error: function(xhr, status, error){
