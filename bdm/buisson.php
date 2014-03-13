@@ -13,10 +13,11 @@
 <input type="submit" id="ok" />
 
 <p>
-
 </p>
 
 <script>
+
+var pronoms = ['le', 'la', 'les', 'the'];
 
 /**
 * Retourne la chaine situé entre les balises <a> et </a>.
@@ -112,19 +113,71 @@ function parseParenthese(resultats)
 */
 function leftOrRight(mots, mot)
 {
+	var resultat = new Array();
+	var id = 0;
+	
+	mot = mot.toLowerCase();
+	
 	if(mots.length > 0)
 	{
 		$.each(mots, function(index, val)
 		{
 			// separe chaque mots
 			var spl = val.split(' ');
-			var index_mot = $.inArray(mot, spl);
+			var index_mot = -1;
 			
-			if(index_mot >= 0)
+			$.each(spl, function(k, v){
+				if(v.toLowerCase() == mot.toLowerCase())
+				{
+					index_mot = k;
+					return false;
+				}
+			});
+			
+			if(spl.length > 1)
 			{
-				
+				if(index_mot >= 0)
+				{
+					var ind_scnd_mot;
+					if(index_mot == 0)
+					{
+						ind_scnd_mot = 1;
+						while(ind_scnd_mot < val.length && $.inArray(spl[ind_scnd_mot], pronoms) == true)
+							ind_scnd_mot++;
+						resultat[id] = spl[ind_scnd_mot];
+						id++;
+					}
+					else if(index_mot == spl.length - 1)
+					{
+						ind_scnd_mot = spl.length - 2;
+						while(ind_scnd_mot >= 0 && $.inArray(spl[ind_scnd_mot], pronoms) == true)
+							ind_scnd_mot--;
+						resultat[id] = spl[ind_scnd_mot];
+						id++;
+					}
+					else
+					{
+						ind_scnd_mot;
+						ind_g = index_mot - 1;
+						ind_d = index_mot + 1;
+						while(ind_scnd_mot >= 0 && $.inArray(spl[ind_scnd_mot], pronoms) == true)
+							ind_g--;
+						while(ind_scnd_mot < spl.length && $.inArray(spl[ind_scnd_mot], pronoms) == true)
+							ind_d++;
+						
+						if(index_mot - ind_g > ind_d - index_mot)
+							ind_scnd_mot = ind_d;
+						else
+							ind_scnd_mot = ind_g;
+						
+						resultat[id] = spl[ind_scnd_mot];
+						id++;
+					}
+				}
 			}
 		});
+		
+		return resultat;
 	}
 	else
 	{
@@ -159,37 +212,48 @@ function sort_occurences(words) {
 $(document).ready(function(){
 	$("#ok").click(function(){
 		var champ = $('#champ').val();
-		
+		$('p').html('');
 		$.ajax({
 			type: 'GET',
 			url: 'https://duckduckgo.com/',
 			data: {q: champ, format: 'json'},
 			jsonpCallback: 'jsonp',
 			dataType: 'jsonp',
-			success: function(data){
-				var res = getLinkWords(data);
-				var parentheses = parseParenthese(res);
-				$.each(res, function(i, val)
-				{
-					$('p').append(val + '<br />');
-				});
-				$('p').append("<br />");
-				$.each(parentheses, function(i, val)
-				{
-					$('p').append(val + '<br />');
-				});
-				/*
+			success: function(data){	
 				if(data.RelatedTopics.length > 0)
 				{
-					var premiereLigne = data.RelatedTopics[0].Text;
-					var premierMot = premiereLigne.slice(0, premiereLigne.indexOf(" "));
-					$('p').html("Résultat DuckDuckGo : " + premierMot);
+					var res = getLinkWords(data);
+					var parentheses = parseParenthese(res);
+					var leftRight = leftOrRight(res, champ);
+					$.each(parentheses, function(i, v){
+						$('p').append(v + '<br />');
+					});
+					$.each(leftRight, function(i, v){
+						$('p').append(v + '<br />');
+					});
 				}
 				else
 				{
-					$('p').html("Aucun résultat...");
+					if(data.Definition.length > 0)
+					{
+						var tab = data.Definition.split(' ');
+						var ret = sort_occurences(tab);
+						var id_max;
+						var max = 0;
+						$.each(tab, function(i, v){
+							if((ret[v])[0] > max)
+							{
+								max = (ret[v])[0];
+								id_max = v;
+							}
+						});
+						$('p').append(ret[id_max][1]);
+					}
+					else
+					{
+						
+					}
 				}
-				*/
 			},
 			error: function(xhr, status, error){
 				alert("Erreur...");
