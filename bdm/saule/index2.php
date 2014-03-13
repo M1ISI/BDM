@@ -20,6 +20,18 @@
   <head></head>
   <body>
 
+	    <div id="mainLayout">
+			<form action="index2.php" method="GET" >
+				<input type="text" id="mainField" name="mainField" placeholder="votre recherche" />
+				<input type="submit" id="submitButton" value="Rechercher"/>
+			</form>
+			<?php
+				echo "<input type=\"button\" value=\"Facebook\" onclick=\"document.location.href='" . $facebook->getLoginUrl() . "'\"/>\n";
+				echo "<input type=\"button\" value=\"Twitter\" onclick=\"document.location.href='" . ' ' . "'\"/>\n";
+				echo "<input type=\"button\" value=\"Google+\" onclick=\"document.location.href='" . ' ' . "'\"/>\n";
+			?>
+		</div>
+
   <?php
     if($user_id) {
 
@@ -27,8 +39,23 @@
       // If not, we'll get an exception, which we handle below.
       try {
 
-        $user_profile = $facebook->api('/me','GET');
-        echo "Name: " . $user_profile['name'];
+			$user_profile = $facebook->api('/me','GET');
+			$user_friendlist = $facebook->api('/me/friends?fields=id,name,gender');	
+			
+			if(isset($_GET["mainfield"])){
+				$keyword = $_GET["mainfield"];
+				echo $keyword;
+			}
+			
+			//Affiche la liste des amis
+			$count=0;$Mcount=0;
+			foreach($user_friendlist['data'] as $friends){
+				$Mcount++;
+				echo $friends['name']." ".$friends['gender']."<img src='https://graph.facebook.com/".$friends['id']."/picture' width='50' height='50'  /><br/>";
+			}
+			
+			echo "Nombre d'amis = ".$Mcount;
+			
 
       } catch(FacebookApiException $e) {
         // If the user is logged out, you can have a 
@@ -41,22 +68,12 @@
         error_log($e->getMessage());
       }   
     } else {
-        //a améliorer...
+        echo "Vous n'êtes pas connecté...";
     }
 
   ?>
 
-    <div id="mainLayout">
-        <form action="indexSaule.php" method="GET" >
-            <input type="text" id="mainField" name="mainField" placeholder="votre recherche" />
-            <input type="submit" id="submitButton" value="Rechercher" />
-        </form>
-        <?php
-            echo "<input type=\"button\" value=\"Facebook\" onclick=\"document.location.href='" . $facebook->getLoginUrl() . "'\"/>\n";
-            echo "<input type=\"button\" value=\"Twitter\" onclick=\"document.location.href='" . ' ' . "'\"/>\n";
-            echo "<input type=\"button\" value=\"Google+\" onclick=\"document.location.href='" . ' ' . "'\"/>\n";
-        ?>
-    </div>
+
 
   </body>
 </html>
