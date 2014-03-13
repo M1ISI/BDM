@@ -20,7 +20,7 @@
     /*- section twitter -*/
     $TW_CONSUMER_KEY = 'IBLEidpRMTjx8BfcBwq3g';
     $TW_CONSUMER_SECRET = 'bpL3MPcuxOI3UIZNtCPoEvNJ7mgiXksc9CyKjm9ok';
-    $TW_OAUTH_CALLBACK = 'index2.php';
+    $TW_OAUTH_CALLBACK = 'http://localhost/bdm/bdm/saule/index2.php';
 
     $twitter = new TwitterOAuth($TW_CONSUMER_KEY, $TW_CONSUMER_SECRET);
     $tw_request_token = $twitter->getRequestToken($TW_OAUTH_CALLBACK);
@@ -71,8 +71,9 @@
 				<input type="submit" id="submitButton" value="Rechercher"/>
 			</form>
 			<?php
-				echo "<input type=\"button\" value=\"Facebook\" onclick=\"document.location.href='" . $facebook->getLoginUrl() . "'\"/>\n";
-				echo "<input type=\"button\" value=\"Twitter\" onclick=\"document.location.href='" . ' ' . "'\"/>\n";
+				$fbparams = array('scope' => 'manage_pages');
+				echo "<input type=\"button\" value=\"Facebook\" onclick=\"document.location.href='" . $facebook->getLoginUrl($fbparams) . "'\"/>\n";
+				echo "<input type=\"button\" value=\"Twitter\" onclick=\"document.location.href='" . $tw_url . "'\"/>\n";
 				echo "<input type=\"button\" value=\"Google+\" onclick=\"document.location.href='" . ' ' . "'\"/>\n";
 			?>
 		</div>
@@ -83,20 +84,32 @@
       // We have a user ID, so probably a logged in user.
       // If not, we'll get an exception, which we handle below.
       try {
-
 			$user_profile = $facebook->api('/me','GET');
 			$user_friendlist = $facebook->api('/me/friends?fields=id,name,gender');	
 			
-			if(isset($_GET["mainfield"])){
-				$keyword = $_GET["mainfield"];
-				echo $keyword;
+			if(isset($_GET["mainField"]) && $_GET["mainField"] != ''){
+				$keyword = $_GET["mainField"];
+				echo 'Résultats de la recherche pour le mot clé "'.$keyword.'"<br/>';
+				$fql = 'SELECT name, page_url from page where contains(\''.$keyword.'\')';
+				$ret_obj = $facebook->api(array(
+									   'method' => 'fql.query',
+									   'query' => $fql,
+									 ));
+
+				// FQL queries return the results in an array, so we have
+				//  to get the user's name from the first element in the array.
+				for($i = 0; $i < 50; $i++){
+					echo '<a href="'.$ret_obj[$i]['page_url'].'">'.$ret_obj[$i]['name'].'</a><br/>';
+				}
+			
 			}
+			
 			
 			//Affiche la liste des amis
 			$count=0;$Mcount=0;
 			foreach($user_friendlist['data'] as $friends){
 				$Mcount++;
-				echo $friends['name']." ".$friends['gender']."<img src='https://graph.facebook.com/".$friends['id']."/picture' width='50' height='50'  /><br/>";
+				echo $friends['name']."<img src='https://graph.facebook.com/".$friends['id']."/picture' width='50' height='50'  /><br/>";
 			}
 			
 			echo "Nombre d'amis = ".$Mcount;
@@ -107,32 +120,15 @@
         // user ID even though the access token is invalid.
         // In this case, we'll get an exception, so we'll
         // just ask the user to login again here.
-        $login_url = $facebook->getLoginUrl(); 
-        echo 'Please <a href="' . $login_url . '">login.</a>';
+        echo $e->getMessage();
         error_log($e->getType());
         error_log($e->getMessage());
       }   
     } else {
-        echo "Vous n'êtes pas connecté...";
+        echo "Vous n'êtes pas connecté à Facebook...";
     }
 
   ?>
-
-<<<<<<< HEAD
-    <div id="mainLayout">
-        <form action="indexSaule.php" method="GET" >
-            <input type="text" id="mainField" name="mainField" placeholder="votre recherche" />
-            <input type="submit" id="submitButton" value="Rechercher" />
-        </form>
-        <?php
-            echo "<input type=\"button\" value=\"Facebook\" onclick=\"document.location.href='" . $facebook->getLoginUrl() . "'\"/>\n";
-            echo "<input type=\"button\" value=\"Twitter\" onclick=\"document.location.href='" . $tw_url . "'\"/>\n";
-            echo "<input type=\"button\" value=\"Google+\" onclick=\"document.location.href='" . ' ' . "'\"/>\n";
-        ?>
-    </div>
-=======
-
->>>>>>> a1a5938d7d15c5526164be9d6bd7d27ee92bec24
 
   </body>
 </html>
