@@ -1,11 +1,7 @@
 <?php
-    // Remember to copy files from the SDK's src/ directory to a
-    // directory in your application on the server, such as php-sdk/
+	//inclusion des modules
     require_once('libs/src/facebook.php');
-    //require_once('libs/TwitterOAuth/TwitterOAuth.php');
-    //require_once('libs/TwitterOAuth/Exception/TwitterException.php');
     require_once('libs/twitteroauth-master/twitteroauth/twitteroauth.php');
-    //use TwitterOAuth\TwitterOAuth;
 
     /*- section facebook -*/
     $config_fb = array(
@@ -24,21 +20,16 @@
 
     $twitter = new TwitterOAuth($TW_CONSUMER_KEY, $TW_CONSUMER_SECRET);
     $tw_request_token = $twitter->getRequestToken($TW_OAUTH_CALLBACK);
-    print_r($tw_request_token);
  
     if($tw_request_token)
     {
         $tw_token = $tw_request_token['oauth_token'];
-        /*$_SESSION['request_token'] = $token ;
-        $_SESSION['request_token_secret'] = $request_token['oauth_token_secret'];*/
-            echo $twitter->http_code . "-" . $tw_token;
         switch ($twitter->http_code)
         {
             case 200 :
                 $tw_url = $twitter->getAuthorizeURL($tw_token);
-                //redirect to Twitter .
-                //header('Location: ' . $url);
                 break;
+
             default :
                 echo "Connection with twitter Failed";
                 break;
@@ -48,17 +39,6 @@
     {
         echo "Error Receiving Request Token";
     }
-/*
-    $config_tw = array(
-        'consumer_key' => 'IBLEidpRMTjx8BfcBwq3g',
-        'consumer_secret' => 'bpL3MPcuxOI3UIZNtCPoEvNJ7mgiXksc9CyKjm9ok',
-        'oauth_token' => '2379319452-ip3YRubJgKYGkyUveWVsGpVDfggA94keaaj5Jl9',
-        'oauth_token_secret' => 'a1IHqquvAjiQeGwq6soKcCQmpptPtk2WS75bdFN2KDFl1',
-        'output_format' => 'object'
-    );*/
-
-    /*$twitter = new TwitterOAuth($config_tw['consumer_key'], $config_tw['consumer_secret'], $config_tw['oauth_token'], $config_tw['oauth_token_secret']);
-    $tw_url = $twitter->getAuthorizeURL($config_tw['oauth_token']);*/
 
 ?>
 <html>
@@ -104,7 +84,6 @@
 			
 			}
 			
-			
 			//Affiche la liste des amis
 			$count=0;$Mcount=0;
 			foreach($user_friendlist['data'] as $friends){
@@ -124,8 +103,6 @@
         error_log($e->getType());
         error_log($e->getMessage());
       }   
-    } else {
-        echo "Vous n'êtes pas connecté à Facebook...";
     }
 
   ?>
