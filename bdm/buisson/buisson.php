@@ -20,6 +20,32 @@
 var pronoms = ['le', 'la', 'les', 'the'];
 
 /**
+* Test si une chaine est présente dans un tableau
+* @params : tableau dans lequel on cherche
+* @params : chaine à rechercher
+* @return : un booléen à vrai si l'élément est présent, faux sinon
+*/
+function isInArray(tableau, element)
+{
+	if(tableau.length > 0)
+	{
+		var exist = false;
+		$.each(tableau, function(i, v){
+			if(v.toLowerCase() == element.toLowerCase())
+			{
+				exist = true;
+				return false;
+			}
+		});
+		return exist;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+/**
 * Retourne la chaine situé entre les balises <a> et </a>.
 * @params : le code json
 * @return : un tableau contenant pour chaque entrée une chaine ou -1 si une erreur s'est produite.
@@ -66,7 +92,20 @@ function getLinkWords(json)
 				});
 			}
 		});
-		return resultats;
+
+		var retour = new Array();
+		var id = 0;
+		/* Suppression de la ponctuation */
+		var ponctuation = /['%!:;,?.]/;
+		$.each(resultats, function(i, v){
+			var mots = v.split(ponctuation);
+			$.each(mots, function(j, w){
+				retour[id] = w;
+				id++;
+			});
+		});
+
+		return retour;
 	}
 	else
 	{
@@ -125,7 +164,7 @@ function leftOrRight(mots, mot)
 			// separe chaque mots
 			var spl = val.split(' ');
 			var index_mot = -1;
-			
+		
 			$.each(spl, function(k, v){
 				if(v.toLowerCase() == mot.toLowerCase())
 				{
@@ -142,42 +181,63 @@ function leftOrRight(mots, mot)
 					if(index_mot == 0)
 					{
 						ind_scnd_mot = 1;
-						while(ind_scnd_mot < val.length && $.inArray(spl[ind_scnd_mot], pronoms) == true)
+						while(ind_scnd_mot < val.length && isInArray(pronoms, spl[ind_scnd_mot]) == true)
 							ind_scnd_mot++;
-						resultat[id] = spl[ind_scnd_mot];
-						id++;
+						if(spl[ind_scnd_mot] != null)
+						{
+							resultat[id] = spl[ind_scnd_mot];
+							id++;
+						}
 					}
 					else if(index_mot == spl.length - 1)
 					{
 						ind_scnd_mot = spl.length - 2;
-						while(ind_scnd_mot >= 0 && $.inArray(spl[ind_scnd_mot], pronoms) == true)
+						while(ind_scnd_mot >= 0 && isInArray(pronoms, spl[ind_scnd_mot]) == true)
 							ind_scnd_mot--;
-						resultat[id] = spl[ind_scnd_mot];
-						id++;
+						if(spl[ind_scnd_mot] != null)
+						{
+							resultat[id] = spl[ind_scnd_mot];
+							id++;
+						}
 					}
 					else
 					{
-						ind_scnd_mot;
+						ind_scnd_mot = 0;
 						ind_g = index_mot - 1;
 						ind_d = index_mot + 1;
-						while(ind_scnd_mot >= 0 && $.inArray(spl[ind_scnd_mot], pronoms) == true)
+						while(ind_g >= 0 && isInArray(pronoms, spl[ind_scnd_mot]) == true)
 							ind_g--;
-						while(ind_scnd_mot < spl.length && $.inArray(spl[ind_scnd_mot], pronoms) == true)
+						while(ind_d < spl.length && isInArray(pronoms, spl[ind_scnd_mot]) == true)
 							ind_d++;
 						
 						if(index_mot - ind_g > ind_d - index_mot)
 							ind_scnd_mot = ind_d;
 						else
 							ind_scnd_mot = ind_g;
-						
-						resultat[id] = spl[ind_scnd_mot];
-						id++;
+
+						if(spl[ind_scnd_mot] != null)
+						{
+							resultat[id] = spl[ind_scnd_mot];
+							id++;
+						}
 					}
 				}
 			}
 		});
 		
-		return resultat;
+		/* On supprime juste les mots avec parenthèses */
+		var tab = new Array();
+		var i = 0;
+		var r = /\(.*\)/;
+		$.each(resultat, function(id, v){
+			if(r.test(v) == false)
+			{
+				tab[i] = v;
+				i++;
+			}
+		});
+
+		return tab;
 	}
 	else
 	{
@@ -213,6 +273,7 @@ $(document).ready(function(){
 	$("#ok").click(function(){
 		var champ = $('#champ').val();
 		$('p').html('');
+
 		$.ajax({
 			type: 'GET',
 			url: 'https://duckduckgo.com/',
@@ -225,23 +286,33 @@ $(document).ready(function(){
 					var res = getLinkWords(data);
 					var parentheses = parseParenthese(res);
 					var leftRight = leftOrRight(res, champ);
+					
+					$('p').append('-- Mots sans filtrage --<br />');	
+					$.each(res, function(i, v){
+						$('p').append(v + '<br />');
+					});
+					$('p').append('<br />-- Mots entre parenthèses --<br />');	
 					$.each(parentheses, function(i, v){
 						$('p').append(v + '<br />');
 					});
+					$('p').append('<br />-- Mots proches --<br />');	
 					$.each(leftRight, function(i, v){
 						$('p').append(v + '<br />');
 					});
+					$('p').append('<br />');
 				}
 				else
 				{
 					if(data.Definition.length > 0)
 					{
-						var tab = data.Definition.split(' ');
+						/* Suppression de la ponctuation */
+						var ponctuation = /['%!:;,?. ]/;
+						var tab = data.Definition.split(ponctuation);
 						var ret = sort_occurences(tab);
 						var id_max;
 						var max = 0;
 						$.each(tab, function(i, v){
-							if((ret[v])[0] > max)
+							if(v != champ && (ret[v])[0] > max)
 							{
 								max = (ret[v])[0];
 								id_max = v;
