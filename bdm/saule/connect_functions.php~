@@ -29,7 +29,7 @@
 	    $TW_CONSUMER_KEY = 'IBLEidpRMTjx8BfcBwq3g';
 	    $TW_CONSUMER_SECRET = 'bpL3MPcuxOI3UIZNtCPoEvNJ7mgiXksc9CyKjm9ok';
 	    //$TW_OAUTH_CALLBACK = 'http://localhost/bdm/bdm/saule/index2.php';
-	    $TW_OAUTH_CALLBACK = 'http://62.241.123.181/BDM/bdm/saule/index2.php';
+	    $TW_OAUTH_CALLBACK = 'http://62.241.123.181/BDM/bdm/';
 
         //connection + récupération du token
 	    $twitter = new TwitterOAuth($TW_CONSUMER_KEY, $TW_CONSUMER_SECRET);
