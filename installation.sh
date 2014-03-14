@@ -2,7 +2,7 @@ echo "Installation des paquets."
 apt-get install nginx php5-fpm fcgiwrap php5-sqlite 
 
 echo "Copie des fichiers du site."
-sudo cp -r ./bdm /var/www/
+sudo cp -r ./bdm /var/www/bdm
 chown -R www-data:www-data /var/www
 
 
