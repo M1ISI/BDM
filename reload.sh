@@ -1,2 +1,2 @@
-sudo cp -r ./bdm /var/www/bdm
+sudo cp -rf ./bdm/ /var/www/
 chown -R www-data:www-data /var/www
