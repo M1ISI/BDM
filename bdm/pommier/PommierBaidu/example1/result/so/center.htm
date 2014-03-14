@@ -1,0 +1,88 @@
+<html>
+<head>
+<script>
+		function Submit_onclickl()
+        {
+	       if(parent.searchframe.cols=="50%,11,*")
+	        {
+		       parent.searchframe.cols="0,11,*";
+		       document.getElementById("ImgArrow").src="images/right.gif";
+			   document.getElementById("ImgArrow1").src="images/right.gif";
+	        }
+
+			else if(parent.searchframe.cols=="0,11,*")
+	        {
+				if(screen.width>1024)
+					parent.searchframe.cols = "1280,11,*";
+				else if(screen.width>800)	
+					parent.searchframe.cols = "1280,11,*";
+				else
+					parent.searchframe.cols = "1280,11,*";  
+ 		       document.getElementById("ImgArrow").src="images/left.gif";
+		       document.getElementById("ImgArrow1").src="images/left.gif";		   
+	        }			
+	   else
+	     {
+			
+					parent.searchframe.cols = "0,11,*";
+		       document.getElementById("ImgArrow").src="images/right.gif";
+		       document.getElementById("ImgArrow1").src="images/right.gif";   
+	     }
+       }
+		function Submit_onclickr()
+        {
+	       if(parent.searchframe.cols=="50%,11,*")
+	        {
+				if(screen.width>1024)
+					parent.searchframe.cols = "1280,11,*";
+				else if(screen.width>800)	
+					parent.searchframe.cols = "1280,11,*";
+				else
+					parent.searchframe.cols = "1280,11,*";  
+		       document.getElementById("ImgArrow").src="images/left.gif";
+		       document.getElementById("ImgArrow1").src="images/left.gif";			   
+	        }
+	   else if(parent.searchframe.cols=="0,11,*")
+	        {
+						    parent.searchframe.cols="50%,11,*"
+		       document.getElementById("ImgArrow").src="images/left.gif";
+			 document.getElementById("ImgArrow1").src="images/right.gif";	   
+	        }
+		else 
+	     {
+				 parent.searchframe.cols="50%,11,*"
+		       document.getElementById("ImgArrow").src="images/left.gif";
+		       document.getElementById("ImgArrow1").src="images/right.gif";		
+	     }
+       }
+	   
+		</script>
+</head>
+<body leftmargin=0 topmargin=0>
+<table height="100%" cellspacing=0 cellpadding=0 width=10 border=0>
+  <TBODY>
+    <TR>
+      <TD width=3 background=images/middle.gif></TD>
+      <TD width=8></TD>
+    </TR>
+    <TR>
+      <TD colSpan=2 height=24><A href="javascript:Submit_onclickr()"><IMG 
+      id=ImgArrow1 src="images/right.gif" width=11 border=0 
+      name=ImgArrow1></A></TD>
+    </TR>    <TR height=3>
+      <TD width=3 background=images/middle.gif></TD>
+      <TD width=8></TD>
+    </TR>
+    <TR>
+      <TD colSpan=2 height=24><A href="javascript:Submit_onclickl()"><IMG 
+      id=ImgArrow src="images/left.gif" width=11 border=0 
+      name=ImgArrow></A></TD>
+    </TR>
+    <TR>
+      <TD width=3 background=images/middle.gif></TD>
+      <TD width=8></TD>
+    </TR>
+  </TBODY>
+</table>
+</body>
+</html>
