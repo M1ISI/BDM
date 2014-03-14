@@ -413,7 +413,7 @@ alert('Je suis un sapin')
 		c-1.766-2.564-2.669-1.83-4.591-4.447c-1.849-2.52-2.148-7.941-2.727-10.932c-1.732-8.961-1.29-16.205-1.29-25.439l0.036-1.404
 		L226.323,268.57z"/>
 </g>
-<a xlink:href="Pommier.php" id="pommier" title="Recherche classique">
+<a xlink:href="pommier/Pommier.php" id="pommier" title="Recherche classique">
 <g id="pommier de devant"
 onmouseover="
 document.getElementById('saule de devant').setAttribute('visibility', 'hidden');
@@ -737,7 +737,7 @@ document.getElementById('pommier de devant').setAttribute('visibility', 'visible
 	</g>
 </g>
 </a>
-<a xlink:href="buisson.php" id="buisson" title="Recherche modeste">
+<a xlink:href="buisson/buisson.php" id="buisson" title="Recherche modeste">
 <g id="buisson de devant"
 onmouseover="
 document.getElementById('saule de devant').setAttribute('visibility', 'hidden');
