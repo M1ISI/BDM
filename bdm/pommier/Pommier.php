@@ -11,7 +11,18 @@
 	<form action="Pommier.php" method="post">
  	<p>
  		tapez votre recherche : <input name="search" type="text" id="ChampRecherche" />
- 		<input type="submit" value="Rechercher"  />
+		<input type="submit" value="Rechercher"  />
+		
+		<select name = "Langage">
+	 	 <option value="fr">Francais</option>
+	  	 <option value="en">English</option>
+	  	 <option value="es">Espanol</option>
+		 <option value="de">Deutsch</option>
+
+		</select>
+
+
+		
  	</p>
  	</form>
 
@@ -22,7 +33,9 @@
 
 	if(isset($_POST['search']))
 	{
-		$search = $_POST['search'];	
+			$search = $_POST['search'];
+
+			$lang = $_POST['Langage'];	
 	
 
 		//Remplacement des espaces par des "+"
@@ -34,7 +47,7 @@
 
 
 		//On recupere les resulats
-		$machin = file_get_contents("http://suggestqueries.google.com/complete/search?client=chrome&hl=fr&q=".$search);			
+		$machin = file_get_contents("http://suggestqueries.google.com/complete/search?client=chrome&hl=".$lang."&q=".$search);			
 		
 		
 		$cmpt = 0;
@@ -81,7 +94,6 @@
 
 		}
 
-		echo $search.'</br>';
 
 		//echo file_get_contents("http://suggestqueries.google.com/complete/search?client=chrome&hl=fr&q=".$search);	
 		//echo "suggested entry : ". $data;
