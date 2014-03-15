@@ -1,16 +1,20 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
+<html xmlns-"httm://www.w3.org/1999/xhtml">
 
 	<head>
 
+		
+		<script src="https://www.google.com/jsapi"type="text/javascript"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
-	</head> 
+
+
+	 
+
+	
 
 	<form action="Pommier.php" method="post">
  	<p>
- 		tapez votre recherche : <input name="search" type="text" id="ChampRecherche" />
+ 		tapez votre recherche : <input name="search" type="text" id="ChampRecherche"  />
 		<input type="submit" value="Rechercher"  />
 		
 		<select name = "Langage">
@@ -29,37 +33,37 @@
 		
 	<?php
 
-	$search = "toto";
+		$search = "toto";
 
-	if(isset($_POST['search']))
-	{
+		if(isset($_POST['search']))
+		{
 			$search = $_POST['search'];
-
+	
 			$lang = $_POST['Langage'];	
 	
 
-		//Remplacement des espaces par des "+"
+			//Remplacement des espaces par des "+"
 
-		$search = str_replace(" ","+",$search );
-
-
+			$search = str_replace(" ","+",$search );
 
 
 
-		//On recupere les resulats
-		$machin = file_get_contents("http://suggestqueries.google.com/complete/search?client=chrome&hl=".$lang."&q=".$search);			
+			if($search!= ""){
+
+				//On recupere les resulats
+				$machin = file_get_contents("http://suggestqueries.google.com/complete/search?client=chrome&hl=".$lang."&q=".$search);			
 		
+	
+				$cmpt = 0;
+				$finished = TRUE;
+
+				$data = "\0";
+
 		
-		$cmpt = 0;
-		$finished = TRUE;
+				echo "<u>Suggestions :</u>  <br/>";
 
-		$data = "\0";
-
-		
-		echo "<u>Suggestions :</u>  <br/>";
-
-		//Extraction des entrees sugerees
-		for($i = 0 ; $i < strlen($machin)&&$finished == TRUE ; $i++){
+				//Extraction des entrees sugerees
+				for($i = 0 ; $i < strlen($machin)&&$finished == TRUE ; $i++){
 
 				if($cmpt%2 == 1 && $cmpt !=1){
 
@@ -86,34 +90,41 @@
 						$data = "";
 
 					}	
-									
 				}
-
-		
- 
-
+			}
 		}
-
-
-		//echo file_get_contents("http://suggestqueries.google.com/complete/search?client=chrome&hl=fr&q=".$search);	
-		//echo "suggested entry : ". $data;
-
-	//	echo "data is".$data."data ends";
-
-
-
-	
-
- 
-
+		else{
+			echo "recherche vide";
+		}
 	}
 	else
 		echo "recherche vide";
+	
+
+	?>
 
 
-		
+	<script language="Javascript" type="text/javascript">
+		 //<!
+		google.load('search', '1',{"language" : '<?=$_POST['Langage']?>'});
 
-		?>
+		function OnLoad() {
+		// Create a search control
+			var searchControl = new google.search.SearchControl();
+
+		     // Add in a full set of searchers
+			var localSearch = new google.search.LocalSearch();
+			searchControl.addSearcher(localSearch);
+			searchControl.addSearcher(new google.search.WebSearch());
+			// Set the Local Search center point
+			localSearch.setCenterPoint("New York, NY");                                                                                             
+			// tell the searcher to draw itself and tell it where to attach
+			searchControl.draw(document.getElementById("searchcontrol"));
+			// execute an inital search
+			searchControl.execute('<?=$_POST['search']?>');
+		}
+		google.setOnLoadCallback(OnLoad);
+	</script>	
 
 	<script>
 
@@ -131,6 +142,10 @@
 });	
 
 	</script>	
-	
-				
+
+	</head>
+	<body>
+		<div id="searchcontrol"></div>
+	</body>
+
 </html>
