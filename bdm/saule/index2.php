@@ -33,7 +33,7 @@
 				if(isset($authUrl)) {
 					echo "<input type=\"button\" class=\"login\" value=\"Google + Login\" onclick=\"document.location.href='" . $authUrl . "'\"/>\n";
 				} else {
-					echo "<input type=\"button\" class=\"logout\" value=\"Google + Logout\" onclick=\"document.location.href='?logout'/>";
+					echo "<input type=\"button\" class=\"logout\" value=\"Google + Logout\" onclick=\"document.location.href='?logout'\"/>";
 				}
 					
 			?>
