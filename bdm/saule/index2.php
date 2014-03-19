@@ -3,8 +3,10 @@
     require_once('connect_functions.php');
 
     //connections
+    google_connection();
     facebook_connection();
     twitter_connection();
+    
 
 ?>
 <!DOCTYPE html>
@@ -28,9 +30,14 @@
 				$fbparams = array('scope' => 'manage_pages');
 				echo "<input type=\"button\" value=\"Facebook\" onclick=\"document.location.href='" . $facebook->getLoginUrl($fbparams) . "'\"/>\n";
 				echo "<input type=\"button\" value=\"Twitter\" onclick=\"document.location.href='" . $tw_url . "'\"/>\n";
-				//echo "<input type=\"button\" value=\"Google+\" onclick=\"document.location.href='" . ' ' . "'\"/>\n";
+				if(isset($authUrl)) {
+					print '<a class=\'login\' href=\''.$authUrl.'\'>Connect Me!</a>';
+				} else {
+					print "<a class='logout' href='?logout'>Logout</a>";
+				}
+					
 			?>
-	        <p>
+	  <!--      <p>
 		        <span id="signinButton">
 			        <span
 			        class="g-signin"
@@ -42,9 +49,12 @@
 			        </span>
 		        </span>
 	        </p>
+	        -->
 		</div>
 
   <?php facebook_manager($facebook, $user_id); ?>
+  
+  <?php google_manager($gClient, $plus)?>
 
   </body>
 </html>
