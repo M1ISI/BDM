@@ -159,44 +159,18 @@
     function google_manager($gClient, $plus){
 		if ($gClient->getAccessToken()) {
 			$me = $plus->people->get('me');
-			/*$friends = $plus->people->listPeople('me', 'visible', array());
-			print_r($friends);
-			$nbFriends = sizeof($friends['items']);
-			//print_r($nbFriends);
-			for($i = 0; $i < $nbFriends; $i++){
-				echo(filter_var($friends['items'][$i]['displayName'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH).'<br/>');
-				$activities = $plus->activities->listActivities($friends['items'][$i]['id'], 'public');//, $optParams);
-				*/
 			if(isset($_GET["mainField"]) && $_GET["mainField"] != ''){
 			    $keyword = $_GET["mainField"];	
 				$params = array(
 				  'orderBy' => 'best',
 				  'maxResults' => '20'
 				);
-				
 				$results = $plus->activities->search($keyword, $params);
 				echo sizeof($results)." Résultats Google+ pour la recherche \"".$keyword."\"<br/><br/>";
 				foreach($results['items'] as $result) {
 					echo '<a href="'.$result['url'].'">'.$result['title'].'</a><br/>';
 					echo $result['object']['content'].'<br/><br/>';
 				}
-		  // These fields are currently filtered through the PHP sanitize filters.
-		  // See http://www.php.net/manual/en/filter.filters.sanitize.php
-		  /*$url = filter_var($me['url'], FILTER_VALIDATE_URL);
-		  $img = filter_var($me['image']['url'], FILTER_VALIDATE_URL);
-		  $name = filter_var($me['displayName'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
-		  $personMarkup = "<a rel='me' href='$url'>$name</a><div><img src='$img'></div>";
-
-		  $optParams = array('maxResults' => 100);
-		  $activities = $plus->activities->listActivities('me', 'public', $optParams);
-		  $activityMarkup = '';
-		  foreach($activities['items'] as $activity) {
-			// These fields are currently filtered through the PHP sanitize filters.
-			// See http://www.php.net/manual/en/filter.filters.sanitize.php
-			$url = filter_var($activity['url'], FILTER_VALIDATE_URL);
-			$title = filter_var($activity['title'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
-			$content = filter_var($activity['object']['content'], FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
-			$activityMarkup .= "<div class='activity'><a href='$url'>$title</a><div>$content</div></div>";*/
 		  }
 
 		  // The access token may have been updated lazily.
