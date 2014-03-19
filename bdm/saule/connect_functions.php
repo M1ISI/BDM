@@ -84,7 +84,7 @@
 		  unset($_SESSION['access_token']);
 		}
 		
-		if (isset($_GET['code'])&& isset($_REQUEST['login'])) {
+		if (isset($_GET['code'])) {
 			$gClient->authenticate($_GET['code']);
 			$_SESSION['access_token'] = $gClient->getAccessToken();
 			header('Location: http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']);
