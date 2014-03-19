@@ -31,9 +31,9 @@
 				echo "<input type=\"button\" value=\"Facebook\" onclick=\"document.location.href='" . $facebook->getLoginUrl($fbparams) . "'\"/>\n";
 				echo "<input type=\"button\" value=\"Twitter\" onclick=\"document.location.href='" . $tw_url . "'\"/>\n";
 				if(isset($authUrl)) {
-					print '<a class=\'login\' href=\''.$authUrl.'\'>Connect Me!</a>';
+					echo "<input type=\"button\" class=\"login\" value=\"Google + Login\" onclick=\"document.location.href='" . $authUrl . "'\"/>\n";
 				} else {
-					print "<a class='logout' href='?logout'>Logout</a>";
+					echo "<input type=\"button\" class=\"logout\" value=\"Google + Logout\" onclick=\"document.location.href='?logout'/>";
 				}
 					
 			?>
