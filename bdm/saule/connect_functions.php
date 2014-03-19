@@ -65,7 +65,7 @@
 		// oauth2_client_id, oauth2_client_secret, and to register your oauth2_redirect_uri.
 		$google_client_id = '55681422846.apps.googleusercontent.com';
 		$google_client_secret = '9SxgTGewrW5nBw4Unja91R2z';
-		$google_redirect_url = 'http://localhost/BDM/bdm/saule/index2.php';
+		$google_redirect_url = 'http://fritmayo.zor-en.com/BDM/bdm/saule/index2.php';
 	    $google_developer_key = 'AIzaSyCKaTTlPODGJcBv_jhifbL_CYBD6S6T6Rc';
 	  
 		session_start();
@@ -158,7 +158,7 @@
     
     function google_manager($gClient, $plus){
 		if ($gClient->getAccessToken()) {
-			$me = $plus->people->get('me');
+			//$me = $plus->people->get('me');
 			if(isset($_GET["mainField"]) && $_GET["mainField"] != ''){
 			    $keyword = $_GET["mainField"];	
 				$params = array(
