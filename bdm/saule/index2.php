@@ -3,7 +3,9 @@
     require_once('connect_functions.php');
 
     //connections
-    google_connection();
+    try{
+		google_connection();
+	}catch(Google_AuthException $e){}
     facebook_connection();
     twitter_connection();
     
