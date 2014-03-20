@@ -2,6 +2,7 @@
     //importation des modules
 	require_once('libs/src/facebook.php');
 	require_once('libs/twitteroauth-master/twitteroauth/twitteroauth.php');
+	require_once('libs/twitteroauth-master/twitteroauth/OAuth.php');
 
     /*- section facebook -*/
     function facebook_connection()
@@ -24,35 +25,38 @@
     function twitter_connection()
     {
         //pour pouvoir réutiliser ces variables plus loin dans le code (hors de la fonction)
-        global $twitter, $tw_url;
+        global $twitter, $tw_url, $credentials;
 
-	    $TW_CONSUMER_KEY = 'IBLEidpRMTjx8BfcBwq3g';
-	    $TW_CONSUMER_SECRET = 'bpL3MPcuxOI3UIZNtCPoEvNJ7mgiXksc9CyKjm9ok';
-	    //$TW_OAUTH_CALLBACK = 'http://localhost/bdm/bdm/saule/index2.php';
-	    $TW_OAUTH_CALLBACK = 'http://62.241.123.181/BDM/bdm/saule/index2.php';
+        if(isset($twitter))
+            return;
 
-        //connection + récupération du token
-	    $twitter = new TwitterOAuth($TW_CONSUMER_KEY, $TW_CONSUMER_SECRET);
-	    $tw_request_token = $twitter->getRequestToken($TW_OAUTH_CALLBACK);
+	    $TW_CONSUMER_KEY = 'IinZcAVaNNix1vjy6DuQ';
+	    $TW_CONSUMER_SECRET = 'x0Zp8YcLBXydtmVVqWKfjBiI5Cdx5sdnmIr3t3y0';
+	    $TW_OAUTH_CALLBACK = 'http://localhost/BDM/bdm/saule/index2.php';
+	    //$TW_OAUTH_CALLBACK = 'http://62.241.123.181/BDM/bdm/saule/index2.php';
+	    //$TW_OAUTH_CALLBACK = 'http://fritmayo.zor-en.com/BDM/bdm/saule/index2.php';
 
-	    if($tw_request_token)
-	    {
+        if (!isset($_GET["oauth_token"]))
+        {
+            //connection + récupération du token
+	        $twitter = new TwitterOAuth($TW_CONSUMER_KEY, $TW_CONSUMER_SECRET);
+	        $tw_request_token = $twitter->getRequestToken($TW_OAUTH_CALLBACK);
+
 		    $tw_token = $tw_request_token['oauth_token'];
-		    switch ($twitter->http_code)
-		    {
-		        case 200 :
-			    $tw_url = $twitter->getAuthorizeURL($tw_token);
-			    break;
+		    $tw_url = $twitter->getAuthorizeURL($tw_token);
 
-		        default :
-			    echo "Connection with twitter Failed";
-			    break;
-		    }
-	    }
-	    else //error receiving request token
-	    {
-		    echo "Error Receiving Request Token";
-	    }
+            $_SESSION["token"] = $tw_request_token["oauth_token"];
+            $_SESSION["secret"] = $tw_request_token["oauth_token_secret"];
+        }
+        else
+        {
+            $twitter = new TwitterOAuth($TW_CONSUMER_KEY, $TW_CONSUMER_SECRET, $_SESSION["token"], $_SESSION["secret"]);
+            $credentials = $twitter->getAccessToken($_GET["oauth_verifier"]);
+
+            echo "<pre>";
+            print_r($credentials);
+            echo "</pre>";
+        }
     }
 
     /*retourne la liste d'amis et la liste des pages associées à la recherche*/
@@ -100,6 +104,36 @@
                 error_log($e->getType());
                 error_log($e->getMessage());
             }   
+        }
+    }
+
+    function twitter_search($twitter)
+    {
+        //sécurité : vérifier le retour de la requete ($result) pour éviter les bricolage d'urls
+        if(isset($_GET["mainField"]) && isset($_GET['oauth_token']))
+        {
+            $parameter = array('q' => $_GET["mainField"], 'lang' => 'fr_FR');
+            $result = $twitter->get('search/tweets', $parameter);
+
+            if (count($result->statuses) == 0)
+                echo "<p>Aucun résultat à afficher<br /></p>\n";
+            else
+            {
+                foreach($result->statuses as $item)
+                {
+                    echo "<img alt=\"Avatar de ".$item->user->name."\" src=".$item->user->profile_image_url." style=\"float:left;padding:7px;padding-right:15px;\"/>\n";
+                    echo "<p class=\"resultList\"><a href=".$item->entities->urls[0]->url.">".$item->entities->urls[0]->url."</a><br/>\n";
+                    echo $item->text."<br />\n";
+                    if(!empty($item->user->description))
+                        echo $item->user->description."<br />\n";
+                    echo $item->user->name."<br /><br /></p>\n";
+                }
+
+                //For debug purpose
+                echo "<pre>";
+                print_r($result);
+                echo "</pre>";
+            }
         }
     }
 ?>

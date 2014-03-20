@@ -8,6 +8,7 @@
     facebook_connection();
     //if(!isset($_GET["oauth_token"]))
     //if(!isset($_SESSION['tw_connected']))
+        //global $twitter, $tw_url, $credentials;
         twitter_connection();
 ?>
 <!DOCTYPE html>
