@@ -9,15 +9,8 @@
 		google_connection();
 	}catch(Google_AuthException $e){}
     facebook_connection();
-<<<<<<< HEAD
-    //if(!isset($_GET["oauth_token"]))
-    //if(!isset($_SESSION['tw_connected']))
-        twitter_connection();
-=======
     twitter_connection();
-    
 
->>>>>>> 61f8e28d9f84353bab752ca63576a38cf82caa1c
 ?>
 <!DOCTYPE html>
 <html>
@@ -67,16 +60,11 @@
 	        -->
 		</div>
 
-<<<<<<< HEAD
     <?php
         facebook_manager($facebook, $user_id);
         twitter_search($twitter);
+        google_manager($gClient, $plus)
     ?>
-=======
-  <?php facebook_manager($facebook, $user_id); ?>
-  
-  <?php google_manager($gClient, $plus)?>
->>>>>>> 61f8e28d9f84353bab752ca63576a38cf82caa1c
 
   </body>
 </html>

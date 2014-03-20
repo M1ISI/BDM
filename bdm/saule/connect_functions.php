@@ -2,14 +2,10 @@
     //importation des modules
 	require_once('libs/facebook/src/facebook.php');
 	require_once('libs/twitteroauth-master/twitteroauth/twitteroauth.php');
-<<<<<<< HEAD
 	require_once('libs/twitteroauth-master/twitteroauth/OAuth.php');
-=======
 	require_once 'libs/google-api-php-client/src/Google_Client.php';
     require_once 'libs/google-api-php-client/src/contrib/Google_PlusService.php';
     
->>>>>>> 61f8e28d9f84353bab752ca63576a38cf82caa1c
-
     /*- section facebook -*/
     function facebook_connection()
     {
@@ -38,9 +34,9 @@
 
 	    $TW_CONSUMER_KEY = 'IinZcAVaNNix1vjy6DuQ';
 	    $TW_CONSUMER_SECRET = 'x0Zp8YcLBXydtmVVqWKfjBiI5Cdx5sdnmIr3t3y0';
-	    $TW_OAUTH_CALLBACK = 'http://localhost/BDM/bdm/saule/index2.php';
+	    //$TW_OAUTH_CALLBACK = 'http://localhost/BDM/bdm/saule/index2.php';
 	    //$TW_OAUTH_CALLBACK = 'http://62.241.123.181/BDM/bdm/saule/index2.php';
-	    //$TW_OAUTH_CALLBACK = 'http://fritmayo.zor-en.com/BDM/bdm/saule/index2.php';
+	    $TW_OAUTH_CALLBACK = 'http://fritmayo.zor-en.com/BDM/bdm/saule/index2.php';
 
         if (!isset($_GET["oauth_token"]))
         {
@@ -75,8 +71,6 @@
 		$google_redirect_url = 'http://fritmayo.zor-en.com/BDM/bdm/saule/index2.php';
 	    $google_developer_key = 'AIzaSyCKaTTlPODGJcBv_jhifbL_CYBD6S6T6Rc';
 	  
-		session_start();
-
 		$gClient = new Google_Client();
 		$gClient->setApplicationName("Google+ PHP Starter Application");
 		// Visit https://code.google.com/apis/console to generate your
@@ -162,7 +156,6 @@
             }   
         }
     }
-<<<<<<< HEAD
 
     function twitter_search($twitter)
     {
@@ -193,7 +186,6 @@
             }
         }
     }
-=======
     
     function google_manager($gClient, $plus){
 		if ($gClient->getAccessToken()) {
@@ -216,5 +208,4 @@
 		  $_SESSION['access_token'] = $gClient->getAccessToken();
 	  }
 	}
->>>>>>> 61f8e28d9f84353bab752ca63576a38cf82caa1c
 ?>

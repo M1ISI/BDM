@@ -5,11 +5,14 @@
     require_once('connect_functions.php');
 
     //connections
+    try{
+		google_connection();
+	}catch(Google_AuthException $e){}
     facebook_connection();
     //if(!isset($_GET["oauth_token"]))
     //if(!isset($_SESSION['tw_connected']))
-        //global $twitter, $tw_url, $credentials;
         twitter_connection();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,9 +40,14 @@
 				$fbparams = array('scope' => 'manage_pages');
 				echo "<input type=\"button\" value=\"Facebook\" onclick=\"document.location.href='" . $facebook->getLoginUrl($fbparams) . "'\"/>\n";
 				echo "<input type=\"button\" value=\"Twitter\" onclick=\"document.location.href='" . $tw_url . "'\"/>\n";
-				//echo "<input type=\"button\" value=\"Google+\" onclick=\"document.location.href='" . ' ' . "'\"/>\n";
+				if(isset($authUrl)) {
+					echo "<input type=\"button\" class=\"login\" value=\"Google + Login\" onclick=\"document.location.href='" . $authUrl . "'\"/>\n";
+				} else {
+					echo "<input type=\"button\" class=\"logout\" value=\"Google + Logout\" onclick=\"document.location.href='?logout'\"/>";
+				}
+					
 			?>
-	        <p>
+	  <!--      <p>
 		        <span id="signinButton">
 			        <span
 			        class="g-signin"
@@ -51,11 +59,13 @@
 			        </span>
 		        </span>
 	        </p>
+	        -->
 		</div>
 
     <?php
         facebook_manager($facebook, $user_id);
         twitter_search($twitter);
+        google_manager($gClient, $plus)
     ?>
 
   </body>
