@@ -1,8 +1,14 @@
 <?php
     //importation des modules
-	require_once('libs/src/facebook.php');
+	require_once('libs/facebook/src/facebook.php');
 	require_once('libs/twitteroauth-master/twitteroauth/twitteroauth.php');
+<<<<<<< HEAD
 	require_once('libs/twitteroauth-master/twitteroauth/OAuth.php');
+=======
+	require_once 'libs/google-api-php-client/src/Google_Client.php';
+    require_once 'libs/google-api-php-client/src/contrib/Google_PlusService.php';
+    
+>>>>>>> 61f8e28d9f84353bab752ca63576a38cf82caa1c
 
     /*- section facebook -*/
     function facebook_connection()
@@ -58,6 +64,47 @@
             echo "</pre>";
         }
     }
+    
+    function google_connection()
+    {
+		
+	    global $authUrl, $gClient, $plus;
+		// oauth2_client_id, oauth2_client_secret, and to register your oauth2_redirect_uri.
+		$google_client_id = '55681422846.apps.googleusercontent.com';
+		$google_client_secret = '9SxgTGewrW5nBw4Unja91R2z';
+		$google_redirect_url = 'http://fritmayo.zor-en.com/BDM/bdm/saule/index2.php';
+	    $google_developer_key = 'AIzaSyCKaTTlPODGJcBv_jhifbL_CYBD6S6T6Rc';
+	  
+		session_start();
+
+		$gClient = new Google_Client();
+		$gClient->setApplicationName("Google+ PHP Starter Application");
+		// Visit https://code.google.com/apis/console to generate your
+		// oauth2_client_id, oauth2_client_secret, and to register your oauth2_redirect_uri.
+		$gClient->setClientId($google_client_id);
+		$gClient->setClientSecret($google_client_secret);
+		$gClient->setRedirectUri($google_redirect_url);
+		$gClient->setDeveloperKey($google_developer_key);
+		$plus = new Google_PlusService($gClient);
+
+		if (isset($_REQUEST['logout'])) {
+		  unset($_SESSION['access_token']);
+		}
+		
+		if (isset($_GET['code'])) {
+			$gClient->authenticate($_GET['code']);
+			$_SESSION['access_token'] = $gClient->getAccessToken();
+			header('Location: http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']);
+		}
+
+		if (isset($_SESSION['access_token'])) {
+			$gClient->setAccessToken($_SESSION['access_token']);
+		}
+
+		if (!$gClient->getAccessToken()) {
+		  $authUrl = $gClient->createAuthUrl();
+		}
+	}
 
     /*retourne la liste d'amis et la liste des pages associées à la recherche*/
     function facebook_manager($facebook, $user_id)
@@ -72,8 +119,7 @@
 
 		    if(isset($_GET["mainField"]) && $_GET["mainField"] != ''){
 			    $keyword = $_GET["mainField"];
-			    echo 'Résultats de la recherche pour le mot clé "'.$keyword.'"<br/>';
-			    $fql = 'SELECT name, page_url, fan_count from page where contains(\''.$keyword.'\') order by fan_count DESC';
+			    $fql = 'SELECT name, page_url, fan_count, general_info, description, pic_small from page where contains(\''.$keyword.'\') order by fan_count DESC';
 			    $ret_obj = $facebook->api(array(
 									       'method' => 'fql.query',
 									       'query' => $fql,
@@ -81,20 +127,30 @@
 
 			    // FQL queries return the results in an array, so we have
 			    //  to get the user's name from the first element in the array.
-			    for($i = 0; $i < 50; $i++){
-				    echo '<a href="'.$ret_obj[$i]['page_url'].'">'.$ret_obj[$i]['name'].'</a> '.$ret_obj[$i]['fan_count'].'<br/>';
+			    $nbResults = sizeof($ret_obj);
+			    if($nbResults > 20){
+					$nbResults = 20;
+				}
+			    
+			    echo $nbResults.' Pages Facebook pour le mot clé "'.$keyword.'"<br/>';
+			    for($i = 0; $i < $nbResults; $i++){
+				    echo '<img src="https://graph.facebook.com/"'.$ret_obj[$i]['pic_small'];
+				    echo '/picture\' width="50" height="50"  /><a href="'.$ret_obj[$i]['page_url'].'">'.$ret_obj[$i]['name'].'</a> ';
+				    echo $ret_obj[$i]['fan_count'].'<br/>'.$ret_obj[$i]['general_info'].'<br/>'.$ret_obj[$i]['description'].'<br/>';
 			    }
+			    echo '<br/><br/><br/>';
 		    }
 			
 		    //Affiche la liste des amis
-		    $count=0;$Mcount=0;
+		    
+	/*	    $count=0;$Mcount=0;
 		    foreach($user_friendlist['data'] as $friends){
 			    $Mcount++;
 			    echo $friends['name']."<img src='https://graph.facebook.com/".$friends['id']."/picture' width='50' height='50'  /><br/>";
 		    }
 		
 		    echo "Nombre d'amis = ".$Mcount;
-
+		*/	
             } catch(FacebookApiException $e) {
                 // If the user is logged out, you can have a 
                 // user ID even though the access token is invalid.
@@ -106,6 +162,7 @@
             }   
         }
     }
+<<<<<<< HEAD
 
     function twitter_search($twitter)
     {
@@ -136,4 +193,28 @@
             }
         }
     }
+=======
+    
+    function google_manager($gClient, $plus){
+		if ($gClient->getAccessToken()) {
+			//$me = $plus->people->get('me');
+			if(isset($_GET["mainField"]) && $_GET["mainField"] != ''){
+			    $keyword = $_GET["mainField"];	
+				$params = array(
+				  'orderBy' => 'best',
+				  'maxResults' => '20'
+				);
+				$results = $plus->activities->search($keyword, $params);
+				echo sizeof($results)." Résultats Google+ pour la recherche \"".$keyword."\"<br/><br/>";
+				foreach($results['items'] as $result) {
+					echo '<a href="'.$result['url'].'">'.$result['title'].'</a><br/>';
+					echo $result['object']['content'].'<br/><br/>';
+				}
+		  }
+
+		  // The access token may have been updated lazily.
+		  $_SESSION['access_token'] = $gClient->getAccessToken();
+	  }
+	}
+>>>>>>> 61f8e28d9f84353bab752ca63576a38cf82caa1c
 ?>

@@ -5,10 +5,19 @@
     require_once('connect_functions.php');
 
     //connections
+    try{
+		google_connection();
+	}catch(Google_AuthException $e){}
     facebook_connection();
+<<<<<<< HEAD
     //if(!isset($_GET["oauth_token"]))
     //if(!isset($_SESSION['tw_connected']))
         twitter_connection();
+=======
+    twitter_connection();
+    
+
+>>>>>>> 61f8e28d9f84353bab752ca63576a38cf82caa1c
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,9 +45,14 @@
 				$fbparams = array('scope' => 'manage_pages');
 				echo "<input type=\"button\" value=\"Facebook\" onclick=\"document.location.href='" . $facebook->getLoginUrl($fbparams) . "'\"/>\n";
 				echo "<input type=\"button\" value=\"Twitter\" onclick=\"document.location.href='" . $tw_url . "'\"/>\n";
-				//echo "<input type=\"button\" value=\"Google+\" onclick=\"document.location.href='" . ' ' . "'\"/>\n";
+				if(isset($authUrl)) {
+					echo "<input type=\"button\" class=\"login\" value=\"Google + Login\" onclick=\"document.location.href='" . $authUrl . "'\"/>\n";
+				} else {
+					echo "<input type=\"button\" class=\"logout\" value=\"Google + Logout\" onclick=\"document.location.href='?logout'\"/>";
+				}
+					
 			?>
-	        <p>
+	  <!--      <p>
 		        <span id="signinButton">
 			        <span
 			        class="g-signin"
@@ -50,12 +64,19 @@
 			        </span>
 		        </span>
 	        </p>
+	        -->
 		</div>
 
+<<<<<<< HEAD
     <?php
         facebook_manager($facebook, $user_id);
         twitter_search($twitter);
     ?>
+=======
+  <?php facebook_manager($facebook, $user_id); ?>
+  
+  <?php google_manager($gClient, $plus)?>
+>>>>>>> 61f8e28d9f84353bab752ca63576a38cf82caa1c
 
   </body>
 </html>

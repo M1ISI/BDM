@@ -9,14 +9,28 @@
 </head>
 <body>
 
-<input type="text" id="champ" />
-<input type="submit" id="ok" />
+<!-- On réceptionne l'appel Ajax en POST -->
+<?php
+	if(isset($_POST['nom_de_la_requete']) && !empty($_POST['nom_de_la_requete']))
+	{
+		$mots = $_POST['nom_de_la_requete'];
+		?>
+		<script>
+			$(function(){
+				getResults(<?php echo '"' . $mots . '"'; ?>);
+			});
+		</script>
+		<?php
+	}
+	else
+	{
+		echo '<em>Erreur lors de l\'envoi de la requête...</em>';
+	}
+?>
 
-<p>
-</p>
+<p></p>
 
 <script>
-
 var pronoms = ['le', 'la', 'les', 'the'];
 
 /**
@@ -269,65 +283,66 @@ function sort_occurences(words) {
 	return occurences;
 }
 
-$(document).ready(function(){
-	$("#ok").click(function(){
-		var champ = $('#champ').val();
-		$('p').html('');
-
-		$.ajax({
-			type: 'GET',
-			url: 'https://duckduckgo.com/',
-			data: {q: champ, format: 'json'},
-			jsonpCallback: 'jsonp',
-			dataType: 'jsonp',
-			success: function(data){	
-				if(data.RelatedTopics.length > 0)
-				{
-					var res = getLinkWords(data);
-					var parentheses = parseParenthese(res);
-					var leftRight = leftOrRight(res, champ);
-					
-					$('p').append('-- Mots sans filtrage --<br />');	
-					$.each(res, function(i, v){
-						$('p').append(v + '<br />');
-					});
-					$('p').append('<br />-- Mots entre parenthèses --<br />');	
-					$.each(parentheses, function(i, v){
-						$('p').append(v + '<br />');
-					});
-					$('p').append('<br />-- Mots proches --<br />');	
-					$.each(leftRight, function(i, v){
-						$('p').append(v + '<br />');
-					});
-					$('p').append('<br />');
-				}
-				else
-				{
-					if(data.Definition.length > 0)
-					{
-						/* Suppression de la ponctuation */
-						var ponctuation = /['%!:;,?. ]/;
-						var tab = data.Definition.split(ponctuation);
-						var ret = sort_occurences(tab);
-						var id_max;
-						var max = 0;
-						$.each(tab, function(i, v){
-							if(v != champ && (ret[v])[0] > max)
-							{
-								max = (ret[v])[0];
-								id_max = v;
-							}
-						});
-						$('p').append(ret[id_max][1]);
-					}
-				}
-			},
-			error: function(xhr, status, error){
-				alert("Erreur...");
+function getResults(chaine)
+{
+	$.ajax({
+		type: 'GET',
+		url: 'https://duckduckgo.com/',
+		data: {q: chaine, format: 'json'},
+		jsonpCallback: 'jsonp',
+		dataType: 'jsonp',
+		success: function(data){	
+			if(data.RelatedTopics.length > 0)
+			{
+				var res = getLinkWords(data);
+				var parentheses = parseParenthese(res);
+				
+				var leftRight = new Array();
+				var mots = chaine.split(' ');
+				$.each(mots, function(i, m){
+					$.merge(leftRight, leftOrRight(res, m));
+				});
+				
+				$('p').append('-- Mots sans filtrage --<br />');	
+				$.each(res, function(i, v){
+					$('p').append(v + '<br />');
+				});
+				$('p').append('<br />-- Mots entre parenthèses --<br />');	
+				$.each(parentheses, function(i, v){
+					$('p').append(v + '<br />');
+				});
+				$('p').append('<br />-- Mots proches --<br />');	
+				$.each(leftRight, function(i, v){
+					$('p').append(v + '<br />');
+				});
+				$('p').append('<br />');
 			}
-		});
+			else
+			{
+				if(data.Definition.length > 0)
+				{
+					/* Suppression de la ponctuation */
+					var ponctuation = /['%!:;,?. ]/;
+					var tab = data.Definition.split(ponctuation);
+					var ret = sort_occurences(tab);
+					var id_max;
+					var max = 0;
+					$.each(tab, function(i, v){
+						if(v != champ && (ret[v])[0] > max)
+						{
+							max = (ret[v])[0];
+							id_max = v;
+						}
+					});
+					$('p').append(ret[id_max][1]);
+				}
+			}
+		},
+		error: function(xhr, status, error){
+			alert("Erreur...");
+		}
 	});
-});
+}
 </script>
 </body>
 </html>
