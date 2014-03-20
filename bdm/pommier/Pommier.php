@@ -1,5 +1,8 @@
 <html xmlns-"httm://www.w3.org/1999/xhtml">
-<body>	
+<head>	
+
+	<script src="https://www.google.com/jsapi"type="text/javascript"></script>
+	
 <?php
 
 	$search = "toto";
@@ -69,9 +72,9 @@
 else
 	echo "recherche vide";
 ?>
-<div id="searchcontrol"></div>
 
-<script>
+
+<script language="Javascript" type="text/javascript">
  //<!
 google.load('search', '1',{"language" : '<?=$_POST['Langage']?>'});
 
@@ -89,9 +92,14 @@ function OnLoad() {
 	searchControl.draw(document.getElementById("searchcontrol"));
 	// execute an inital search
 	searchControl.execute('<?=$_POST['search']?>');
+
+	alert('Oh god');
 }
 google.setOnLoadCallback(OnLoad);
 </script>
-<script src="https://www.google.com/jsapi"type="text/javascript"></script>
+
+</head>
+<body>
+<div id="searchcontrol"></div>
 </body>
 </html>
