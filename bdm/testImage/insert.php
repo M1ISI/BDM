@@ -17,7 +17,7 @@ $run=$query->execute();
 $image = base64_encode(file_get_contents($_FILES['image']['tmp_name']));
 
 //$conn->exec("insert into texte values('test', 'test')");
-$conn->exec("insert into image values('$image','test image')");
+$conn->exec("insert into image (image, lien, type) values('$image','test image','".$_FILES['image']['type']."')");
 echo "fin requete\n";
 
 $conn->close();
