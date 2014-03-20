@@ -1,4 +1,3 @@
-<script language="Javascript" type="text/javascript">
  //<!
 google.load('search', '1',{"language" : '<?=$_POST['Langage']?>'});
 
@@ -24,5 +23,4 @@ $('document').ready(function(){
 		var texte = $(this).text();
 		$('#ChampRecherche').val(texte);
 	});
-});	
-</script>
+});

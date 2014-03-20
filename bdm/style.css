@@ -2,32 +2,54 @@
 
 body 
 {
-	background-color: #D2F575; /* tetrad http://colorschemedesigner.com/ */
+	/*background-color: #D2F575;*/ /* tetrad http://colorschemedesigner.com/ */
 	font-family: Verdana, Geneva, Arial;
 	font-size : 12px;
 	color : #000000
 }
 
-div.pommier
+div#formulaire
 {
-	color : #A12635
-	background-color : #FBB3BC
+	clear: both;
 }
 
-div.buisson
+div#pommier, div#buisson, div#saule, div#sapin
 {
-	color : #8A2168
-	background-color : #EAA7D4
+	margin: 1%;
 }
 
-div.sapin
+div#pommier
 {
-	color : #3A9323
-	background-color : #BAF1AC
+	color : #A12635;
+	background-color : #FBB3BC;
+	
+	float: left;
+	width: 25%;
 }
 
-div.saule
+div#buisson
 {
-	color : #7E9F26
-	background-color : #E6FAB2
+	color : #8A2168;
+	background-color : #EAA7D4;
+	
+	float: left;
+	width: 25%;
+}
+
+div#sapin
+{
+	color : #3A9323;
+	background-color : #BAF1AC;
+	
+	float: right;
+	width: 25%;
+}
+
+div#saule
+{
+	color : #7E9F26;
+	background-color : #E6FAB2;
+	
+	float: right;
+	width: 25%;
 }

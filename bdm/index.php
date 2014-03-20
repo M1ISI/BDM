@@ -1,6 +1,6 @@
 <html>
 <head>
-<link rel="stylesheet" href="css.css" />
+<link rel="stylesheet" href="style.css" />
 <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 </head>
 <body>
@@ -12,6 +12,7 @@
 </object>
 </div>
 
+<div id="formulaire">
 <input type="text" id="recherche" />
 <select id="langue">
 	<option value="fr">Francais</option>
@@ -19,15 +20,19 @@
 	<option value="es">Espanol</option>
 	<option value="de">Deutsch</option>
 </select>
+</div>
 
-<div id="buisson"></div>
-<div id="pommier"></div>
+<div id="resultats">
+	<div id="sapin"></div>
+	<div id="buisson"></div>
+	<div id="pommier"></div>
+	<div id="saule"></div>
+</div>
 
 </body>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script src="buisson/buisson.js"></script>
-<script src="pommier/Pommier.js"></script>
 <script>
 $(function() {
 $( document ).tooltip();
@@ -37,6 +42,8 @@ $('document').ready(function(){
 	$('#recherche').keyup(function(){
 		var buisson = $('#buisson');
 		var pommier = $('#pommier');
+		var sapin = $('#sapin');
+		var saule = $('#saule');
 		
 		var champ = $('#recherche').val(); // récupere la valeur du champ
 		if(champ == '')
@@ -82,7 +89,12 @@ $('document').ready(function(){
 		});
 		
 	});
+	
+	$('body').on('click', 'span.resultat', function(){
+		var txt = $(this).text();
+		$('#recherche').val(txt.trim());
+		$('#recherche').trigger('keyup');
+	});
 });
-
 </script>
 </html>
