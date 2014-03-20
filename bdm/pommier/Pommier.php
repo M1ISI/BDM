@@ -1,8 +1,7 @@
 <html xmlns-"httm://www.w3.org/1999/xhtml">
-<head>	
-
-	<script src="https://www.google.com/jsapi"type="text/javascript"></script>
-	
+<head>
+</head>
+<body>
 <?php
 
 	$search = "toto";
@@ -18,14 +17,11 @@
 
 		$search = str_replace(" ","+",$search );
 
-
-
 		if($search!= ""){
 
 			//On recupere les resulats
 			$machin = file_get_contents("http://suggestqueries.google.com/complete/search?client=chrome&hl=".$lang."&q=".$search);			
 	
-
 			$cmpt = 0;
 			$finished = TRUE;
 
@@ -72,34 +68,28 @@
 else
 	echo "recherche vide";
 ?>
-
-
+<script src="https://www.google.com/jsapi"type="text/javascript"></script>
 <script language="Javascript" type="text/javascript">
- //<!
-google.load('search', '1',{"language" : '<?=$_POST['Langage']?>'});
+//<!
+	google.load('search', '1',{"language" : '<?php echo $_POST['Langage'] ?>'});
+	function OnLoad() {
+		// Create a search control
+		var searchControl = new google.search.SearchControl();
 
-function OnLoad() {
-// Create a search control
-	var searchControl = new google.search.SearchControl();
-
-	 // Add in a full set of searchers
-	var localSearch = new google.search.LocalSearch();
-	searchControl.addSearcher(localSearch);
-	searchControl.addSearcher(new google.search.WebSearch());
-	// Set the Local Search center point
-	localSearch.setCenterPoint("New York, NY");                                                                                             
-	// tell the searcher to draw itself and tell it where to attach
-	searchControl.draw(document.getElementById("searchcontrol"));
-	// execute an inital search
-	searchControl.execute('<?=$_POST['search']?>');
-
-	alert('Oh god');
-}
-google.setOnLoadCallback(OnLoad);
+		// Add in a full set of searchers
+		var localSearch = new google.search.LocalSearch();
+		searchControl.addSearcher(localSearch);
+		searchControl.addSearcher(new google.search.WebSearch());
+		// Set the Local Search center point
+		localSearch.setCenterPoint("New York, NY");                                                                                             
+		// tell the searcher to draw itself and tell it where to attach
+		searchControl.draw(document.getElementById("test"));
+		// execute an inital search
+		searchControl.execute('<?php echo $_POST['search'] ?>');
+	}
+	google.setOnLoadCallback(OnLoad);
+//]]>
 </script>
-
-</head>
-<body>
-<div id="searchcontrol"></div>
+<div id="test"></div>
 </body>
 </html>
