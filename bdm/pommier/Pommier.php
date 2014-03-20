@@ -69,6 +69,7 @@
 else
 	echo "recherche vide";
 ?>
+<div id="searchcontrol"></div>
 
 <script>
  //<!
@@ -91,8 +92,6 @@ function OnLoad() {
 }
 google.setOnLoadCallback(OnLoad);
 </script>
-
-<div id="searchcontrol"></div>
 <script src="https://www.google.com/jsapi"type="text/javascript"></script>
 </body>
 </html>
