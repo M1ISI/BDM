@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# Set these paths appropriately
+
+BIN=/home/misao/BDM/text_test/bin
+CMD=/home/misao/BDM/text_test/cmd
+LIB=/home/misao/BDM/text_test/lib
+
+OPTIONS="-token -lemma -sgml -pt-with-lemma"
+
+TOKENIZER=${CMD}/tokenize.pl
+TAGGER=${BIN}/tree-tagger
+ABBR_LIST=${LIB}/german-abbreviations
+PARFILE=${LIB}/german.par
+LEXFILE=${LIB}/german-lexicon.txt
+FILTER=${CMD}/filter-german-tags
+
+$TOKENIZER -a $ABBR_LIST $* |
+# external lexicon lookup
+perl $CMD/lookup.perl $LEXFILE |
+# tagging
+$TAGGER $OPTIONS $PARFILE  | 
+# error correction
+$FILTER
