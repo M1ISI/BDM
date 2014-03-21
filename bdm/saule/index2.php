@@ -10,6 +10,8 @@
 	}catch(Google_AuthException $e){}
     facebook_connection();
     twitter_connection();
+    /*$s = file_get_contents('/home/fritmayo/store');
+    $a = unserialize($s);*/
 
 ?>
 <!DOCTYPE html>
