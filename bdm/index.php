@@ -78,9 +78,17 @@ $('document').ready(function(){
 		});
 	});
 	
+	// click sur les resultats de pommier
 	$('body').on('click', 'span.resultat', function(){
 		var txt = $(this).text();
 		$('#recherche').val(txt.trim());
+		$('#recherche').trigger('keyup');
+	});
+	
+	// click sur les resultats de buisson
+	$('body').on('click', 'span.res_buisson', function(){
+		var txt = $(this).text();
+		$('#recherche').val($('#recherche').val().trim() + ' ' + txt.trim());
 		$('#recherche').trigger('keyup');
 	});
 });

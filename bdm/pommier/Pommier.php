@@ -27,9 +27,6 @@
 
 			$data = "\0";
 
-	
-			echo "<u>Suggestions :</u>  <br/>";
-
 			//Extraction des entrees sugerees
 			for($i = 0 ; $i < strlen($machin)&&$finished == TRUE ; $i++){
 
@@ -54,9 +51,8 @@
 
 				if($cmpt%2 == 0 && $cmpt >2){
 
-					echo ($cmpt/2 - 1) . ': <span class="resultat"> ' . $data . '</span><br />';
+					echo '<span class="resultat"> ' . $data . '</span><br />';
 					$data = "";
-
 				}	
 			}
 		}

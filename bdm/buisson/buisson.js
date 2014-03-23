@@ -274,7 +274,7 @@ function getResults(chaine)
 				$.merge(parentheses, leftRight);
 					
 				$.each(parentheses, function(i, v){
-					affichage.append(v + '<br />');
+					affichage.append('<span class="res_buisson">' + v + '</span><br />');
 				});
 			}
 			else
