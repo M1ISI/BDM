@@ -7,7 +7,6 @@
 
 <!--<img src="http://imageshack.com/a/img842/1300/nt7j.png" /><br /> -->
 <div id="content" style="text-align:center;">
-<img style="text-align:top;" src="images/welcome.jpeg" />
 <object type="image/svg+xml" data="logotree.svg">
 </object>
 </div>
@@ -33,6 +32,7 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <script src="buisson/buisson.js"></script>
+<script src="https://www.google.com/jsapi"type="text/javascript"></script>
 <script>
 $(function() {
 $( document ).tooltip();
@@ -76,23 +76,19 @@ $('document').ready(function(){
 				pommier.html(data); // ajoute le HTML au paragraphe
 			}
 		});
-		
-		/* Appel saule */
-		$.ajax({
-			url: "pommier/Pommier.php",
-			type: "post",
-			data: {search: '' + champ, Langage: '' + lang},
-			success: function(data){
-				// data contient le html de la page "buisson.php" apres qu'elle ait reçu les données dans le post
-				pommier.html(data); // ajoute le HTML au paragraphe
-			}
-		});
-		
 	});
 	
+	// click sur les resultats de pommier
 	$('body').on('click', 'span.resultat', function(){
 		var txt = $(this).text();
 		$('#recherche').val(txt.trim());
+		$('#recherche').trigger('keyup');
+	});
+	
+	// click sur les resultats de buisson
+	$('body').on('click', 'span.res_buisson', function(){
+		var txt = $(this).text();
+		$('#recherche').val($('#recherche').val().trim() + ' ' + txt.trim());
 		$('#recherche').trigger('keyup');
 	});
 });

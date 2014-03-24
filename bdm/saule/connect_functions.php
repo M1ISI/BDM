@@ -29,9 +29,6 @@
         //pour pouvoir réutiliser ces variables plus loin dans le code (hors de la fonction)
         global $twitter, $tw_url, $credentials;
 
-        if(isset($twitter))
-            return;
-
 	    $TW_CONSUMER_KEY = 'IinZcAVaNNix1vjy6DuQ';
 	    $TW_CONSUMER_SECRET = 'x0Zp8YcLBXydtmVVqWKfjBiI5Cdx5sdnmIr3t3y0';
 	    //$TW_OAUTH_CALLBACK = 'http://localhost/BDM/bdm/saule/index2.php';
@@ -54,13 +51,16 @@
         {
             $twitter = new TwitterOAuth($TW_CONSUMER_KEY, $TW_CONSUMER_SECRET, $_SESSION["token"], $_SESSION["secret"]);
             $credentials = $twitter->getAccessToken($_GET["oauth_verifier"]);
+            /*$s_twitter = serialize($twitter);
+            file_put_contents('/home/fritmayo/store', $s_twitter);*/
 
-            echo "<pre>";
+            //For debug purpose
+            /*echo "<pre>";
             print_r($credentials);
-            echo "</pre>";
+            echo "</pre>";*/
         }
     }
-    
+
     function google_connection()
     {
 		
@@ -164,6 +164,7 @@
         {
             $parameter = array('q' => $_GET["mainField"], 'lang' => 'fr_FR');
             $result = $twitter->get('search/tweets', $parameter);
+            //$result = $twitter->get('user/search', $parameter);
 
             if (count($result->statuses) == 0)
                 echo "<p>Aucun résultat à afficher<br /></p>\n";
@@ -180,9 +181,9 @@
                 }
 
                 //For debug purpose
-                echo "<pre>";
+                /*echo "<pre>";
                 print_r($result);
-                echo "</pre>";
+                echo "</pre>";*/
             }
         }
     }

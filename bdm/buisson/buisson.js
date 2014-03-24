@@ -271,19 +271,11 @@ function getResults(chaine)
 					$.merge(leftRight, leftOrRight(res, m));
 				});
 				
-				affichage.append('-- Mots sans filtrage --<br />');	
-				$.each(res, function(i, v){
-					affichage.append(v + '<br />');
-				});
-				affichage.append('<br />-- Mots entre parenthèses --<br />');	
+				$.merge(parentheses, leftRight);
+					
 				$.each(parentheses, function(i, v){
-					affichage.append(v + '<br />');
+					affichage.append('<span class="res_buisson">' + v + '</span><br />');
 				});
-				affichage.append('<br />-- Mots proches --<br />');	
-				$.each(leftRight, function(i, v){
-					affichage.append(v + '<br />');
-				});
-				affichage.append('<br />');
 			}
 			else
 			{
