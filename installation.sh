@@ -6,6 +6,8 @@ if [ "$distrib" = "Debian" ]
 then 
 	echo "deb http://packages.dotdeb.org stable all" >> /etc/apt/sources.list.d/php-fpm.list
 	echo "deb-src http://packages.dotdeb.org stable all" >> /etc/apt/sources.list.d/php-fpm.list
+	apt-get update
+	apt-get install curl
 	curl http://www.dotdeb.org/dotdeb.gpg | apt-key add -
 elif [ "$distrib" = "Ubuntu" ] && [ "$version" -leq 10.04 ]
 then
