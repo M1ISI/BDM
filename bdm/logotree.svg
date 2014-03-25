@@ -414,6 +414,7 @@ if(sapin_click)
 		elems[i].setAttribute('fill', '#85E26C');
 	}
 	sapin_click = false;
+	top.click_sapin(!sapin_click);
 }
 else
 {
@@ -421,6 +422,7 @@ else
 		elems[i].setAttribute('fill', '#D4D4D4');
 	}
 	sapin_click = true;
+	top.click_sapin(!sapin_click);
 }
 ">
 	<path class="feuillage sapin" fill="#85E26C" stroke="#000000" stroke-width="6" stroke-miterlimit="10" d="M226.076,33.54c0,0-49.914,64.885-57.328,76.356
@@ -461,6 +463,7 @@ if(pommier_click)
 		elems[i].setAttribute('fill', '#F87685');
 	}
 	pommier_click = false;
+	top.click_pommier(!pommier_click);
 }
 else
 {
@@ -468,6 +471,7 @@ else
 		elems[i].setAttribute('fill', '#D4D4D4');
 	}
 	pommier_click = true;
+	top.click_pommier(!pommier_click);
 }
 ">
 	<g>
@@ -646,6 +650,7 @@ if(saule_click)
 		elems[i].setAttribute('fill', '#D2F575');
 	}
 	saule_click = false;
+	top.click_saule(!saule_click);
 }
 else
 {
@@ -653,6 +658,7 @@ else
 		elems[i].setAttribute('fill', '#D4D4D4');
 	}
 	saule_click = true;
+	top.click_saule(!saule_click);
 }
 ">
 	<g>
@@ -829,6 +835,7 @@ if(buisson_click)
 		elems[i].setAttribute('fill', '#D465B0');
 	}
 	buisson_click = false;
+	top.click_buisson(!buisson_click);
 }
 else
 {
@@ -836,6 +843,7 @@ else
 		elems[i].setAttribute('fill', '#D4D4D4');
 	}
 	buisson_click = true;
+	top.click_buisson(!buisson_click);
 }
 ">
 	<g>
