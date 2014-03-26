@@ -11,6 +11,7 @@ body
 div#formulaire
 {
 	clear: both;
+	text-align: center;
 }
 
 div#pommier, div#buisson, div#saule, div#sapin

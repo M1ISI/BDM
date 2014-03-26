@@ -53,7 +53,6 @@ function click_sapin(afficher)
 	<option value="es">Espanol</option>
 	<option value="de">Deutsch</option>
 </select>
-<input type="submit" id="go" value="go" />
 </div>
 
 <div id="resultats">
@@ -61,10 +60,8 @@ function click_sapin(afficher)
 	<div id="buisson"></div>
 	<div id="pommier">
 		<div id="suggestions">
-			
 		</div>
 		<div id="googleResult">
-			
 		</div>
 	</div>
 	<div id="saule"></div>
@@ -82,7 +79,8 @@ $( document ).tooltip();
 
 $('document').ready(function(){
 
-	google.load('search', '1', {"language" : "fr"});
+	google.load('search', '1', {'language' : 'fr'});
+
 
 	google.setOnLoadCallback(function(){
 		$(function(){
