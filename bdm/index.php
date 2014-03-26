@@ -59,7 +59,14 @@ function click_sapin(afficher)
 <div id="resultats">
 	<div id="sapin"></div>
 	<div id="buisson"></div>
-	<div id="pommier"><ul></ul></div>
+	<div id="pommier">
+		<div id="suggestions">
+			
+		</div>
+		<div id="googleResult">
+			
+		</div>
+	</div>
 	<div id="saule"></div>
 </div>
 
@@ -74,12 +81,50 @@ $( document ).tooltip();
 });
 
 $('document').ready(function(){
+
+	google.load('search', '1', {"language" : "fr"});
+
+	google.setOnLoadCallback(function(){
+		$(function(){
+			$('#recherche').keyup(function(){
+
+				var googleResults = $('#pommier #googleResult');
+
+				googleResults.html('');
+
+				var searchComplete = function(searchControl, searcher){
+					for (result in searcher.results) {
+						var content = searcher.results[result].content;
+						var title = searcher.results[result].title;
+						var url = searcher.results[result].url;
+						googleResults
+							.append($('<a/>').attr('href', url).html(title))
+							.append($('<p/>').html(content));
+					}
+				};
+
+				// Create a search control
+				var searchControl = new google.search.SearchControl();
+
+				// Add in a set of searchers
+				searchControl.addSearcher(new google.search.WebSearch());
+
+				// tell the searchControl to draw itself (without this, the searchComplete won't get called - I'm not sure why)
+				searchControl.draw();
+
+				searchControl.setLinkTarget(google.search.Search.LINK_TARGET_SELF);
+				searchControl.setSearchCompleteCallback(this, searchComplete);
+				searchControl.execute($(this).val());
+			});
+		});
+	});
+
 	$('#recherche').keyup(function(){
 		var buisson = $('#buisson');
-		var pommier = $('#pommier');
+		var pommier = $('#pommier #suggestions');
 		var sapin = $('#sapin');
 		var saule = $('#saule');
-		
+
 		var champ = $('#recherche').val(); // récupere la valeur du champ
 		if(champ == '')
 		{
@@ -87,9 +132,9 @@ $('document').ready(function(){
 			pommier.html('');
 			return false;
 		}
-		
+
 		var lang = $('#langue').val();
-		
+
 		/* Appel buisson */
 		$.ajax({
 			url: "buisson/buisson.php",
@@ -100,7 +145,7 @@ $('document').ready(function(){
 				buisson.html(data); // ajoute le HTML au paragraphe
 			}
 		});
-		
+
 		/* Appel pommier */
 		$.ajax({
 			url: "pommier/Pommier.php",
@@ -112,27 +157,68 @@ $('document').ready(function(){
 			}
 		});
 	});
-	
+
 	// click sur les resultats de pommier
 	$('body').on('click', 'span.resultat', function(){
 		var txt = $(this).text();
 		$('#recherche').val(txt.trim());
 		$('#recherche').trigger('keyup');
 	});
-	
+
 	// click sur les resultats de buisson
 	$('body').on('click', 'span.res_buisson', function(){
 		var txt = $(this).text();
 		$('#recherche').val($('#recherche').val().trim() + ' ' + txt.trim());
 		$('#recherche').trigger('keyup');
 	});
-	
-	$('#go').click(function(){
 
-		test();
-		return false;
-	});
-	
 });
 </script>
 </html>
+<script language="Javascript" type="text/javascript">
+//<![CDATA[
+google.load('search', '1');
+
+function OnLoad() {
+
+	var searchComplete = function(searchControl, searcher){
+		for (result in searcher.results) {
+			var content = searcher.results[result].content;
+			var title = searcher.results[result].title;
+			var url = searcher.results[result].url;
+			$('#pommier ul')
+				.append($('<li></li>')
+					.append($('<a/>').attr('href', url).text(title))
+					.append($('<p/>').text(content)));
+		}
+	};
+
+	// called on form submit
+	newSearch = function(form) {
+	  if (form.input.value) {
+		// Create a search control
+		var searchControl = new google.search.SearchControl();
+
+		// Add in a set of searchers
+		searchControl.addSearcher(new google.search.WebSearch());
+
+		// tell the searchControl to draw itself (without this, the searchComplete won't get called - I'm not sure why)
+		searchControl.draw();
+
+		searchControl.setLinkTarget(google.search.Search.LINK_TARGET_SELF);
+		searchControl.setSearchCompleteCallback(this, searchComplete);
+		searchControl.execute(form.input.value);
+	  }
+	  return false;
+	}
+
+	// bind form submission to my custom code
+	var container = document.getElementById("searchFormContainer");
+	this.searchForm = new google.search.SearchForm(false, container);
+	this.searchForm.setOnSubmitCallback(this, newSearch);
+}
+google.setOnLoadCallback(OnLoad);
+
+//]]>
+</script>
+

@@ -1,4 +1,4 @@
-var pronoms = ['le', 'la', 'les', 'the'];
+var pronoms = ['le', 'la', 'les', 'the', 'et', 'ou', 'and'];
 
 /**
 * Test si une chaine est présente dans un tableau
