@@ -27,6 +27,13 @@ div#pommier
 	width: 25%;
 }
 
+div#pommier div#googleResult
+{
+	border-top: 1px solid black;
+	margin-top: 10px;
+	padding-top: 10px;
+}
+
 div#buisson
 {
 	color : #8A2168;
