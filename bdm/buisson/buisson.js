@@ -274,6 +274,8 @@ function getResults(chaine)
 				$.merge(parentheses, leftRight);
 					
 				$.each(parentheses, function(i, v){
+					if(i >= 10)
+						return false;
 					affichage.append('<span class="res_buisson">' + v + '</span><br />');
 				});
 			}
