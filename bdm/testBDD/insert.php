@@ -30,7 +30,7 @@ if(isset($_POST['kind']))
 		$text = base64_encode($_POST['text']);
 		
 		// TODO use prepared queries instead (figure out how SQLite3 handles them)
-		$conn->exec('insert into texte(texte, lien) values(\'' . $text . '\', test texte\')');
+		$conn->exec('insert into texte(texte, lien) values(\'' . $text . '\', \'test texte\')');
 		echo 'Done';
 	}
 	else // ne devrait jamais arriver !
