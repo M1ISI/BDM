@@ -11,9 +11,6 @@ import java.lang.String;
 
 public class Histogram
 {
-	// Dimensions de la bande de couleurs (inutilise pour le moment)
-	public final int BAND_WIDTH = 200;
-	public final int BAND_HEIGHT = 20;
 	
 	public static Hashtable<Color,Integer> getHistogram(Picture img)
 	{
@@ -48,6 +45,22 @@ public class Histogram
 		return histo;
 	}
 
+	public static ArrayList<Map.Entry<Color,Integer>> sortValue(Hashtable<Color, Integer> t){
+
+		//Transfer as List and sort it
+		ArrayList<Map.Entry<Color, Integer>> l = new ArrayList<Map.Entry<Color,Integer>>(t.entrySet());
+		Collections.sort(l, new Comparator<Map.Entry<Color, Integer>>(){
+
+			 public int compare(Map.Entry<Color, Integer> o1, Map.Entry<Color, Integer> o2) {
+			 	return o2.getValue().compareTo(o1.getValue());
+			
+			 }
+		});
+			  
+		return l;
+	}
+
+
 	
 	public static void main(String[] args)
 	{
@@ -61,29 +74,54 @@ public class Histogram
 		Picture img = new Picture(args[0]);
 		// Recuperation de la taille de l'image
 		int pixelCount = img.height() * img.width();
-		System.err.println("-+- total pixels : " + pixelCount);
 		
 		// Recuperation de l'histogramme
 		Hashtable<Color,Integer> histo = getHistogram(img);
-		//System.out.println(histo);
-		
-		Picture band = new Picture(200, 20);
-		/*
-		* Tentative ratee d'afficher une bande de couleurs de l'image.
-		* On essayer d'afficher les couleurs dominantes de l'image en
-		* fonction de leur proportion.
-		*/
 		
 		//Picture band = new Picture(BAND_WIDTH, BAND_HEIGHT);
 		int cursor = 0;
 		
+		//trie de la hashtable		
+		ArrayList<Map.Entry<Color,Integer>> l = sortValue(histo), last = new ArrayList<Map.Entry<Color,Integer>>();
+		
+
+		for (Map.Entry<Color,Integer> iter : l) {
+	
+			double val = iter.getValue();
+
+			val = val/pixelCount*100.0;
+	
+
+			if(val < 1){
+
+					
+
+			}
+
+			else{
+				
+				last.add(iter);
+			}
+		}
+
+		for (Map.Entry<Color,Integer> iter : last) {
+
+			double val = iter.getValue();
+		
+			val = val/pixelCount*100.0;
+		
+			System.out.println("(r : "+iter.getKey().getRed()+
+								   " , g : "+iter.getKey().getGreen()+
+								   " , b : "+iter.getKey().getBlue()+
+								   " ) -> "+val+"%");
+	
+		}
+	
+
 		// On mouline sur tous les elements de l'histogramme
 		Enumeration<Color> enumKey = histo.keys();
 
-		String colors = "";
-
-		double r=0,g=0,b=0,m=0,cy=0,y=0,w=0,bl=0,gr=0;
-
+/*
 		while(enumKey.hasMoreElements())
 		{
 			Color c = enumKey.nextElement();
@@ -91,145 +129,20 @@ public class Histogram
 
 			int red = c.getRed(), blue =  c.getBlue(), green = c.getGreen();
 
-			//bleu
-			if((0 <= red)  && (40 > red) && (0 <= green) && (40 > green) && (255 >= blue) && (215 < blue)){
 
-				b+=count;
-				System.out.println(b);
-
-			}
-			
-			//vert
-			if((0 <= red)  && (40 > red) && (255 >= green) && (215 < green) && (0 <= blue) && (40 > blue)){
-
-				g+=count;
-
-			}
-			
-			//rouge
-			if((255 >= red)  && (215 < red) && (0 <= green) && (40 > green) && (0 <= blue) && (40 > blue)){
-
-				r+=count;
-
-			}	
-			
-			//magenta
-			if((255 >= red)  && (215 < red) && (0 <= green) && (40 > green) && (255 >= blue) && (215 < blue)){
-
-				m+=count;
-
-			}	
-			
-			//cyan
-			if((0 <= red)  && (40 > red) && (255 >= green) && (215 < green) && (255 >= blue) && (215 < blue)){
-
-				cy+=count;
-			}
-			
-			//jaune
-			if((255 >= red)  && (215 < red) && (255 >= green) && (215 < green) && (0 <= blue) && (40 > blue)){
-
-				y+=count;
-
-			}
-			
-			//blanc
-			if((255 >= red)  && (215 < red) && (255 >= green) && (215 < green) && (255 >= blue) && (215 < blue)){
-
-				w+=count;
-
-			}
-			
-			//noir
-			if((0 <= red)  && (40 > red) && (0 <= green) && (40 > green) && (0 <= blue) && (40 > blue)){
-
-				bl+=count;
-				System.out.println(bl);
-
-			}
-			
-			if((40 <= red) && (215 > red) && (40 <= green) && (215 > green) && (40 <= blue) && (215 > blue)){
-				
-				gr+=count;
-			
-			}
-			
-			/*
-			* En attendant d'avoir une bande de couleurs qui marche,
-			* on affiche les valeurs brutes de l'histogramme.
-			*/
-			/*System.out.println("rgb("+c.getRed()+","+c.getGreen()+","+c.getBlue()+") -> " + count);
-			
-			// Ratio : (nb pixels / nb pixels total) * largeur bande
-			int ratio = (count / pixelCount) * BANDE_WIDTH;
-			int i;
-			
-			for(i = cursor; i < cursor + ratio; i++) // remplissage de la bande
-			{
-				for(int j = 0; j < 20; j++)
-				{
-					band.set(i, j, c);
-				}
-			}*/
-		}
-
-		System.out.println((bl/pixelCount));
-	
-		if((b/pixelCount*100) > 10){
-
-			colors += " bleu";
-
-		}
-
-		if((g/pixelCount*100) > 10){
-
-			colors += " vert ";		
-
-		}
-
-		if((r/pixelCount*100) > 10){
-
-			colors += " rouge ";
-
-		}
-
-		if((m/pixelCount*100) > 10){
-
-			colors += " magenta ";
-
-		}
-
-		if((cy/pixelCount*100) > 10){
-
-			colors += " cyan ";		
-
-		}
-
-		if((y/pixelCount*100) > 10){
-
-			colors += " jaune ";
-
-		}
-
-		if((w/pixelCount*100) > 10){
-
-			colors += " blanc ";	
-
-		}
-
-		if((bl/pixelCount*100) > 10){
-
-			colors += " noir ";	
 
 		}
 		
-		if((gr/pixelCount*100) > 10) {
-			
-			colors += " gris ";
-			
-		}
-
-		System.out.println(colors);
-		band.show();
+*/
 	}
+
 }
+
+
+
+
+
+
+
+
+
