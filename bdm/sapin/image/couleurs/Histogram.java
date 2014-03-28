@@ -12,8 +12,8 @@ import java.lang.String;
 public class Histogram
 {
 	// Dimensions de la bande de couleurs (inutilise pour le moment)
-	public final int BANDE_WIDTH = 200;
-	public final int BANDE_HEIGHT = 20;
+	public final int BAND_WIDTH = 200;
+	public final int BAND_HEIGHT = 20;
 	
 	public static Hashtable<Color,Integer> getHistogram(Picture img)
 	{
@@ -67,160 +67,169 @@ public class Histogram
 		Hashtable<Color,Integer> histo = getHistogram(img);
 		//System.out.println(histo);
 		
-<<<<<<< HEAD
-		Picture bande = new Picture(200, 20);
-=======
+		Picture band = new Picture(200, 20);
 		/*
 		* Tentative ratee d'afficher une bande de couleurs de l'image.
 		* On essayer d'afficher les couleurs dominantes de l'image en
 		* fonction de leur proportion.
 		*/
 		
-		Picture bande = new Picture(BANDE_WIDTH, BANDE_HEIGHT);
-		int curseur = 0;
->>>>>>> e6b3287271b398d2a960b410af33de720752dc40
+		//Picture band = new Picture(BAND_WIDTH, BAND_HEIGHT);
+		int cursor = 0;
 		
 		// On mouline sur tous les elements de l'histogramme
 		Enumeration<Color> enumKey = histo.keys();
 
-		String couleurs= "";
+		String colors = "";
 
-			int r=0,g=0,b=0,m=0,cy=0,y=0,w=0,bl=0;
+		double r=0,g=0,b=0,m=0,cy=0,y=0,w=0,bl=0,gr=0;
 
 		while(enumKey.hasMoreElements())
 		{
 			Color c = enumKey.nextElement();
-			Integer count = histo.get(c);
-			
-<<<<<<< HEAD
+			double count = histo.get(c);
 
-			int Rouge = c.getRed(), Bleu =  c.getBlue() , Vert = c.getGreen();
-
-
+			int red = c.getRed(), blue =  c.getBlue(), green = c.getGreen();
 
 			//bleu
-			if( (0<= Rouge)  && (127> Rouge ) && ( 0 <= Vert) && (127 > Vert) && (255>= Bleu) && (127<Bleu)){
+			if((0 <= red)  && (40 > red) && (0 <= green) && (40 > green) && (255 >= blue) && (215 < blue)){
 
 				b+=count;
+				System.out.println(b);
 
-			}			
-			if( (0<= Rouge)  && (127> Rouge ) && ( 255 >= Vert) && (127 < Vert) && (0 <= Bleu) && (127 > Bleu)){
+			}
+			
+			//vert
+			if((0 <= red)  && (40 > red) && (255 >= green) && (215 < green) && (0 <= blue) && (40 > blue)){
 
 				g+=count;
 
-			}	
-			if( (255>= Rouge)  && (0< Rouge ) && ( 0 <= Vert) && (127 > Vert) && (0 <= Bleu) && (255 > Bleu)){
+			}
+			
+			//rouge
+			if((255 >= red)  && (215 < red) && (0 <= green) && (40 > green) && (0 <= blue) && (40 > blue)){
 
 				r+=count;
 
 			}	
 			
-			if( (255>= Rouge)  && (127< Rouge ) && ( 0 <= Vert) && (127 > Vert) && (255>= Bleu) && (127<Bleu)){
+			//magenta
+			if((255 >= red)  && (215 < red) && (0 <= green) && (40 > green) && (255 >= blue) && (215 < blue)){
 
 				m+=count;
 
 			}	
-			if( (0<= Rouge)  && (127> Rouge ) && ( 255 >= Vert) && (127 < Vert) && (255>= Bleu) && (127<Bleu)){
+			
+			//cyan
+			if((0 <= red)  && (40 > red) && (255 >= green) && (215 < green) && (255 >= blue) && (215 < blue)){
 
 				cy+=count;
+			}
+			
+			//jaune
+			if((255 >= red)  && (215 < red) && (255 >= green) && (215 < green) && (0 <= blue) && (40 > blue)){
 
-=======
+				y+=count;
+
+			}
+			
+			//blanc
+			if((255 >= red)  && (215 < red) && (255 >= green) && (215 < green) && (255 >= blue) && (215 < blue)){
+
+				w+=count;
+
+			}
+			
+			//noir
+			if((0 <= red)  && (40 > red) && (0 <= green) && (40 > green) && (0 <= blue) && (40 > blue)){
+
+				bl+=count;
+				System.out.println(bl);
+
+			}
+			
+			if((40 <= red) && (215 > red) && (40 <= green) && (215 > green) && (40 <= blue) && (215 > blue)){
+				
+				gr+=count;
+			
+			}
+			
 			/*
 			* En attendant d'avoir une bande de couleurs qui marche,
 			* on affiche les valeurs brutes de l'histogramme.
 			*/
-			System.out.println("rgb("+c.getRed()+","+c.getGreen()+","+c.getBlue()+") -> " + count);
+			/*System.out.println("rgb("+c.getRed()+","+c.getGreen()+","+c.getBlue()+") -> " + count);
 			
 			// Ratio : (nb pixels / nb pixels total) * largeur bande
 			int ratio = (count / pixelCount) * BANDE_WIDTH;
 			int i;
 			
-			for(i = curseur; i < curseur + ratio; i++) // remplissage de la bande
+			for(i = cursor; i < cursor + ratio; i++) // remplissage de la bande
 			{
 				for(int j = 0; j < 20; j++)
 				{
-					bande.set(i, j, c);
+					band.set(i, j, c);
 				}
->>>>>>> e6b3287271b398d2a960b410af33de720752dc40
-			}
-
-
-			if( (255>= Rouge)  && (127< Rouge ) && ( 255 >= Vert) && (127 < Vert) && (0<= Bleu) && (127>Bleu)){
-
-				y+=count;
-
-			}	
-			if( (255>= Rouge)  && (127< Rouge ) && ( 255 >= Vert) && (127 < Vert) && (255 >= Bleu) && (127<Bleu)){
-
-				w+=count;
-
-			}	
-
-
-
-			if( (0<= Rouge)  && (127> Rouge ) && ( 0 <= Vert) && (127 > Vert) && (0<= Bleu) && (127>Bleu)){
-
-				bl+=count;
-
-			}
-
-
+			}*/
 		}
+
+		System.out.println((bl/pixelCount));
 	
+		if((b/pixelCount*100) > 10){
+
+			colors += " bleu";
+
+		}
+
+		if((g/pixelCount*100) > 10){
+
+			colors += " vert ";		
+
+		}
+
+		if((r/pixelCount*100) > 10){
+
+			colors += " rouge ";
+
+		}
+
+		if((m/pixelCount*100) > 10){
+
+			colors += " magenta ";
+
+		}
+
+		if((cy/pixelCount*100) > 10){
+
+			colors += " cyan ";		
+
+		}
+
+		if((y/pixelCount*100) > 10){
+
+			colors += " jaune ";
+
+		}
+
+		if((w/pixelCount*100) > 10){
+
+			colors += " blanc ";	
+
+		}
+
+		if((bl/pixelCount*100) > 10){
+
+			colors += " noir ";	
+
+		}
 		
-<<<<<<< HEAD
-		
-		if( (b/pixelCount*100) > 20){
-
-			couleurs += " bleu comme la bite a Luis";		
-
+		if((gr/pixelCount*100) > 10) {
+			
+			colors += " gris ";
+			
 		}
 
-		if( (g/pixelCount*100) > 20){
-
-			couleurs += " vert ";		
-
-		}
-		if( (r/pixelCount*100) > 20){
-
-			couleurs += " rouge ";		
-
-		}
-
-		if( (m/pixelCount*100) > 20){
-
-			couleurs += " magenta ";		
-
-		}
-
-		if( (cy/pixelCount*100) > 20){
-
-			couleurs += " cyan ";		
-
-		}
-
-		if( (y/pixelCount*100) > 20){
-
-			couleurs += " jaune ";		
-
-		}
-
-		if( (w/pixelCount*100) > 20){
-
-			couleurs += " blanc ";		
-
-		}
-
-		if( (bl/pixelCount*100) > 20){
-
-			couleurs += " noir(comme franck) ";		
-
-		}
-
-		System.out.println(couleurs);
-		bande.show();
-=======
-		//bande.show(); // a decommenter pour afficher la bande
->>>>>>> e6b3287271b398d2a960b410af33de720752dc40
+		System.out.println(colors);
+		band.show();
 	}
 }
