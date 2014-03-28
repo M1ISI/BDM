@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+require_once('saule/connect_functions.php'); 
+try{
+	google_connection();
+}catch(Google_AuthException $e){}
+facebook_connection();
+twitter_connection();
+?>
+
 <html>
 <head>
 <link rel="stylesheet" href="style.css" />
@@ -80,7 +91,7 @@ $( document ).tooltip();
 $('document').ready(function(){
 
 	google.load('search', '1', {'language' : 'fr'});
-
+	
 
 	google.setOnLoadCallback(function(){
 		$(function(){
@@ -123,6 +134,10 @@ $('document').ready(function(){
 		var sapin = $('#sapin');
 		var saule = $('#saule');
 
+		var checkFacebook = $('<input type="checkbox" id="facebook" name="facebook" value="Facebook">Facebook</input>');
+		var checkTwitter = $('<input type="checkbox" id="twitter" name="twitter" value="Twitter">Twitter</input>');
+		var checkGoogle = $('<input type="checkbox" id="google" name="google" value="Google+" onclick="">Google+</input>');
+
 		var champ = $('#recherche').val(); // récupere la valeur du champ
 		if(champ == '')
 		{
@@ -154,6 +169,38 @@ $('document').ready(function(){
 				pommier.html(data); // ajoute le HTML au paragraphe
 			}
 		});
+		
+		/* Appel saule */
+		// Ajout des checkbox si elles n'existent pas
+		if(!$('input[name="facebook"]').length)
+		{
+			checkFacebook.appendTo('#saule');
+			checkTwitter.appendTo('#saule');
+			checkGoogle.appendTo('#saule');
+		}
+		
+		// Récupération de la variable $authUrl
+		$.ajax({
+			url: "script.php",
+			type: "post",
+			data: {},
+			success: function(data){
+				// data contient le lien vers la connexion google+
+				$('#google').click(function(){
+				  window.location = data;
+				});
+			}
+		});
+		
+		$.ajax({
+			url: "fritmayo.zor-en.com/BDM/bdm/saule/index2.php",
+			type: "get",
+			data: {mainField: '' + champ},
+			success: function(data){
+				saule.html(data); // ajoute le HTML au paragraphe
+			}
+		});
+		
 	});
 
 	// click sur les resultats de pommier
