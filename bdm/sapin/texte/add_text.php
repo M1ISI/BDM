@@ -44,10 +44,25 @@ if(isset($_FILES['text_file'])) {
 			//~ echo '<br/>';
 		//~ }
 		$vector = getVector($table, 'en');
+		//On trie les mots par nombre d'occurences décroissant.
 		usort($vector, 'compareWords');
+		//Et on compte le nombre d'occurences total de tous les mots clef.
+		$word_count = 0;
+		for($i=0; $i<sizeof($vector); $i++)
+			$word_count += $vector[$i][1];
+			
+		
+		
 		
 		//On crée une entrée pour le texte et ses mots clefs dans la base de données.
 		$db = new SQLite3('texts');
+		
+		$request = $db->prepare('INSERT INTO texts (default, link, file, word_count) VALUES(link:link, file:file, word_count:word_count)');
+		$request->bindValue(':link', 'NULL');
+		$request->bindValue(':file', $path);
+		$request->bindValue(':word_count', $word_count);
+		$request->execute();
+		
 		
 		//~ $db->exec("INSERT INTO texts (default,link,file,word_count)" VALUES(link,file,word_count));
 		//~ $db->exec("INSERT INTO words (default,word)" VALUES(word));
@@ -56,7 +71,7 @@ if(isset($_FILES['text_file'])) {
 		//~ $db->exec("Select * FROM words");
 		//~ $db->exec("Select * FROM tags");
 		
-		//~ $request = $db->prepare('INSERT ...');
+		//~ 
 		//~ $request->bind();
 		//~ $result = $request->execute();
 		
