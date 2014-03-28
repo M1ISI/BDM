@@ -15,7 +15,7 @@ then
 	sudo add-apt-repository ppa:l-mierzwa/lucid-php5
 fi
 apt-get update
-apt-get install nginx php5-fpm fcgiwrap php5-sqlite 
+apt-get install nginx php5-fpm fcgiwrap php5-sqlite php5-curl 
 
 echo "Copie des fichiers du site."
 ./reload.sh
