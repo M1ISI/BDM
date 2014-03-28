@@ -1,80 +1,72 @@
+
 /*==============================================================*/
 /* Table : IMAGE                                                */
 /*==============================================================*/
 create table IMAGE 
 (
-   ID                   INTEGER     PRIMARY KEY   AUTOINCREMENT,
+   ID_IMAGE             integer     PRIMARY KEY   AUTOINCREMENT,
    IMAGE                long varchar                   not null,
-   LIEN                 long varchar                   null,
+   LINKS                long varchar                   null,
    TYPE                 long varchar                   not null
 );
 
-/*==============================================================*/
-/* Index : IMAGE_PK                                             */
-/*==============================================================*/
-create unique index IMAGE_PK on IMAGE (
-ID ASC
-);
 
 /*==============================================================*/
-/* Table : TAG                                                  */
+/* Table : KEYWORDS                                             */
 /*==============================================================*/
-create table TAG 
+create table KEYWORDS 
 (
-   LIB                  long varchar                   not null,
-   PRIORITE             integer                        null,
-   constraint PK_TAG primary key (LIB)
+   ID_KEYWORD           integer                        not null,
+   KEYWORD              long varchar                   null,
+   constraint PK_KEYWORDS primary key (ID_KEYWORD)
 );
 
-/*==============================================================*/
-/* Index : TAG_PK                                               */
-/*==============================================================*/
-create unique index TAG_PK on TAG (
-LIB ASC
-);
 
 /*==============================================================*/
-/* Table : TAG_TEXTE                                            */
+/* Table : TAGS                                                 */
 /*==============================================================*/
-create table TAG_TEXTE 
+create table TAGS 
 (
-   ID                long varchar                   not null,
-   LIB                  long varchar                   not null,
-   constraint PK_TAG_TEXTE primary key (ID, LIB),
-   constraint FK_TAG_TEXT_ASSOCIATI_TEXTE foreign key (ID)
-      references TEXTE (ID),
-   constraint FK_TAG_TEXT_ASSOCIATI_TAG foreign key (LIB)
-      references TAG (LIB)
+   ID_TEXT              integer                        not null,
+   ID_WORD              integer                        not null,
+   COUNT                integer                        null,
+   constraint PK_TAGS primary key (ID_TEXT, ID_WORD),
+   constraint FK_TAGS_TAGS_TEXTS foreign key (ID_TEXT) references TEXTS (ID_TEXT),
+   constraint FK_TAGS_TAGS2_WORDS foreign key (ID_WORD)references WORDS (ID_WORD)
 );
 
 /*==============================================================*/
-/* Table : TAG_IMAGE                                            */
+/* Table : TAGS_IMAGE                                           */
 /*==============================================================*/
-create table TAG_IMAGE 
+create table TAGS_IMAGE 
 (
-   ID                   integer                        not null,
-   LIB                  long varchar                   not null,
-   constraint PK_TAG_IMAGE primary key (ID, LIB),
-   constraint FK_TAG_IMAG_ASSOCIATI_IMAGE foreign key (ID)
-      references IMAGE (ID),
-   constraint FK_TAG_IMAG_ASSOCIATI_TAG foreign key (LIB)
-      references TAG (LIB)
+   ID_IMAGE             integer                        not null,
+   ID_KEYWORD           integer                        not null,
+   PRIORITY             integer                        null,
+   constraint PK_TAGS_IMAGE primary key (ID_IMAGE, ID_KEYWORD),
+   constraint FK_TAGS_IMA_TAGS_IMAG_IMAGE foreign key (ID_IMAGE) references IMAGE (ID_IMAGE),
+   constraint FK_TAGS_IMA_TAGS_IMAG_KEYWORDS foreign key (ID_KEYWORD) references KEYWORDS (ID_KEYWORD)
 );
 
+
 /*==============================================================*/
-/* Table : TEXTE                                                */
+/* Table : TEXTS                                                */
 /*==============================================================*/
-create table TEXTE 
+create table TEXTS 
 (
-   ID                   INTEGER     PRIMARY KEY   AUTOINCREMENT,
-   TEXTE                long varchar                   not null,
-   LIEN                 long varchar                   null
+   ID_TEXT              integer     PRIMARY KEY   AUTOINCREMENT,
+   LINKS                long varchar                   null,
+   FILE                 long varchar                   not null,
+   NB_WORDS             integer                        not null
 );
 
 /*==============================================================*/
-/* Index : TEXTE_PK                                             */
+/* Table : WORDS                                                */
 /*==============================================================*/
-create unique index TEXTE_PK on TEXTE (
-ID ASC
+create table WORDS 
+(
+   ID_WORD              integer                        not null,
+   WORD                 long varchar                   not null,
+   constraint PK_WORDS primary key (ID_WORD)
 );
 

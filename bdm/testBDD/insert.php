@@ -20,7 +20,7 @@ if(isset($_POST['kind']))
 
 		//$conn->exec("insert into texte values('test', 'test')");
 		// TODO use prepared queries instead
-		$conn->exec("insert into image (image, lien, type) values('$image','test image','".$_FILES['image']['type']."')");
+		$conn->exec("insert into image (image, links, type) values('$image','test image','".$_FILES['image']['type']."')");
 		echo "fin requete\n";
 	}
 	else if($_POST['kind'] == 'text') // cas 2 : on importe du texte
@@ -30,7 +30,7 @@ if(isset($_POST['kind']))
 		$text = base64_encode($_POST['text']);
 		
 		// TODO use prepared queries instead (figure out how SQLite3 handles them)
-		$conn->exec('insert into texte(texte, lien) values(\'' . $text . '\', \'test texte\')');
+		$conn->exec('insert into texts(file, links, nb_words) values(\'' . $text . '\', \'test texte\', 5)'); // !!! NB WORD EN DUR !!!
 		echo 'Done';
 	}
 	else // ne devrait jamais arriver !

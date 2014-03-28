@@ -1,5 +1,6 @@
-drop table TAG_IMAGE;
-drop table TAG_TEXTE;
-drop table TAG;
+drop table TAGS_IMAGE;
 drop table IMAGE;
-drop table TEXTE;
+drop table KEYWORDS;
+drop table TAGS;
+drop table WORDS;
+drop table TEXTS;
