@@ -16,4 +16,4 @@ geany :
 	geany *.c *.cpp *h Makefile &
 	
 clean :
-	rm *.o main threshold
+	rm *.o main threshold tmp.ppm tmp2.ppm

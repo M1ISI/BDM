@@ -74,7 +74,7 @@ void savePGM(const std::string& file, IplImage* img)
 				value = 0;
 			else
 				value = 255;
-            sortie << value << " ";//Ecriture de tous les pixels
+            sortie << value << " " << value << " " << value << " ";//Ecriture de tous les pixels
         }
         sortie << std::endl;
     }
