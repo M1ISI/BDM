@@ -6,36 +6,36 @@ if [ "$distrib" = "Debian" ]
 then 
 	echo "deb http://packages.dotdeb.org stable all" >> /etc/apt/sources.list.d/php-fpm.list
 	echo "deb-src http://packages.dotdeb.org stable all" >> /etc/apt/sources.list.d/php-fpm.list
-	apt-get update
-	apt-get install curl
-	curl http://www.dotdeb.org/dotdeb.gpg | apt-key add -
+	sudo apt-get update
+	sudo apt-get install curl
+	sudo curl http://www.dotdeb.org/dotdeb.gpg | sudo apt-key add -
 elif [ "$distrib" = "Ubuntu" ] && [ "$version" -leq 10.04 ]
 then
-	add-apt-repository ppa:nginx/stable
+	sudo add-apt-repository ppa:nginx/stable
 	sudo add-apt-repository ppa:l-mierzwa/lucid-php5
 fi
-apt-get update
-apt-get install nginx php5-fpm fcgiwrap php5-sqlite php5-curl 
+sudo apt-get update
+sudo apt-get install nginx php5-fpm fcgiwrap php5-sqlite php5-curl 
 
 echo "Copie des fichiers du site."
 ./reload.sh
 
 
 echo "Configuration de nginx."
-mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default_backup
+sudo mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default_backup
 if [ "$distrib" = "Debian" ] 
 then 
-	cp ./debian /etc/nginx/sites-available/default
+	sudo cp ./debian /etc/nginx/sites-available/default
 else 
-	cp ./default /etc/nginx/sites-available/
+	sudo cp ./default /etc/nginx/sites-available/
 fi
 
 
 
 echo "Redémarrage des services."
-service nginx restart
-service php5-fpm restart
-service fcgiwrap restart
+sudo service nginx restart
+sudo service php5-fpm restart
+sudo service fcgiwrap restart
 
 
 echo "Pour verifier l'installation, aller sur la page http://localhost"
