@@ -59,7 +59,7 @@ void savePGM(const std::string& file, IplImage* img)
         std::cerr << "Erreur d'ouverture" << std::endl;
         exit(0);
     }
-    sortie << "P2" << std::endl;
+    sortie << "P3" << std::endl;
     sortie << img->width << " " << img->height << std::endl;//Ecriture largeur hauteur
     sortie << 255 << std::endl;//Calcul max de l'image
     for(int y=0;y<img->height;y++)
