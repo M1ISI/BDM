@@ -1,3 +1,30 @@
+/*==============================================================*/
+/* Table : COLORS                                               */
+/*==============================================================*/
+create table COLORS 
+(
+   ID_COLOR             integer                        not null,
+   R                    integer                        not null,
+   G                    integer                        not null,
+   B                    integer                        not null,
+   PERCENT              float                          not null,
+   constraint PK_COLORS primary key (ID_COLOR)
+);
+
+/*==============================================================*/
+/* Table : HAVE_COLOR                                           */
+/*==============================================================*/
+create table HAVE_COLOR 
+(
+   ID_COLOR             integer                        not null,
+   ID_IMAGE             integer                        not null,
+   constraint PK_HAVE_COLOR primary key (ID_COLOR, ID_IMAGE),
+   constraint FK_HAVE_COLOR__COLORS foreign key (ID_COLOR)
+      references COLORS (ID_COLOR),
+   constraint FK_HAVE_COLOR__IMAGE foreign key (ID_IMAGE)
+      references IMAGE (ID_IMAGE)
+);
+
 
 /*==============================================================*/
 /* Table : IMAGE                                                */
