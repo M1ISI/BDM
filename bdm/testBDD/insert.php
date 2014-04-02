@@ -1,7 +1,7 @@
 <?php
 
 $conn = new SQLite3('test.db');
-
+$id_type = 0;
 /*
 $db = new SQLite3($database_filename);
 $query = $db->prepare("UPDATE '{$sqlite_table_name}' SET ZIMAGE=? WHERE ZID=?");
@@ -11,6 +11,28 @@ $query->bindValue(2, $row_id, SQLITE3_TEXT);
 $run=$query->execute();
 */
 
+//On insère le type s'il n'existe pas
+$exist = false;
+$res = $conn->query("select type from types");
+while($row = $res->fetchArray(SQLITE3_NUM) && !$exist)
+{
+	if($row[0] == $_FILES['image']['type'])
+		$exist = true;
+}
+if(!$exist)
+{
+	$conn->exec("insert into types (type) values ('".$_FILES['image']['type']."')"); // on insère le type
+	$res = $conn->query("select last_insert_rowid()"); // on récupère le dernier id ajouté
+	$row = $res->fetchArray(SQLITE3_NUM);
+	$id_type = $row[0];
+}
+else
+{
+	$res = $conn->query("select id from types where type = '".$_FILES['image']['type']."'");
+	$row = $res->fetchArray(SQLITE3_NUM);
+	$id_type = $row[0];
+}
+
 if(isset($_POST['kind']))
 {
 	if($_POST['kind'] == 'image') // cas 1 : on importe une image
@@ -18,9 +40,16 @@ if(isset($_POST['kind']))
 		// Temporary file name stored on the server
 		$image = base64_encode(file_get_contents($_FILES['image']['tmp_name']));
 
-		//$conn->exec("insert into texte values('test', 'test')");
 		// TODO use prepared queries instead
-		$conn->exec("insert into image (image, links, type) values('$image','test image','".$_FILES['image']['type']."')");
+		// On insère le fichier dans la table files
+		$conn->exec("insert into files (type, path, url) values($id_type, '$image','test image')");
+		// On récupère l'id
+		$res = $conn->query("select last_insert_rowid()"); // on récupère le dernier id ajouté
+		$row = $res->fetchArray(SQLITE3_NUM);
+		$id_file = $row[0];
+		// On l'insère dans la lable images
+		$conn->exec("insert into images (file) values ($id_file)");
+		
 		echo "fin requete\n";
 	}
 	else if($_POST['kind'] == 'text') // cas 2 : on importe du texte
@@ -30,7 +59,14 @@ if(isset($_POST['kind']))
 		$text = base64_encode($_POST['text']);
 		
 		// TODO use prepared queries instead (figure out how SQLite3 handles them)
-		$conn->exec('insert into texts(file, links, nb_words) values(\'' . $text . '\', \'test texte\', 5)'); // !!! NB WORD EN DUR !!!
+		// On insère le fichier dans la table files
+		$conn->exec("insert into files (type, path, url) values($id_type, '$text','test text')");
+		// On récupère l'id
+		$res = $conn->query("select last_insert_rowid()"); // on récupère le dernier id ajouté
+		$row = $res->fetchArray(SQLITE3_NUM);
+		$id_file = $row[0];
+		// On l'insère dans la lable texts
+		$conn->exec("insert into texts (file, nb_words) values ($id_file, 5)");// !!! NB WORD EN DUR !!!
 		echo 'Done';
 	}
 	else // ne devrait jamais arriver !
