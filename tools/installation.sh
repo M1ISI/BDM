@@ -1,15 +1,16 @@
 distrib=`lsb_release -i | cut -f2`
 version=`lsb_release -r | cut -f2`
+architecture=`uname -a | cut -d' ' -f12`
 
-echo "Installation des paquets."
-if [ "$distrib" = "Debian" ] 
+echo 'Installation des paquets.'
+if [ "$distrib" = 'Debian' ] 
 then 
 	echo "deb http://packages.dotdeb.org stable all" >> /etc/apt/sources.list.d/php-fpm.list
 	echo "deb-src http://packages.dotdeb.org stable all" >> /etc/apt/sources.list.d/php-fpm.list
 	sudo apt-get update
 	sudo apt-get install curl
 	sudo curl http://www.dotdeb.org/dotdeb.gpg | sudo apt-key add -
-elif [ "$distrib" = "Ubuntu" ] && [ "$version" -leq 10.04 ]
+elif [ "$distrib" = 'Ubuntu' ] && [ `echo "$version <= 10.04" | bc` -eq 1 ]
 then
 	sudo add-apt-repository ppa:nginx/stable
 	sudo add-apt-repository ppa:l-mierzwa/lucid-php5
