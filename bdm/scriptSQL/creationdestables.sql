@@ -82,7 +82,7 @@ create table IMAGES_KEYWORDS
    PRIORITY             integer                        null,
    constraint PK_TAGS_IMAGES_KEYWORDS primary key (IMAGE, KEYWORD),
    constraint FK_TAGS_IMAGES_KEYWORDS__IMAGES foreign key (IMAGE) references IMAGES (ID_IMAGE),
-   constraint FK_TAGS_IMAGES_KEYWORDS__WORDS foreign key (KEYWORD) references KEYWORDS (ID_KEYWORD)
+   constraint FK_TAGS_IMAGES_KEYWORDS__WORDS foreign key (KEYWORD) references WORDS (ID_WORD)
 );
 
 
