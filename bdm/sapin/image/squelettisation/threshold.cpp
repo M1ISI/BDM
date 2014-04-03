@@ -68,15 +68,15 @@ void savePGM(const std::string& file, IplImage* img)
         {
 			
   			uchar *p;
-			int value=0;
+			unsigned char value;
 			p = cvPtr2D (img, y, x, NULL); // récupération d'un pointeur sur le pixel de coordonnées (x,y)
 			if(*p<128)
 				value = 0;
 			else
 				value = 255;
-            sortie << value << " " << value << " " << value << " ";//Ecriture de tous les pixels
+            sortie << value <<  value <<  value ;//Ecriture de tous les pixels
         }
-        sortie << std::endl;
+      //  sortie << std::endl;
     }
 
     sortie.close();

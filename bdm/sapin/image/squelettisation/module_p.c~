@@ -67,6 +67,6 @@ void  ecrire_entete_ppm(FILE *f_out,  int lig,  int col)
 /* ecrit une entete de fichier ppm ligxcol ncoul */
 {
 char strppm[80];
-sprintf (strppm,"P6\n%d %d\n%s\n", lig, col, strnbcoulppm);
+sprintf (strppm,"%s%s%d %d\n%s\n",strprogppm, strcreatorppm, lig, col, strnbcoulppm);
 fwrite(strppm,sizeof(char),strlen(strppm), f_out);
 }
