@@ -2,7 +2,7 @@
 
 $conn = new SQLite3('test.db');
 
-$res = $conn->query('select * from IMAGE');
+$res = $conn->query('select id_file from files where id_file in (select file from images)');
 
 while($row = $res->fetchArray(SQLITE3_NUM))
 {

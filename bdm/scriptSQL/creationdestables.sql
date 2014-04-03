@@ -3,12 +3,11 @@
 /*==============================================================*/
 create table COLORS 
 (
-   ID_COLOR             integer                        not null,
+   ID_COLOR             integer		PRIMARY KEY   AUTOINCREMENT,
    R                    integer                        not null,
    G                    integer                        not null,
    B                    integer                        not null,
-   PERCENT              float                          not null,
-   constraint PK_COLORS primary key (ID_COLOR)
+   PERCENT              float                          not null
 );
 
 /*==============================================================*/
@@ -16,63 +15,74 @@ create table COLORS
 /*==============================================================*/
 create table HAVE_COLOR 
 (
-   ID_COLOR             integer                        not null,
-   ID_IMAGE             integer                        not null,
-   constraint PK_HAVE_COLOR primary key (ID_COLOR, ID_IMAGE),
-   constraint FK_HAVE_COLOR__COLORS foreign key (ID_COLOR)
+   COLOR             integer                        not null,
+   IMAGE             integer                        not null,
+   constraint PK_HAVE_COLOR primary key (COLOR, IMAGE),
+   constraint FK_HAVE_COLOR__COLORS foreign key (COLOR)
       references COLORS (ID_COLOR),
-   constraint FK_HAVE_COLOR__IMAGE foreign key (ID_IMAGE)
+   constraint FK_HAVE_COLOR__IMAGES foreign key (IMAGE)
       references IMAGE (ID_IMAGE)
 );
 
 
 /*==============================================================*/
-/* Table : IMAGE                                                */
+/* Table : WORDS                                                */
 /*==============================================================*/
-create table IMAGE 
+create table WORDS 
 (
-   ID_IMAGE             integer     PRIMARY KEY   AUTOINCREMENT,
-   IMAGE                long varchar                   not null,
-   LINKS                long varchar                   null,
+   ID_WORD              integer     PRIMARY KEY   AUTOINCREMENT,
+   WORD                 long varchar                   not null
+);
+
+
+/*==============================================================*/
+/* Table : TYPES                                                */
+/*==============================================================*/
+create table TYPES 
+(
+   ID_TYPE              integer     PRIMARY KEY   AUTOINCREMENT,
    TYPE                 long varchar                   not null
 );
 
 
+
 /*==============================================================*/
-/* Table : KEYWORDS                                             */
+/* Table : FILES                                                */
 /*==============================================================*/
-create table KEYWORDS 
+create table FILES 
 (
-   ID_KEYWORD           integer                        not null,
-   KEYWORD              long varchar                   null,
-   constraint PK_KEYWORDS primary key (ID_KEYWORD)
+   ID_FILE              integer     PRIMARY KEY   AUTOINCREMENT,
+   PATH					long varchar					UNIQUE,
+   URL					long varchar					UNIQUE,
+   TYPE                 integer                   	   null,
+   check(PATH is not null or URL is not null),
+   constraint FK_FILES__TYPES foreign key (TYPE)
+      references TYPES (ID_TYPE)
 );
 
 
 /*==============================================================*/
-/* Table : TAGS                                                 */
+/* Table : IMAGES                                               */
 /*==============================================================*/
-create table TAGS 
+create table IMAGES 
 (
-   ID_TEXT              integer                        not null,
-   ID_WORD              integer                        not null,
-   COUNT                integer                        null,
-   constraint PK_TAGS primary key (ID_TEXT, ID_WORD),
-   constraint FK_TAGS_TAGS_TEXTS foreign key (ID_TEXT) references TEXTS (ID_TEXT),
-   constraint FK_TAGS_TAGS2_WORDS foreign key (ID_WORD)references WORDS (ID_WORD)
+   ID_IMAGE             integer     PRIMARY KEY   AUTOINCREMENT,
+   FILE					integer							not null,
+   constraint FK_IMAGES__FILES foreign key (FILE)
+      references FILES (ID_FILES)
 );
 
 /*==============================================================*/
-/* Table : TAGS_IMAGE                                           */
+/* Table : IMAGES_KEYWORDS                                           */
 /*==============================================================*/
-create table TAGS_IMAGE 
+create table IMAGES_KEYWORDS
 (
-   ID_IMAGE             integer                        not null,
-   ID_KEYWORD           integer                        not null,
+   IMAGE             integer                        not null,
+   KEYWORD           integer                        not null,
    PRIORITY             integer                        null,
-   constraint PK_TAGS_IMAGE primary key (ID_IMAGE, ID_KEYWORD),
-   constraint FK_TAGS_IMA_TAGS_IMAG_IMAGE foreign key (ID_IMAGE) references IMAGE (ID_IMAGE),
-   constraint FK_TAGS_IMA_TAGS_IMAG_KEYWORDS foreign key (ID_KEYWORD) references KEYWORDS (ID_KEYWORD)
+   constraint PK_TAGS_IMAGES_KEYWORDS primary key (IMAGE, KEYWORD),
+   constraint FK_TAGS_IMAGES_KEYWORDS__IMAGES foreign key (IMAGE) references IMAGES (ID_IMAGE),
+   constraint FK_TAGS_IMAGES_KEYWORDS__WORDS foreign key (KEYWORD) references WORDS (ID_WORD)
 );
 
 
@@ -82,18 +92,22 @@ create table TAGS_IMAGE
 create table TEXTS 
 (
    ID_TEXT              integer     PRIMARY KEY   AUTOINCREMENT,
-   LINKS                long varchar                   null,
-   FILE                 long varchar                   not null,
-   NB_WORDS             integer                        not null
+   FILE                 integer                   	not null,
+   NB_WORDS             integer                        not null,
+   constraint FK_TEXTS__FILES foreign key (FILE)
+      references FILES (ID_FILES)
 );
 
+
 /*==============================================================*/
-/* Table : WORDS                                                */
+/* Table : TEXTS_KEYWORDS                                       */
 /*==============================================================*/
-create table WORDS 
+create table TEXTS_KEYWORDS 
 (
-   ID_WORD              integer                        not null,
-   WORD                 long varchar                   not null,
-   constraint PK_WORDS primary key (ID_WORD)
+   TEXT              integer                        not null,
+   WORD              integer                        not null,
+   COUNT                integer                        null,
+   constraint PK_TEXTS_KEYWORDS primary key (TEXT, WORD),
+   constraint FK_TEXTS_KEYWORDS__TEXTS foreign key (TEXT) references TEXTS (ID_TEXT),
+   constraint FK_TEXTS_KEYWORDS__WORDS foreign key (WORD)references WORDS (ID_WORD)
 );
-
