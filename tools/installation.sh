@@ -44,6 +44,6 @@ sudo service php5-fpm restart
 sudo service fcgiwrap restart
 
 
-echo 'Pour verifier l\'installation, aller sur la page http://localhost'
+echo 'Pour verifier l''installation, aller sur la page http://localhost'
 
 
