@@ -44,8 +44,6 @@ void  lire_entete_ppm(  FILE *f_in,  int *lig,  int *col)
 char strppm[80];
 int ok=0;
 int encore=0;
-fgets ( strprogppm,4, f_in);
-fgets ( strcreatorppm, 80, f_in);
 do {
   fgets ( strppm, 80, f_in);
   ok=sscanf(strppm, "%d %d", col, lig); 
@@ -55,7 +53,7 @@ do {
 if ( ok==2)
 {
    fgets ( strnbcoulppm, 4,  f_in);
-   printf("\nProg: %s Creat: %s\tLig:%d Col:%d\tCoul: %s\n", strprogppm, strcreatorppm, *lig,  *col, strnbcoulppm);
+   printf("\nLig:%d Col:%d\tCoul: %s\n",  *lig,  *col, strnbcoulppm);
 }
 else
    {
@@ -69,6 +67,6 @@ void  ecrire_entete_ppm(FILE *f_out,  int lig,  int col)
 /* ecrit une entete de fichier ppm ligxcol ncoul */
 {
 char strppm[80];
-sprintf (strppm,"%s%s%d %d\n%s\n",strprogppm, strcreatorppm, lig, col, strnbcoulppm);
+sprintf (strppm,"P6\n%d %d\n%s\n", lig, col, strnbcoulppm);
 fwrite(strppm,sizeof(char),strlen(strppm), f_out);
 }
