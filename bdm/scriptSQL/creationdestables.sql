@@ -93,7 +93,7 @@ create table TEXTS
 (
    ID_TEXT              integer     PRIMARY KEY   AUTOINCREMENT,
    FILE                 integer                   	not null,
-   NB_WORDS             integer                        not null,
+   NB_WORDS             integer                     not null,
    constraint FK_TEXTS__FILES foreign key (FILE)
       references FILES (ID_FILES)
 );
@@ -106,8 +106,34 @@ create table TEXTS_KEYWORDS
 (
    TEXT              integer                        not null,
    WORD              integer                        not null,
-   COUNT                integer                        null,
+   COUNT             integer                        null,
    constraint PK_TEXTS_KEYWORDS primary key (TEXT, WORD),
    constraint FK_TEXTS_KEYWORDS__TEXTS foreign key (TEXT) references TEXTS (ID_TEXT),
    constraint FK_TEXTS_KEYWORDS__WORDS foreign key (WORD)references WORDS (ID_WORD)
+);
+
+
+/*==============================================================*/
+/* Table : STYLES                                               */
+/*==============================================================*/
+create table STYLES
+(
+   ID_STYLE              integer     PRIMARY KEY   AUTOINCREMENT,
+   STYLE                 long varchar                   not null
+);
+
+
+/*==============================================================*/
+/* Table : MUSICS                                               */
+/*==============================================================*/
+create table MUSICS
+(
+   ID_MUSIC              integer     PRIMARY KEY   AUTOINCREMENT,
+   FILE                  integer                   not null,
+   TITLE                 long varchar              null,
+   AUTHOR                long varchar              null,
+   YEAR                  integer                   null,
+   STYLE                 integer                   not null,
+   constraint FK_MUSICS_FILES foreign key (FILE) references FILES (ID_FILE),
+   constraint FK_MUSICS_STYLES foreign key (STYLE) references STYLES (ID_STYLE)
 );
