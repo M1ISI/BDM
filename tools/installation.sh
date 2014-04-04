@@ -31,12 +31,11 @@ fi
 
 echo 'Configuration de nginx.'
 sudo mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default_backup
-if [ "$distrib" = 'Debian' ] 
-then 
-	sudo cp ./debian /etc/nginx/sites-available/default
-else 
-	sudo cp ./default /etc/nginx/sites-available/
-fi
+sudo cp ./default /etc/nginx/sites-available/
+
+echo 'Force la redirection fpm par socket.'
+sudo sed -i 's/^listen = [^\n]*$/listen = \/var\/run\/php5-fpm.sock/' /etc/php5/fpm/pool.d/www.conf
+
 
 echo 'Copie des fichiers du site et redémarrage des services.'
 ./reload.sh
