@@ -11,6 +11,8 @@
 	include("envoi_mail.php") 
 ?>
 
+<p>Pour faire un retour aux développeurs vous pouvez créer une issue directement sur <a href="https://github.com/M1ISI/BDM/issues" target=_blank>notre page github</a> ou nous envoyer un message via le formulaire ci-dessous.</p>
+
 <!-- formulaire de contact -->
 <form action="index.php" method="post" enctype="multipart/form-data">
 	<table border="0" valign="top">
