@@ -46,7 +46,7 @@
 <h2>4) Contribuer au développement de Woodle</h2>
 <p> Si vous rencontrez un bug, avez une question, un problème d'utilisation, une suggestion, une remarque ou tout autre chose dont vous souhaitez faire part aux développeurs vous pouvez leur envoyer un message via le formulaire disponible sur la page <a href="index.php">contact</a> ou directement sur <a href="https://github.com/M1ISI/BDM/issues" target=_blank>notre page github</a>. </p>
 
-<h2>5) Mentions légales</h2>
+<h2><a name="mentions_legales"></a>5) Mentions légales</h2>
 <p>The MIT License (MIT)</p>
 
 <p>Copyright (c) 2014 ISI students at the University of Strasbourg</p>
