@@ -6,7 +6,7 @@
 
 <body>
 
-<h1>Bienvenue sur Woodle !</h1>
+<h1>Bienvenue sur Woodle (nom provisoire) !</h1>
 <p> Ceci est une page d'aide pour vous aider à mieux prendre en main notre nouveau moteur de recherche. Celui-ci offre plusieurs types de recherche pour fournir à son utilisateur un champs d'action bien plus large qu'un moteur de recherche classique.</p>
 <p> </p>
 
@@ -44,10 +44,30 @@
 <img src="images/help3.jpg" /></p>
 
 <h2>4) Contribuer au développement de Woodle</h2>
-<p> Si vous rencontrez un bug, avez une question, un problème d'utilisation, une suggestion, une remarque ou tout autre chose dont vous souhaitez faire part aux développeurs vous pouvez leur envoyer un message via le formulaire disponible sur la page <a href="index.php">contact</a>. </p>
+<p> Si vous rencontrez un bug, avez une question, un problème d'utilisation, une suggestion, une remarque ou tout autre chose dont vous souhaitez faire part aux développeurs vous pouvez leur envoyer un message via le formulaire disponible sur la page <a href="index.php">contact</a> ou directement sur <a href="https://github.com/M1ISI/BDM/issues" target=_blank>notre page github</a>. </p>
 
-<h2>5) Mentions légales</h2>
-<p> <i>à venir.</i></p>
+<h2><a name="mentions_legales"></a>5) Mentions légales</h2>
+<p>The MIT License (MIT)</p>
+
+<p>Copyright (c) 2014 ISI students at the University of Strasbourg</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</p>
 
 <p><a href="../index.php">Retour à la page d'accueil</a></p>
 
