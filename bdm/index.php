@@ -51,7 +51,7 @@ function click_sapin(afficher)
 
 </script>
 <!-- Liens vers les pages d'aides et de contacts -->
-<p><a href="contact/help.php">Aide</a> <a href="contact/index.php">Nous contacter</a> <a href="contact/help.php#mentions_legales">Mentions LÃ©gales</a></p>
+<p><a href="contact/help.php">Aide</a> <a href="contact/index.php">Nous contacter</a> <a href="contact/help.php#mentions_legales">Mentions Légales</a></p>
 
 <!--<img src="http://imageshack.com/a/img842/1300/nt7j.png" /><br /> -->
 <div id="content" style="text-align:center;">
@@ -141,7 +141,7 @@ $('document').ready(function(){
 		var checkTwitter = $('<input type="checkbox" id="twitter" name="twitter" value="Twitter">Twitter</input>');
 		var checkGoogle = $('<input type="checkbox" id="google" name="google" value="Google+" onclick="">Google+</input>');
 
-		var champ = $('#recherche').val(); // rÃ©cupere la valeur du champ
+		var champ = $('#recherche').val(); // récupere la valeur du champ
 		if(champ == '')
 		{
 			buisson.html('');
@@ -157,7 +157,7 @@ $('document').ready(function(){
 			type: "post",
 			data: {recherche: '' + champ},
 			success: function(data){
-				// data contient le html de la page "buisson.php" apres qu'elle ait reÃ§u les donnÃ©es dans le post
+				// data contient le html de la page "buisson.php" apres qu'elle ait reçu les données dans le post
 				buisson.html(data); // ajoute le HTML au paragraphe
 			}
 		});
@@ -168,7 +168,7 @@ $('document').ready(function(){
 			type: "post",
 			data: {search: '' + champ, Langage: '' + lang},
 			success: function(data){
-				// data contient le html de la page "buisson.php" apres qu'elle ait reÃ§u les donnÃ©es dans le post
+				// data contient le html de la page "buisson.php" apres qu'elle ait reçu les données dans le post
 				pommier.html(data); // ajoute le HTML au paragraphe
 			}
 		});
@@ -182,7 +182,7 @@ $('document').ready(function(){
 			checkGoogle.appendTo('#saule');
 		}
 		
-		// RÃ©cupÃ©ration de la variable $authUrl
+		// Récupération de la variable $authUrl
 		$.ajax({
 			url: "script.php",
 			type: "post",
