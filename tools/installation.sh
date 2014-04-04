@@ -18,14 +18,16 @@ fi
 sudo apt-get update
 sudo apt-get install nginx php5-fpm php5-sqlite php5-curl
 
-echo 'Recuperation des sources et installation de fcgiwrap.'
-./install_fcgiwrap.sh
-sudo cp ./fcgiwrap /etc/init.d/fcgiwrap
-sudo chmod a+x /etc/init.d/fcgiwrap
-
-echo 'Copie des fichiers du site.'
-./reload.sh
-
+if [ "$distrib" = 'Ubuntu' ] && [ `echo "$version <= 10.04" | bc` -eq 1 ]
+then
+	echo 'Recuperation des sources et installation de fcgiwrap.'
+	./install_fcgiwrap.sh
+	sudo cp ./fcgiwrap /etc/init.d/fcgiwrap
+	sudo chmod a+x /etc/init.d/fcgiwrap
+elif 
+	echo 'Installation de fcgiwrap.'
+	sudo apt-get install fcgiwrap
+fi
 
 echo 'Configuration de nginx.'
 sudo mv /etc/nginx/sites-available/default /etc/nginx/sites-available/default_backup
@@ -36,13 +38,8 @@ else
 	sudo cp ./default /etc/nginx/sites-available/
 fi
 
-
-
-echo 'Redémarrage des services.'
-sudo service nginx restart
-sudo service php5-fpm restart
-sudo service fcgiwrap restart
-
+echo 'Copie des fichiers du site et redémarrage des services.'
+./reload.sh
 
 echo 'Pour verifier l''installation, aller sur la page http://localhost'
 

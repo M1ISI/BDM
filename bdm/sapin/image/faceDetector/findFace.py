@@ -23,6 +23,7 @@ class ImgHandler :
         self.containFace = False
         self.nbFaces = 0
         self.faces = ['']
+        self.mode = 0
 
     # test de type
     def testImage(self) :
@@ -42,27 +43,35 @@ class ImgHandler :
         face_model_alt = cv2.CascadeClassifier("haarcascades/haarcascade_frontalface_alt.xml")
         face_model_alt2 = cv2.CascadeClassifier("haarcascades/haarcascade_frontalface_alt2.xml")
         face_model_default = cv2.CascadeClassifier("haarcascades/haarcascade_frontalface_default.xml")
+        face_model_profileface = cv2.CascadeClassifier("haarcascades/haarcascade_profileface.xml")
 
         # détection avec trois fichiers différents pour augmenter l'efficacité
         face_alt = face_model_alt.detectMultiScale(imageModifier)
         face_alt2 = face_model_alt2.detectMultiScale(imageModifier)
         face_default = face_model_default.detectMultiScale(imageModifier)
+        face_profile = face_model_profileface.detectMultiScale(imageModifier)
 
         # test des résultats
         stat_count = 0
-        if len(face_alt) != 0 : stat_count += 1
-        if len(face_alt2) != 0 : stat_count += 1
-        if len(face_default) != 0 : stat_count += 1
+        if len(face_alt) != 0 : 
+            stat_count += 1 
+        if len(face_alt2) != 0 : 
+            stat_count += 1 
+        if len(face_default) != 0 : 
+            stat_count += 1
+        if len(face_profile) != 0 : 
+            stat_count += 1 
+        #print stat_count
 
         # si deux des trois analyses (minimum) détectent un ou plusieurs visage(s), on considère qu'il y a au moins un visage dans l'image
         if stat_count >= 2 :
             self.containFace = True
 
-            # si le premier test renvoie une valeur non nulle, on se base sur celle-ci. Sinon, on récupère les données de la seconde détection
+            # si le premier test renvoie une valeur non nulle, on se base sur celle-ci, sinon récupère les données de la seconde détection. Profileface n'est pas pris en compte pour le moment
             if len(face_alt) != 0 :
                 self.faces = face_alt
             else :
-                self.faces = face_alt2
+				self.faces = face_alt2
 
             self.nbFaces = len(self.faces)
 
@@ -82,14 +91,13 @@ class ImgHandler :
     def drawTagetRectangle(self) :
         if not self.containFace :
             return
-
-        for face in self.faces:
-            cv2.rectangle(self.image, (face[0], face[1]), (face[0] + face[2], face[0] + face[3]), (255, 0, 0), 3)
+        for face in self.faces :
+		    cv2.rectangle(self.image, (face[0],face[1]), (face[0] + face[2],face[1] + face[3]), (255, 0, 0), 3)
 
         # on sauvegarde le résultat final
         cv2.imwrite("s_" + self.imagePath, self.image)
 
-    # crèe une image pour chaque visage présents dans le support (A FINIR)
+    # crèe une image pour chaque visage présents dans le support (A CONTINUER)
     def createImgWithFaces(self) :
         with open(self.imagePath) as index :
             for face in self.faces :
@@ -102,7 +110,8 @@ class ImgHandler :
         os.system("eog " + self.imagePath + " 2> /dev/null")
         if self.containFace :
             os.system("eog " + "s_" + os.path.splitext(self.imagePath)[0] + "." + ('jpg' if self.imageType in 'jpeg' else self.imageType) + " 2> /dev/null")
-haarcascade xml
+
+# haarcascade xml
 # test des arguments
 def testArg() :
     # s'il n'y a pas d'arguments
