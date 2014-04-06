@@ -50,9 +50,6 @@ function click_sapin(afficher)
 }
 
 </script>
-<!-- Liens vers les pages d'aides et de contacts -->
-<p><a href="contact/help.php">Aide</a> <a href="contact/index.php">Nous contacter</a> <a href="contact/help.php#mentions_legales">Mentions Légales</a></p>
-
 <!--<img src="http://imageshack.com/a/img842/1300/nt7j.png" /><br /> -->
 <div id="content" style="text-align:center;">
 <embed src="logotree.svg">
@@ -60,6 +57,7 @@ function click_sapin(afficher)
 </div>
 
 <div id="formulaire">
+<img id="retour" alt="Retour" src="arrow_left.png" title="Effacer le dernier mot" />
 <input type="text" id="recherche" />
 <select id="langue">
 	<option value="fr">Francais</option>
@@ -141,7 +139,7 @@ $('document').ready(function(){
 		var checkTwitter = $('<input type="checkbox" id="twitter" name="twitter" value="Twitter">Twitter</input>');
 		var checkGoogle = $('<input type="checkbox" id="google" name="google" value="Google+" onclick="">Google+</input>');
 
-		var champ = $('#recherche').val(); // récupere la valeur du champ
+		var champ = $('#recherche').val(); // rÃ©cupere la valeur du champ
 		if(champ == '')
 		{
 			buisson.html('');
@@ -157,7 +155,7 @@ $('document').ready(function(){
 			type: "post",
 			data: {recherche: '' + champ},
 			success: function(data){
-				// data contient le html de la page "buisson.php" apres qu'elle ait reçu les données dans le post
+				// data contient le html de la page "buisson.php" apres qu'elle ait reÃ§u les donnÃ©es dans le post
 				buisson.html(data); // ajoute le HTML au paragraphe
 			}
 		});
@@ -168,7 +166,7 @@ $('document').ready(function(){
 			type: "post",
 			data: {search: '' + champ, Langage: '' + lang},
 			success: function(data){
-				// data contient le html de la page "buisson.php" apres qu'elle ait reçu les données dans le post
+				// data contient le html de la page "buisson.php" apres qu'elle ait reÃ§u les donnÃ©es dans le post
 				pommier.html(data); // ajoute le HTML au paragraphe
 			}
 		});
@@ -182,7 +180,7 @@ $('document').ready(function(){
 			checkGoogle.appendTo('#saule');
 		}
 		
-		// Récupération de la variable $authUrl
+		// RÃ©cupÃ©ration de la variable $authUrl
 		$.ajax({
 			url: "script.php",
 			type: "post",
@@ -217,6 +215,18 @@ $('document').ready(function(){
 	$('body').on('click', 'span.res_buisson', function(){
 		var txt = $(this).text();
 		$('#recherche').val($('#recherche').val().trim() + ' ' + txt.trim());
+		$('#recherche').trigger('keyup');
+	});
+	
+	// clic sur le bouton retour
+	$('body').on('click', 'img#retour', function(){
+		var txt = $('#recherche').val();
+		var words = txt.split(new RegExp(' +', 'g')); // are we required to use regexps ?
+		
+		words.pop(); // remove last item from words
+		var txt2 = words.join(' ');
+		
+		$('#recherche').val(txt2);
 		$('#recherche').trigger('keyup');
 	});
 
