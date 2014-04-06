@@ -4,5 +4,7 @@ drop table IMAGES;
 drop table FILES;
 drop table TYPES;
 drop table WORDS;
+drop table MUSICS;
+drop table STYLES;
 drop table HAVE_COLOR;
 drop table COLORS;
