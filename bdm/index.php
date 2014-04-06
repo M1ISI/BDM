@@ -50,6 +50,9 @@ function click_sapin(afficher)
 }
 
 </script>
+<!-- Liens vers les pages d'aides et de contacts -->
+<p><a href="contact/help.php">Aide</a> <a href="contact/index.php">Nous contacter</a> <a href="contact/help.php#mentions_legales">Mentions Légales</a></p>
+
 <!--<img src="http://imageshack.com/a/img842/1300/nt7j.png" /><br /> -->
 <div id="content" style="text-align:center;">
 <embed src="logotree.svg">
@@ -57,7 +60,6 @@ function click_sapin(afficher)
 </div>
 
 <div id="formulaire">
-<img id="retour" alt="Retour" src="arrow_left.png" title="Effacer le dernier mot" />
 <input type="text" id="recherche" />
 <select id="langue">
 	<option value="fr">Francais</option>
