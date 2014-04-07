@@ -9,7 +9,7 @@
 	<p>Entrez le(s) mot(s) à chercher :</p>
 	<input type="text" name="words" /><br/>
 	<p>Entrez le nom du fichier :</p>
-	<input type="text" name="file" /><br/>
+	<input type="file" name="file" /><br/>
 	<p>Choisissez la langue du fichier :</p>
 	<p>
 		<input type="radio" name="lang" value="en" id="en" checked="checked" /> <label for="en">English</label>

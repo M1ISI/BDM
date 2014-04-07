@@ -52,8 +52,8 @@ create table TYPES
 create table FILES 
 (
    ID_FILE              integer     PRIMARY KEY   AUTOINCREMENT,
-   PATH					long varchar					UNIQUE,
-   URL					long varchar					UNIQUE,
+   PATH					long varchar					null,
+   URL					long varchar					null,
    TYPE                 integer                   	   null,
    check(PATH is not null or URL is not null),
    constraint FK_FILES__TYPES foreign key (TYPE)

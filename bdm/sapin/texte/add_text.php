@@ -39,10 +39,10 @@ if(isset($_FILES['text_file'])) {
 		$tmp_path = "/tmp/text_analyse_$name";
 		exec("./cmd/tree-tagger-french $path  > $tmp_path");
 		$table = preg_split("/[\s]+/", file_get_contents($tmp_path));
-		//~ for($i=0; $i<sizeof($table); $i++) {
-			//~ echo $table[$i];
-			//~ echo '<br/>';
-		//~ }
+		for($i=0; $i<sizeof($table); $i++) {
+			 echo $table[$i];
+			 echo '<br/>';
+		}
 		$vector = getVector($table, 'en');
 		//On trie les mots par nombre d'occurences décroissant.
 		usort($vector, 'compareWords');
