@@ -1,5 +1,10 @@
-drop table TAG_IMAGE;
-drop table TAG_TEXTE;
-drop table TAG;
-drop table IMAGE;
-drop table TEXTE;
+drop table TEXTS_KEYWORDS;
+drop table TEXTS;
+drop table IMAGES;
+drop table FILES;
+drop table TYPES;
+drop table WORDS;
+drop table MUSICS;
+drop table STYLES;
+drop table HAVE_COLOR;
+drop table COLORS;

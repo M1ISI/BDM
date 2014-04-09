@@ -1,4 +1,4 @@
-var pronoms = ['le', 'la', 'les', 'the'];
+var pronoms = ['le', 'la', 'les', 'the', 'et', 'ou', 'and'];
 
 /**
 * Test si une chaine est présente dans un tableau
@@ -274,6 +274,8 @@ function getResults(chaine)
 				$.merge(parentheses, leftRight);
 					
 				$.each(parentheses, function(i, v){
+					if(i >= 10)
+						return false;
 					affichage.append('<span class="res_buisson">' + v + '</span><br />');
 				});
 			}

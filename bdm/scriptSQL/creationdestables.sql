@@ -1,80 +1,139 @@
 /*==============================================================*/
-/* Table : IMAGE                                                */
+/* Table : COLORS                                               */
 /*==============================================================*/
-create table IMAGE 
+create table COLORS 
 (
-   ID                   INTEGER     PRIMARY KEY   AUTOINCREMENT,
-   IMAGE                long varchar                   not null,
-   LIEN                 long varchar                   null,
+   ID_COLOR             integer		PRIMARY KEY   AUTOINCREMENT,
+   R                    integer                        not null,
+   G                    integer                        not null,
+   B                    integer                        not null,
+   PERCENT              float                          not null
+);
+
+/*==============================================================*/
+/* Table : HAVE_COLOR                                           */
+/*==============================================================*/
+create table HAVE_COLOR 
+(
+   COLOR             integer                        not null,
+   IMAGE             integer                        not null,
+   constraint PK_HAVE_COLOR primary key (COLOR, IMAGE),
+   constraint FK_HAVE_COLOR__COLORS foreign key (COLOR)
+      references COLORS (ID_COLOR),
+   constraint FK_HAVE_COLOR__IMAGES foreign key (IMAGE)
+      references IMAGE (ID_IMAGE)
+);
+
+
+/*==============================================================*/
+/* Table : WORDS                                                */
+/*==============================================================*/
+create table WORDS 
+(
+   ID_WORD              integer     PRIMARY KEY   AUTOINCREMENT,
+   WORD                 long varchar                   not null
+);
+
+
+/*==============================================================*/
+/* Table : TYPES                                                */
+/*==============================================================*/
+create table TYPES 
+(
+   ID_TYPE              integer     PRIMARY KEY   AUTOINCREMENT,
    TYPE                 long varchar                   not null
 );
 
-/*==============================================================*/
-/* Index : IMAGE_PK                                             */
-/*==============================================================*/
-create unique index IMAGE_PK on IMAGE (
-ID ASC
-);
+
 
 /*==============================================================*/
-/* Table : TAG                                                  */
+/* Table : FILES                                                */
 /*==============================================================*/
-create table TAG 
+create table FILES 
 (
-   LIB                  long varchar                   not null,
-   PRIORITE             integer                        null,
-   constraint PK_TAG primary key (LIB)
+   ID_FILE              integer     PRIMARY KEY   AUTOINCREMENT,
+   PATH					long varchar					null,
+   URL					long varchar					null,
+   TYPE                 integer                   	   null,
+   check(PATH is not null or URL is not null),
+   constraint FK_FILES__TYPES foreign key (TYPE)
+      references TYPES (ID_TYPE)
 );
 
-/*==============================================================*/
-/* Index : TAG_PK                                               */
-/*==============================================================*/
-create unique index TAG_PK on TAG (
-LIB ASC
-);
 
 /*==============================================================*/
-/* Table : TAG_TEXTE                                            */
+/* Table : IMAGES                                               */
 /*==============================================================*/
-create table TAG_TEXTE 
+create table IMAGES 
 (
-   ID                long varchar                   not null,
-   LIB                  long varchar                   not null,
-   constraint PK_TAG_TEXTE primary key (ID, LIB),
-   constraint FK_TAG_TEXT_ASSOCIATI_TEXTE foreign key (ID)
-      references TEXTE (ID),
-   constraint FK_TAG_TEXT_ASSOCIATI_TAG foreign key (LIB)
-      references TAG (LIB)
+   ID_IMAGE             integer     PRIMARY KEY   AUTOINCREMENT,
+   FILE					integer							not null,
+   constraint FK_IMAGES__FILES foreign key (FILE)
+      references FILES (ID_FILES)
 );
 
 /*==============================================================*/
-/* Table : TAG_IMAGE                                            */
+/* Table : IMAGES_KEYWORDS                                           */
 /*==============================================================*/
-create table TAG_IMAGE 
+create table IMAGES_KEYWORDS
 (
-   ID                   integer                        not null,
-   LIB                  long varchar                   not null,
-   constraint PK_TAG_IMAGE primary key (ID, LIB),
-   constraint FK_TAG_IMAG_ASSOCIATI_IMAGE foreign key (ID)
-      references IMAGE (ID),
-   constraint FK_TAG_IMAG_ASSOCIATI_TAG foreign key (LIB)
-      references TAG (LIB)
+   IMAGE             integer                        not null,
+   KEYWORD           integer                        not null,
+   PRIORITY             integer                        null,
+   constraint PK_TAGS_IMAGES_KEYWORDS primary key (IMAGE, KEYWORD),
+   constraint FK_TAGS_IMAGES_KEYWORDS__IMAGES foreign key (IMAGE) references IMAGES (ID_IMAGE),
+   constraint FK_TAGS_IMAGES_KEYWORDS__WORDS foreign key (KEYWORD) references WORDS (ID_WORD)
 );
 
+
 /*==============================================================*/
-/* Table : TEXTE                                                */
+/* Table : TEXTS                                                */
 /*==============================================================*/
-create table TEXTE 
+create table TEXTS 
 (
-   ID                   INTEGER     PRIMARY KEY   AUTOINCREMENT,
-   TEXTE                long varchar                   not null,
-   LIEN                 long varchar                   null
+   ID_TEXT              integer     PRIMARY KEY   AUTOINCREMENT,
+   FILE                 integer                   	not null,
+   NB_WORDS             integer                     not null,
+   constraint FK_TEXTS__FILES foreign key (FILE)
+      references FILES (ID_FILES)
 );
 
+
 /*==============================================================*/
-/* Index : TEXTE_PK                                             */
+/* Table : TEXTS_KEYWORDS                                       */
 /*==============================================================*/
-create unique index TEXTE_PK on TEXTE (
-ID ASC
+create table TEXTS_KEYWORDS 
+(
+   TEXT              integer                        not null,
+   WORD              integer                        not null,
+   COUNT             integer                        null,
+   constraint PK_TEXTS_KEYWORDS primary key (TEXT, WORD),
+   constraint FK_TEXTS_KEYWORDS__TEXTS foreign key (TEXT) references TEXTS (ID_TEXT),
+   constraint FK_TEXTS_KEYWORDS__WORDS foreign key (WORD)references WORDS (ID_WORD)
 );
 
+
+/*==============================================================*/
+/* Table : STYLES                                               */
+/*==============================================================*/
+create table STYLES
+(
+   ID_STYLE              integer     PRIMARY KEY   AUTOINCREMENT,
+   STYLE                 long varchar                   not null
+);
+
+
+/*==============================================================*/
+/* Table : MUSICS                                               */
+/*==============================================================*/
+create table MUSICS
+(
+   ID_MUSIC              integer     PRIMARY KEY   AUTOINCREMENT,
+   FILE                  integer                   not null,
+   TITLE                 long varchar              null,
+   AUTHOR                long varchar              null,
+   YEAR                  integer                   null,
+   STYLE                 integer                   not null,
+   constraint FK_MUSICS_FILES foreign key (FILE) references FILES (ID_FILE),
+   constraint FK_MUSICS_STYLES foreign key (STYLE) references STYLES (ID_STYLE)
+);
