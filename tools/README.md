@@ -9,12 +9,12 @@ Afin d'installer rapidement le serveur web il suffit de lancer le script **insta
 qui va télécharger les paquets nécessaires, les installer et faire une copie du site dans le dossier **/var/www/bdm**.
 
 Lors de l'installation sont aussi utilisés les fichiers suivants:
-- default : la configuration Nginx du site
-- fcgiwrap : script Perl de lancement du démon fcgiwrap au démarrage
-- install_fcgiwrap.sh : installation de l'exécutable fcgiwrap à partir des sources
-- reload.sh : mise-à-jour des fichiers du site et relancement des services du serveur web
-- reload_files.sh : mise-à-jour des fichiers du site uniquement
-- reload_web_server.sh : relancement des services du serveur web uniquement
+- **default** : la configuration Nginx du site
+- **fcgiwrap** : script Perl de lancement du démon fcgiwrap au démarrage
+- **install_fcgiwrap.sh** : installation de l'exécutable fcgiwrap à partir des sources
+- **reload.sh** : mise-à-jour des fichiers du site et relancement des services du serveur web
+- **reload_files.sh** : mise-à-jour des fichiers du site uniquement
+- **reload_web_server.sh** : relancement des services du serveur web uniquement
 
 ##Actualisation du serveur de développement
 
