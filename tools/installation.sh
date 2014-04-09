@@ -1,3 +1,7 @@
+#!/bin/sh
+
+#Ce script installe les paquets nécessaires au déploiement d'un serveur web Nginx + SQLite3 + PHP.
+
 distrib=`lsb_release -i | cut -f2`
 version=`lsb_release -r | cut -f2`
 architecture=`uname -a | cut -d' ' -f12`
