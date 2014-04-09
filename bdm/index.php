@@ -55,8 +55,9 @@ function click_sapin(afficher)
 
 <!--<img src="http://imageshack.com/a/img842/1300/nt7j.png" /><br /> -->
 <div id="content" style="text-align:center;">
-<embed src="logotree.svg">
-</object>
+	<object type="image/svg+xml" data="logotree.svg">
+		Votre navigateur ne permet pas d'afficher le SVG.
+	</object>
 </div>
 
 <div id="formulaire">
