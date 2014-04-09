@@ -2,8 +2,8 @@
 
 ##Avant-propos
 
-Ce dépôt recueille l'ensemble des fichiers sources utilisés dans le projet nommé *ISI Search*.
-Ce projet est réalisé dans le cadre de la matière BDM (Banque de données multimédia) de la première année du Master Informatique mention ISI (Informatique et Sciences de l'Image) de l'Université de Strasbourg.
+Ce dépôt recueille l'ensemble des fichiers sources utilisés dans le projet nommé **ISI Search**.
+Ce projet est réalisé dans le cadre de la matière BDM (Banque de données multimédia) de la première année du [Master Informatique spécialité ISI](https://master-informatique.unistra.fr/#isi) (Informatique et Sciences de l'Image) de l'[Université de Strasbourg](https://www.unistra.fr/).
 Précisons aussi que l'ensemble de la classe de la promo 2013/2014 participe au développement.
 
 ##Buts du projet
