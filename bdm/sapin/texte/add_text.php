@@ -17,6 +17,8 @@
 
 
 <?php
+include_once('pdf2txt.php');
+
 //~ echo var_dump($_POST['text_file']);
 //~ echo var_dump($_FILES['text_file']);
 if(isset($_FILES['text_file'])) {
@@ -40,12 +42,35 @@ if(isset($_FILES['text_file'])) {
 		
 		//On analyse le texte avec le programme d'analyse PERL et on récupère le vecteur de mots.
 		$tmp_path = "/tmp/text_analyse_$name";
+		
+		switch($_FILES['text_file']['type'])
+		{
+			case "application/pdf": // pdf
+				$pdf = new PDF2Text();
+				$pdf->setFilename($path);
+				$pdf->decodePDF();
+				//file_put_contents('tmp.txt', $pdf->output());
+				file_put_contents('tmp.txt', $pdf->output()); // on le stocke dans un txt temporaire
+				$path = 'tmp.txt';                   // le nouveau path est celui du temporaire
+				$text = file_get_contents($path);    // le contenu du text est stocké ici
+			break;
+			case "application/vnd.oasis.opendocument.text":			//odt
+				$text = extracttext($path);          // on extrait le texte du fichier 
+				file_put_contents('tmp.txt', $text); // on le stocke dans un txt temporaire
+				$path = 'tmp.txt';                   // le nouveau path est celui du temporaire
+				$text = file_get_contents($path);    // le contenu du text est stocké ici
+				break;
+			default :	// txt en general
+				$text = file_get_contents($path);
+		}
 
 		// On regarde si l'utilisateur à donner un fichier en français ou en anglais
 		if($_POST['lang'] == "fr")
 			exec("./cmd/tree-tagger-french $path > $tmp_path");
 		else
 			exec("./cmd/tree-tagger-english $path  > $tmp_path");
+			
+			
 		$table = preg_split("/[\s]+/", file_get_contents($tmp_path));
 		$word_total = 0;
 		/*for($i=0; $i<sizeof($table); $i++) {
@@ -68,31 +93,25 @@ if(isset($_FILES['text_file'])) {
 		$db = new SQLite3('test.db');
 
 		//On insère le type s'il n'existe pas
-		$exist = false;
-		$request = $db->query("select type from types");
-		while($row = $request->fetchArray(SQLITE3_NUM) && !$exist)
+		$request = $db->query("SELECT id_type FROM types WHERE type='".$vector[$i][0]."'");
+		$row = $request->fetchArray(SQLITE3_NUM);
+		// S'il n'existe pas on le crée et on récupère son identifiant
+		if( $row['count'] == 0)
 		{
-			if($row[0] == $_FILES['text_file']['type'])
-				$exist = true;
-		}
-		if(!$exist)
-		{
-			$conn->exec("insert into types (type) values ('".$_FILES['text_file']['type']."')"); // on insère le type
-			$request = $conn->query("select last_insert_rowid()"); // on récupère le dernier id ajouté
+			$db->exec("insert into types (type) values ('".$_FILES['text_file']['type']."')"); // on insère le type
+			$request = $db->query("select last_insert_rowid()"); // on récupère le dernier id ajouté
 			$row = $request->fetchArray(SQLITE3_NUM);
 			$id_type = $row[0];
 		}
 		else
 		{
-			$request = $conn->query("select id_type from types where type = '".$_FILES['text_file']['type']."'");
-			$row = $request->fetchArray(SQLITE3_NUM);
 			$id_type = $row[0];
 		}
 		
 		// On insere le fichier en premier
 		$request = $db->prepare('INSERT INTO files (type, path, url) VALUES(:type, :path, :url)');
 		$request->bindValue(':type', $id_type);
-		$request->bindValue(':path', base64_encode(file_get_contents($path)));
+		$request->bindValue(':path', base64_encode(file_get_contents($_FILES['text_file']['name'])));
 		$request->bindValue(':url', "");
 		$request->execute();
 
@@ -101,7 +120,8 @@ if(isset($_FILES['text_file'])) {
 		$id_file = $row[0];
 
 		// On insere le texte ensuite (on lui associe le fichier et le nombre de mots)
-		$request = $db->prepare('INSERT INTO texts (file, nb_words) VALUES(:file, :nb_words)');
+		$request = $db->prepare('INSERT INTO texts (name, file, nb_words) VALUES(:name, :file, :nb_words)');
+		$request->bindValue(':name', $name);
 		$request->bindValue(':file', $id_file);
 		$request->bindValue(':nb_words', sizeof($word_count));
 		$request->execute();
@@ -132,8 +152,8 @@ if(isset($_FILES['text_file'])) {
 			{
 				$id_word = $row[0];
 			}
-			$request = $db->prepare('INSERT INTO texts_keywords (id_text, id_word, count) VALUES(:text, :word, :count)');
-			$request->binValue(':text', $id_text);
+			$request = $db->prepare('INSERT INTO texts_keywords (text, word, count) VALUES (:text, :word, :count)');
+			$request->bindValue(':text', $id_text);
 			$request->bindValue(':word', $id_word);
 			$request->bindValue(':count', $vector[$i][1]);
 			$request->execute();
@@ -156,12 +176,12 @@ if(isset($_FILES['text_file'])) {
 		//~ $request->bind();
 		//~ $result = $request->execute();
 		
-		echo var_dump($vector);
+		//echo var_dump($vector);
 		$max_key_words_nb = 10;
 		//~ $request = $db->prepare('INSERT ...');
 		echo '<br/>';
 		for($i=0; $i<$max_key_words_nb && $i<sizeof($vector); $i++) {
-			echo htmlspecialchars($vector[$i][0]) . '(' . $vector[$i][1] . ')<br/>';
+			//echo htmlspecialchars($vector[$i][0]) . '(' . $vector[$i][1] . ')<br/>';
 			//~ $request->bind();
 			//~ $result = $request->execute();
 		}

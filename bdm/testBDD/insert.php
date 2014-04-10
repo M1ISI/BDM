@@ -65,9 +65,8 @@ if(isset($_POST['kind']))
 	{
 		// user text should ne include ASCII control characters, but...
 		// never trust user input => use Base64
-		switch($_FILES['text']['type']){
-			
-		
+		switch($_FILES['text']['type'])
+		{
 			case 'application/pdf':
 				$pdf = new PDF2Text();
 				$pdf->setFilename($_FILES['text']['tmp_name']);
