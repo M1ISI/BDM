@@ -8,6 +8,7 @@ pip install sphinx pyparsing==1.5.7 sphinxcontrib-doxylink docutils
 pip install pyyaml
 
 # clone du dépot
+cd
 git clone https://github.com/MTG/essentia.git
 cd essentia/
 
