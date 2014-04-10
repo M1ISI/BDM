@@ -9,13 +9,14 @@ facebook_connection();
 twitter_connection();
 ?>
 
-<html>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 <head>
-<link rel="stylesheet" href="style.css" />
-<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="style.css" />
+<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
 </head>
 <body>
-<script>
+<script type="text/javascript">
 
 function click_pommier(afficher)
 {
@@ -51,7 +52,7 @@ function click_sapin(afficher)
 
 </script>
 <!-- Liens vers les pages d'aides et de contacts -->
-<p><a href="contact/help.php">Aide</a> <a href="contact/index.php">Nous contacter</a> <a href="contact/help.php#mentions_legales">Mentions Légales</a></p>
+<p><a href="contact/help.php">Aide</a> <a href="contact/index.php">Nous contacter</a> <a href="contact/help.php#mentions_legales">Mentions LÃ©gales</a></p>
 
 <!--<img src="http://imageshack.com/a/img842/1300/nt7j.png" /><br /> -->
 <div id="content" style="text-align:center;">
@@ -84,10 +85,10 @@ function click_sapin(afficher)
 </div>
 
 </body>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="https://www.google.com/jsapi"type="text/javascript"></script>
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<script src="buisson/buisson.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"type="text/javascript"></script>
+<script type="text/javascript" src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script type="text/javascript" src="buisson/buisson.js"></script>
 <script>
 $(function() {
 $( document ).tooltip();
@@ -143,7 +144,7 @@ $('document').ready(function(){
 		var checkTwitter = $('<input type="checkbox" id="twitter" name="twitter" value="Twitter">Twitter</input>');
 		var checkGoogle = $('<input type="checkbox" id="google" name="google" value="Google+" onclick="">Google+</input>');
 
-		var champ = $('#recherche').val(); // récupere la valeur du champ
+		var champ = $('#recherche').val(); // rÃ©cupere la valeur du champ
 		if(champ == '')
 		{
 			buisson.html('');
@@ -159,7 +160,7 @@ $('document').ready(function(){
 			type: "post",
 			data: {recherche: '' + champ},
 			success: function(data){
-				// data contient le html de la page "buisson.php" apres qu'elle ait reçu les données dans le post
+				// data contient le html de la page "buisson.php" apres qu'elle ait reÃ§u les donnÃ©es dans le post
 				buisson.html(data); // ajoute le HTML au paragraphe
 			}
 		});
@@ -170,7 +171,7 @@ $('document').ready(function(){
 			type: "post",
 			data: {search: '' + champ, Langage: '' + lang},
 			success: function(data){
-				// data contient le html de la page "buisson.php" apres qu'elle ait reçu les données dans le post
+				// data contient le html de la page "buisson.php" apres qu'elle ait reÃ§u les donnÃ©es dans le post
 				pommier.html(data); // ajoute le HTML au paragraphe
 			}
 		});
@@ -184,7 +185,7 @@ $('document').ready(function(){
 			checkGoogle.appendTo('#saule');
 		}
 		
-		// Récupération de la variable $authUrl
+		// RÃ©cupÃ©ration de la variable $authUrl
 		$.ajax({
 			url: "script.php",
 			type: "post",
