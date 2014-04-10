@@ -1,2 +1,2 @@
 Pour tester le programme : 
-./nom_executable fichier.mp3
+./nom_executable directory
