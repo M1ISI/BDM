@@ -103,9 +103,8 @@ class ImgHandler :
 	
 	# exporte chaque visage dans un fichier à part
 	# à combiner avec les scripts dans le dossier comparaison
-	# et surtout : À TESTER !
-	def exportTargetsToBmp(self):
-		if not self.containFace:
+    def exportTargetsToBmp(self):
+		if not self.containFace :
 			return
 		i = 0
 		for face in self.faces:
@@ -114,16 +113,8 @@ class ImgHandler :
 			img_crop = self.image[face[1]:face[1]+face[3], face[0]:face[0]+face[2]]
 			
 			# important : doit être sauvé en BMP pour pouvoir cannyfier
-			cv2.imwrite("f"+i+"_"+self.imagePath+".bmp", img_crop)
+			cv2.imwrite("f"+str(i)+"_"+os.path.splitext(self.imagePath)[0]+".bmp", img_crop)
 			i = i + 1
-	
-    # crèe une image pour chaque visage présents dans le support (A CONTINUER)
-    def createImgWithFaces(self) :
-        with open(self.imagePath) as index :
-            for face in self.faces :
-                img = Image.new(index.type, (face[2], face[3]))
-                #crop image
-                img.save("f_" + os.path.splitext(self.imagePath)[0] + "." + self.imageType, self.imageType)
 
     # affiche l'image originale et l'image avec le cadre si des visages sont détectés : /!\ il ne faut pas que self.imgType = None
     def showImg(self) :
