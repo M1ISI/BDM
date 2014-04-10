@@ -26,21 +26,31 @@ int isDir(struct dirent* ent)
         return 0;
 }
 
-int main()
+int main(int argc,char ** argv)
 {
+	char * dir = NULL;
+	if (argc>1)
+	{	
+		strcpy(dir,argv[1]);
+	}
+	else
+	{
+		printf("./main Name of directory \n");
+		return EXIT_FAILURE;
+	}
 	DIR* directory = NULL;
  	struct dirent* file = NULL; // Déclaration d'un pointeur vers la structure dirent
-   	directory = opendir("Shogun"); // Ouverture d'un dossier (mettre le répertoire contenant les musiques)
+   	directory = opendir(dir); // Ouverture d'un dossier (mettre le répertoire contenant les musiques)
 
-    	if (directory == NULL) // Si le dossier n'a pas pu être ouvert
+	if (directory == NULL) // Si le dossier n'a pas pu être ouvert
 	{
         	perror("Couldn't open repository");
 		return EXIT_FAILURE; // Mauvais chemin par exemple
 	}
         
-	printf("Opened with success");
+	printf("Opened with success \n");
 
-	while ((file = readdir(rep)) != NULL)
+	while ((file = readdir(directory)) != NULL)
 	{
 		if (strcmp(strndup(file->d_name + strlen(file->d_name) - 4, 4), ".mp3") == 0 && strcmp(file->d_name, ".") != 0 				&& strcmp(file->d_name, "..") != 0) // On ne gere que les fichiers .mp3 
 		{
@@ -99,13 +109,13 @@ int main()
 		}
 	}
 
-    	if (closedir(rep) == -1) // S'il y a eu un souci avec la fermeture/
+    	if (closedir(directory) == -1) // S'il y a eu un souci avec la fermeture/
 	{
         	perror("Couldn't close repository");
 		return EXIT_FAILURE; // Mauvais chemin par exemple
 	}
 
-    	puts("Closed with success");
+    	puts("Closed with success \n");
 
 	return EXIT_SUCCESS;
 }
