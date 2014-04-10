@@ -115,6 +115,7 @@ class ImgHandler :
 			
 			# important : doit être sauvé en BMP pour pouvoir cannyfier
 			cv2.imwrite("f"+i+"_"+self.imagePath+".bmp", img_crop)
+			i = i + 1
 	
     # crèe une image pour chaque visage présents dans le support (A CONTINUER)
     def createImgWithFaces(self) :
