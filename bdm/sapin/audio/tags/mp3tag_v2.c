@@ -28,16 +28,17 @@ int isDir(struct dirent* ent)
 
 int main(int argc,char ** argv)
 {
-	char * dir = NULL;
-	if (argc>1)
+	char* dir = NULL;
+	if (argc != 2)
 	{	
-		strcpy(dir,argv[1]);
-	}
-	else
-	{
 		printf("./main Name of directory \n");
 		return EXIT_FAILURE;
 	}
+	else
+	{
+		strcpy(dir, argv[1]);
+	}
+
 	DIR* directory = NULL;
  	struct dirent* file = NULL; // Déclaration d'un pointeur vers la structure dirent
    	directory = opendir(dir); // Ouverture d'un dossier (mettre le répertoire contenant les musiques)
@@ -56,7 +57,7 @@ int main(int argc,char ** argv)
 		{
 			printf("Name of the file: '%s'\n", file->d_name);
 			char str[128];
-			strcpy(str, "Shogun/");
+			strcpy(str, strcat(dir, "/"));
 			FILE *fp = fopen(strcat(str, file->d_name), "rb");
 			if (!fp)
 			{
