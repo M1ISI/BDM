@@ -198,7 +198,7 @@ $('document').ready(function(){
 		});
 		
 		$.ajax({
-			url: "fritmayo.zor-en.com/BDM/bdm/saule/index2.php",
+			url: "fritmayo.zor-en.com/BDM/bdm/index.php",
 			type: "get",
 			data: {mainField: '' + champ},
 			success: function(data){
