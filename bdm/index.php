@@ -12,11 +12,13 @@ twitter_connection();
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 <head>
-<link rel="stylesheet" type="text/css" href="style.css" />
-<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+	<meta charset="utf-8"> 
+	<title>ISI Search</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
 </head>
 <body>
-<script type="text/javascript">
+<script>
 
 function click_pommier(afficher)
 {
@@ -84,11 +86,10 @@ function click_sapin(afficher)
 	<div id="saule"></div>
 </div>
 
-</body>
-<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script type="text/javascript" src="https://www.google.com/jsapi"type="text/javascript"></script>
-<script type="text/javascript" src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<script type="text/javascript" src="buisson/buisson.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://www.google.com/jsapi"></script>
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="buisson/buisson.js"></script>
 <script>
 $(function() {
 $( document ).tooltip();
@@ -237,8 +238,7 @@ $('document').ready(function(){
 
 });
 </script>
-</html>
-<script language="Javascript" type="text/javascript">
+<script>
 //<![CDATA[
 google.load('search', '1');
 
@@ -284,4 +284,7 @@ google.setOnLoadCallback(OnLoad);
 
 //]]>
 </script>
+
+</body>
+</html>
 
