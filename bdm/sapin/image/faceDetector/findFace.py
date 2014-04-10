@@ -92,11 +92,30 @@ class ImgHandler :
         if not self.containFace :
             return
         for face in self.faces :
+			# 0 : x
+			# 1 : y
+			# 2 : width
+			# 3 : height
 		    cv2.rectangle(self.image, (face[0],face[1]), (face[0] + face[2],face[1] + face[3]), (255, 0, 0), 3)
 
         # on sauvegarde le résultat final
         cv2.imwrite("s_" + self.imagePath, self.image)
-
+	
+	# exporte chaque visage dans un fichier à part
+	# à combiner avec les scripts dans le dossier comparaison
+	# et surtout : À TESTER !
+	def exportTargetsToBmp(self):
+		if not self.containFace:
+			return
+		i = 0
+		for face in self.faces:
+			# http://stackoverflow.com/questions/15589517/how-to-crop-an-image-in-opencv-using-python
+			#img[y: y + h, x: x + w]
+			img_crop = self.image[face[1]:face[1]+face[3], face[0]:face[0]+face[2]]
+			
+			# important : doit être sauvé en BMP pour pouvoir cannyfier
+			cv2.imwrite("f"+i+"_"+self.imagePath+".bmp", img_crop)
+	
     # crèe une image pour chaque visage présents dans le support (A CONTINUER)
     def createImgWithFaces(self) :
         with open(self.imagePath) as index :
@@ -134,7 +153,8 @@ if __name__ == "__main__" :
 
         imgObj.detect_faces()
         imgObj.printObj()
-        imgObj.drawTagetRectangle()
+        #imgObj.drawTagetRectangle()
+        imgObj.exportTargetsToBmp()
         #imgObj.showImg()
 
 
