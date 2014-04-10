@@ -26,19 +26,8 @@ int isDir(struct dirent* ent)
         return 0;
 }
 
-int main(int argc,char ** argv)
+void dirExplorer(char* dir)
 {
-	char * dir =(char *)malloc(1024*sizeof(char));
-	if (argc != 2)
-	{	
-		printf("./main Name of directory \n");
-		return EXIT_FAILURE;
-	}
-	else
-	{
-		strcpy(dir, argv[1]);
-	}
-
 	DIR* directory = NULL;
  	struct dirent* file = NULL; // Déclaration d'un pointeur vers la structure dirent
    	directory = opendir(dir); // Ouverture d'un dossier (mettre le répertoire contenant les musiques)
@@ -46,23 +35,32 @@ int main(int argc,char ** argv)
 	if (directory == NULL) // Si le dossier n'a pas pu être ouvert
 	{
         	perror("Couldn't open repository");
-		return EXIT_FAILURE; // Mauvais chemin par exemple
+		exit(-1); // Mauvais chemin par exemple
 	}
         
 	printf("Opened with success \n");
 
 	while ((file = readdir(directory)) != NULL)
 	{
+		if (isDir(file)) // Si l'on a 
+		{
+			printf("%s est un repertoire\n", file->d_name);
+			char * subdir =(char *)malloc(1024*sizeof(char));
+			strcpy(subdir, strcat(dir, "/"));
+			dirExplorer(strcat(subdir, file->d_name));
+			free(subdir);
+		}
+
 		if (strcmp(strndup(file->d_name + strlen(file->d_name) - 4, 4), ".mp3") == 0 && strcmp(file->d_name, ".") != 0 				&& strcmp(file->d_name, "..") != 0) // On ne gere que les fichiers .mp3 
 		{
-			printf("Name of the file: '%s'\n", file->d_name);
-			char str[128];
+			printf("\nName of the file: '%s'\n", file->d_name);
+			char * str =(char *)malloc(1024*sizeof(char));
 			strcpy(str, strcat(dir, "/"));
 			FILE *fp = fopen(strcat(str, file->d_name), "rb");
 			if (!fp)
 			{
 				perror("File open failed");
-				return EXIT_FAILURE;
+				exit(-1);
 			}
 
 			mp3Tag tag;
@@ -71,14 +69,14 @@ int main(int argc,char ** argv)
 			if (fseek(fp, -1 * sizeof(mp3Tag), SEEK_END) == -1)
 			{
 				perror("fseek failed");
-				return EXIT_FAILURE;
+				exit(-1);
 			}
 
 			// On lit les tags
 			if (fread(&tag, sizeof(mp3Tag), 1, fp) != 1)
 			{
 				fprintf(stderr, "Failed reading tag\n");
-				return EXIT_FAILURE;
+				exit(-1);
 			}
 
 			// On vérifie que l'entête est bien "TAG"
@@ -105,18 +103,37 @@ int main(int argc,char ** argv)
 			else
 			{
 				fprintf(stderr, "Failed to find TAG\n");
-				return EXIT_FAILURE;
+				exit(-1);
 			}
+		
+			free(str);
 		}
 	}
 
     	if (closedir(directory) == -1) // S'il y a eu un souci avec la fermeture/
 	{
         	perror("Couldn't close repository");
-		return EXIT_FAILURE; // Mauvais chemin par exemple
+		exit(-1); // Mauvais chemin par exemple
 	}
 
-    	puts("Closed with success \n");
+    	printf("Closed with success \n");
+}
 
+int main(int argc,char ** argv)
+{
+	char * dir =(char *)malloc(1024*sizeof(char));
+
+	if (argc != 2)
+	{	
+		printf("./main Name of directory \n");
+		return EXIT_FAILURE;
+	}
+	else
+	{
+		strcpy(dir, argv[1]);
+	}
+
+	dirExplorer(dir);
+	free(dir);
 	return EXIT_SUCCESS;
 }
