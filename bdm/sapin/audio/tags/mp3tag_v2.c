@@ -28,7 +28,7 @@ int isDir(struct dirent* ent)
 
 int main(int argc,char ** argv)
 {
-	char* dir = NULL;
+	char * dir =(char *)malloc(1024*sizeof(char));
 	if (argc != 2)
 	{	
 		printf("./main Name of directory \n");

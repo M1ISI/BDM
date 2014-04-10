@@ -7,7 +7,7 @@ main : mp3tag_v2.o
 mp3tag_v2.o : mp3tag_v2.c
 
 geany :
-	geany *.c *.cpp *h Makefile &
+	geany *.c Makefile &
 	
 clean :
 	rm *.o main
