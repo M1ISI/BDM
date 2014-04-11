@@ -92,7 +92,8 @@ create table IMAGES_KEYWORDS
 create table TEXTS 
 (
    ID_TEXT              integer     PRIMARY KEY   AUTOINCREMENT,
-   FILE                 integer                   	not null,
+   NAME                 long varchar               not null,
+   FILE                 integer                   	 not null,
    NB_WORDS             integer                     not null,
    constraint FK_TEXTS__FILES foreign key (FILE)
       references FILES (ID_FILES)

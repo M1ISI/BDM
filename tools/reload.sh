@@ -1,9 +1,6 @@
-# Ce script remplace les fichiers du serveur web local par les fichiers du depot et relance les services du serveur web.
+#!/bin/sh
 
-sudo mkdir /var/www
-sudo cp -rf ../bdm/ /var/www/
-sudo chown -R www-data:www-data /var/www
+# Ce script remplace les fichiers du serveur web local par les fichiers du dépot et relance les services du serveur web.
 
-sudo service nginx restart
-sudo service php5-fpm restart
-sudo service fcgiwrap restart
+./reload_files.sh
+./reload_web_server.sh
