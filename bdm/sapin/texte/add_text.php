@@ -52,16 +52,16 @@ if(isset($_FILES['text_file'])) {
 				//file_put_contents('tmp.txt', $pdf->output());
 				file_put_contents('tmp.txt', $pdf->output()); // on le stocke dans un txt temporaire
 				$path = 'tmp.txt';                   // le nouveau path est celui du temporaire
-				$text = file_get_contents($path);    // le contenu du text est stocké ici
+				$text = file_get_contents($path);    // le contenu du txt est stocké ici
 			break;
 			case "application/vnd.oasis.opendocument.text":			//odt
 				$text = extracttext($path);          // on extrait le texte du fichier 
 				file_put_contents('tmp.txt', $text); // on le stocke dans un txt temporaire
 				$path = 'tmp.txt';                   // le nouveau path est celui du temporaire
-				$text = file_get_contents($path);    // le contenu du text est stocké ici
+				$text = file_get_contents($path);    // le contenu du txt est stocké ici
 				break;
 			default :	// txt en general
-				$text = file_get_contents($path);
+				$text = file_get_contents($path);    // le contenu du txt est stocké ici
 		}
 
 		// On regarde si l'utilisateur à donner un fichier en français ou en anglais
