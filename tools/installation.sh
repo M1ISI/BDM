@@ -29,7 +29,7 @@ then
 	sh "$tools_path"/install_fcgiwrap.sh
 	sudo cp "$tools_path"/fcgiwrap /etc/init.d/fcgiwrap
 	sudo chmod a+x /etc/init.d/fcgiwrap
-elif 
+else
 	echo 'Installation de fcgiwrap.'
 	sudo apt-get install fcgiwrap
 fi
