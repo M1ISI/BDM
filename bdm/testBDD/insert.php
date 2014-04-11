@@ -1,5 +1,6 @@
 <?php
 include_once('pdf2txt.php');
+include_once('odtdocx2txt.php');
 $conn = new SQLite3('test.db');
 $id_type = 0;
 /*
@@ -65,17 +66,17 @@ if(isset($_POST['kind']))
 	{
 		// user text should ne include ASCII control characters, but...
 		// never trust user input => use Base64
-		switch($_FILES['text']['type']){
-			
-		
-			case 'application/pdf':
+		switch($_FILES['text']['type'])
+		{
+			case 'application/pdf' :
 				$pdf = new PDF2Text();
 				$pdf->setFilename($_FILES['text']['tmp_name']);
 				$pdf->decodePDF();
 				$text = base64_encode($pdf->output()); 
 			break;
-			case 'application/vnd.oasis.opendocument.text':			//odt
-				$text = file_get_contents($_FILES['text']['tmp_name']);
+			case 'application/vnd.oasis.opendocument.text' || 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' :			//odt or docx
+				$text = base64_encode(extracttext($_FILES['text']['tmp_name']));
+				echo extracttext($_FILES['text']['tmp_name']);
 				break;
 			default :
 				$text = base64_encode($_POST['text']);
