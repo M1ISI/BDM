@@ -200,7 +200,7 @@ $('document').ready(function(){
 		});
 		
 		$.ajax({
-			url: "fritmayo.zor-en.com/BDM/bdm/index.php",
+			url: "http://fritmayo.zor-en.com/BDM/bdm/index.php", // TODO put this in a separate file?
 			type: "get",
 			data: {mainField: '' + champ},
 			success: function(data){
