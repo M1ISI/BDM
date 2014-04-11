@@ -68,14 +68,15 @@ if(isset($_POST['kind']))
 		// never trust user input => use Base64
 		switch($_FILES['text']['type'])
 		{
-			case 'application/pdf':
+			case 'application/pdf' :
 				$pdf = new PDF2Text();
 				$pdf->setFilename($_FILES['text']['tmp_name']);
 				$pdf->decodePDF();
 				$text = base64_encode($pdf->output()); 
 			break;
-			case 'application/vnd.oasis.opendocument.text':			//odt
+			case 'application/vnd.oasis.opendocument.text' || 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' :			//odt or docx
 				$text = base64_encode(extracttext($_FILES['text']['tmp_name']));
+				echo extracttext($_FILES['text']['tmp_name']);
 				break;
 			default :
 				$text = base64_encode($_POST['text']);
