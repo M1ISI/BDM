@@ -1,5 +1,6 @@
 <?php
 include_once('pdf2txt.php');
+include_once('odtdocx2txt.php');
 $conn = new SQLite3('test.db');
 $id_type = 0;
 /*
@@ -74,7 +75,7 @@ if(isset($_POST['kind']))
 				$text = base64_encode($pdf->output()); 
 			break;
 			case 'application/vnd.oasis.opendocument.text':			//odt
-				$text = file_get_contents($_FILES['text']['tmp_name']);
+				$text = base64_encode(extracttext($_FILES['text']['tmp_name']));
 				break;
 			default :
 				$text = base64_encode($_POST['text']);
