@@ -6,7 +6,7 @@
 
 <body>
 
-<h1>Bienvenue sur Woodle (nom provisoire) !</h1>
+<h1>Bienvenue sur ISI Search !</h1>
 <p> Ceci est une page d'aide pour vous aider à mieux prendre en main notre nouveau moteur de recherche. Celui-ci offre plusieurs types de recherche pour fournir à son utilisateur un champs d'action bien plus large qu'un moteur de recherche classique.</p>
 <p> </p>
 
@@ -17,7 +17,7 @@
 
 
 <h2>2) Les différents types de recherche </h2>
-<p> Woodle propose 4 types d'approche différentes pour effectuer une recherche, chacune représentée par un type d'arbre différent. </p>
+<p> ISI Search propose 4 types d'approche différentes pour effectuer une recherche, chacune représentée par un type d'arbre différent. </p>
 
 <h3>a) Le pommier ou la recherche classique </h3>
 <p> La recherche classique correspond à la colonne de résultats rose. Celle-ci comporte deux parties : <br/>
@@ -43,10 +43,13 @@
 <p> Par défaut le moteur renvoie des résultats pour tous les types de recherches. Cliquer sur les arbres vous permet d'activer/désactiver l'affichage d'un type de recherche, l'arbre se grisant lorsque la recherche est innactive.<br/>
 <img src="images/help3.jpg" /></p>
 
-<h2>4) Contribuer au développement de Woodle</h2>
+<h2>4) Contribuer au développement de ISI Search</h2>
 <p> Si vous rencontrez un bug, avez une question, un problème d'utilisation, une suggestion, une remarque ou tout autre chose dont vous souhaitez faire part aux développeurs vous pouvez leur envoyer un message via le formulaire disponible sur la page <a href="index.php">contact</a> ou directement sur <a href="https://github.com/M1ISI/BDM/issues" target=_blank>notre page github</a>. </p>
 
 <h2><a name="mentions_legales"></a>5) Mentions légales</h2>
+
+<h3>a) Licence</h3>
+
 <p>The MIT License (MIT)</p>
 
 <p>Copyright (c) 2014 ISI students at the University of Strasbourg</p>
@@ -68,6 +71,49 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.</p>
+
+<h3>b) Outils utilisés</h3>
+
+<p>Partie "Pommier" :<br/>
+<ul>
+	<li><a href="https://developers.google.com/" title="Google API" target=_blank>Google API</a></li>
+	<li><a href="http://www.bing.com/" title="Bing" target=_blank>Bing</a></li>
+	<li><a href="http://www.baidu.com/" title="Baidu" target=_blank>Baidu</a></li>
+</ul></p>
+
+<p>Partie "Buisson" :<br/>
+<ul>
+	<li><a href="http://duckduckgo.com/" title="duckduckgo" target=_blank>Duckduckgo</a></li>
+</ul></p>
+
+<p>Partie "Saule" :<br/>
+<ul>
+	<li><a href="https://dev.twitter.com/" title="Twitter API" target=_blank>Twitter API</a></li> 
+	<li><a href="https://github.com/ricardoper/TwitterOAuth" title="TwitterOAuth" target=_blank>TwitterOAuth</a></li>
+	<li><a href="https://developers.facebook.com/" title="Facebook API" target=_blank>Facebook API</a></li>
+	<li><a href="https://developers.google.com/" title="Google API" target=_blank>Google API</a></li>
+</ul></p>
+
+<p>Partie "Sapin" :<br/>
+<ul>
+	<li>Analyse textuelle :<br/>
+	<ul>
+		<li><a href="http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/" title="Treetagger" target=_blank>Treetagger</a></li>
+		<li><a href="https://code.google.com/p/lucene-silverstripe-plugin/source/browse/trunk/thirdparty/class.pdf2text.php?r=19" title="pdf2txt" target=_blank>Pdf2txt</a></li>
+	</ul>
+	</li>
+	<li>Analyse d'image :<br/>
+	<ul>
+		<li><a href="http://opencv.org/" title="Opencv" target=_blank>Opencv</a></li>
+		<li><a href="http://qdbmp.sourceforge.net/" title="QDBMP" target=_blank>QDBMP</a></li>
+	</ul>
+	</li>
+	<li>Analyse musicale : <br/>
+	<ul>
+		<li><a href="http://essentia.upf.edu/" title="Essentia" target=_blank>Essentia</a></li>
+	</ul>
+	</li>
+</ul></p>
 
 <p><a href="../index.php">Retour à la page d'accueil</a></p>
 

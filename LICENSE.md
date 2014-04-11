@@ -1,4 +1,4 @@
-License text
+#License text
 
 The MIT License (MIT)
 
@@ -23,7 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
-Tools used
+#Tools used
 
 "Pommier" part :
 - Google API ( http://developers.google.com/ )
