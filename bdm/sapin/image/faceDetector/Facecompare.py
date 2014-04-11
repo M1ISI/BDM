@@ -1,13 +1,19 @@
-
+#!/usr/bin/python
+import sys
 import cv2
 import numpy as np
 
-from matplotlib import pyplot as plt
-#apt-get install pyhthon-matplotlib
+from matplotlib import pyplot as plt # apt-get install pyhthon-matplotlib
 
-img_source = cv2.imread('Lenna.png',0)
+img_source_name = 'images/Lenna.png'
+img_template_name = 'images/Lenna_crop.png'
+if len(sys.argv) > 2 : # au moins deux arguments
+	img_source_name = sys.argv[1]
+	img_template_name = sys.argv[2]
+
+img_source = cv2.imread(img_source_name ,0)
 imgcopy = img_source.copy()
-img_template = cv2.imread('Lenna_crop.png',0)
+img_template = cv2.imread(img_template_name,0)
 
 w,h = img_template.shape[::-1]
 
