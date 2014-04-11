@@ -113,7 +113,7 @@ class ImgHandler :
 			img_crop = self.image[face[1]:face[1]+face[3], face[0]:face[0]+face[2]]
 			
 			# important : doit être sauvé en BMP pour pouvoir cannyfier
-			cv2.imwrite("f"+str(i)+"_"+os.path.splitext(self.imagePath)[0]+".bmp", img_crop)
+			cv2.imwrite("tmp/f"+str(i)+"_"+os.path.splitext(os.path.split(self.imagePath)[1])[0]+".bmp", img_crop)
 			i = i + 1
 
     # affiche l'image originale et l'image avec le cadre si des visages sont détectés : /!\ il ne faut pas que self.imgType = None
