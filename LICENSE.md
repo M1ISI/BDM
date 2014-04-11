@@ -26,25 +26,30 @@ SOFTWARE.
 #Tools used
 
 "Pommier" part :
-- Google API ( http://developers.google.com/ )
-- Bing ( http://www.bing.com/ )
-- Baidu ( http://www.baidu.com/ )
+- [Google API](http://developers.google.com/)
+- [Bing](http://www.bing.com/)
+- [Baidu](http://www.baidu.com/)
 
 "Buisson" part :
-- duckduckgo ( http://duckduckgo.com/ )
+- [duckduckgo](http://duckduckgo.com/)
 
 "Saule" part :
-- Twitter API ( http://dev.twitter.com/ )
-- TwitterOAuth ( http://github.com/ricardoper/TwitterOAuth )
-- Facebook API ( http://developers.facebook.com/ )
-- Google API ( http://developers.google.com/ )
+- [Twitter API](http://dev.twitter.com/)
+- [TwitterOAuth](http://github.com/ricardoper/TwitterOAuth)
+- [Facebook API](http://developers.facebook.com/)
+- [Google API](http://developers.google.com/)
 
 "Sapin" part :
 - Text analysis :
-	- Treetagger ( http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/ ) 
-	- pdf2txt ( http://code.google.com/p/lucene-silverstripe-plugin/source/browse/trunk/thirdparty/class.pdf2text.php?r=19 )
+	- [Treetagger](http://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/) 
+	- [pdf2txt](http://code.google.com/p/lucene-silverstripe-plugin/source/browse/trunk/thirdparty/class.pdf2text.php?r=19)
 - Image analysis
-	- Opencv ( http://opencv.org/ )
-	- QDBMP ( http://qdbmp.sourceforge.net/ )
+	- [Opencv](http://opencv.org/)
+	- [QDBMP](http://qdbmp.sourceforge.net/)
 - Music analysis
-	- Essentia ( http://essentia.upf.edu/ )
+	- [Essentia](http://essentia.upf.edu/)
+
+#Image credits
+
+- "Back arrow" from [Fatcow Icon Set](http://www.fatcow.com/free-icons)
+- Forest logo original design by Guillaume Peiffert
