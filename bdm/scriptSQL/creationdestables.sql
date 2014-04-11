@@ -6,8 +6,8 @@ create table COLORS
    ID_COLOR             integer		PRIMARY KEY   AUTOINCREMENT,
    R                    integer                        not null,
    G                    integer                        not null,
-   B                    integer                        not null,
-   PERCENT              float                          not null
+   B                    integer                        not null
+
 );
 
 /*==============================================================*/
@@ -17,6 +17,7 @@ create table HAVE_COLOR
 (
    COLOR             integer                        not null,
    IMAGE             integer                        not null,
+   PERCENT           float                          not null,
    constraint PK_HAVE_COLOR primary key (COLOR, IMAGE),
    constraint FK_HAVE_COLOR__COLORS foreign key (COLOR)
       references COLORS (ID_COLOR),
