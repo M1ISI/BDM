@@ -48,3 +48,8 @@ Tools used
 	- QDBMP ( http://qdbmp.sourceforge.net/ )
 - Music analysis
 	- Essentia ( http://essentia.upf.edu/ )
+
+Image credits
+
+- "Back arrow" from Fatcow Icon Set ( http://www.fatcow.com/free-icons )
+- Forest logo original design by Guillaume Peiffert
