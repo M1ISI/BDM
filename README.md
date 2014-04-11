@@ -36,4 +36,4 @@ A la racine se trouvent deux dossiers:
 
 ##Licence
 La licence retenue pour le projet est la licence MIT.
-Pour plus d'informations, se reporter au fichier LICENCE.txt à la racine du dépôt.
+Pour plus d'informations, se reporter au fichier LICENSE.txt à la racine du dépôt.
