@@ -50,6 +50,12 @@ if(isset($_POST['kind']))
 		// Temporary file name stored on the server
 		$image = base64_encode(file_get_contents($_FILES['image']['tmp_name']));
 
+		$string = base64_decode($row[0]);
+
+		$source = imagecreatefromstring($string);
+
+		$histo = getColors($source,FALSE);
+
 		// TODO use prepared queries instead
 		// On insère le fichier dans la table files
 		$conn->exec("insert into files (type, path, url) values($id_type, '$image','test image')");
@@ -59,6 +65,23 @@ if(isset($_POST['kind']))
 		$id_file = $row[0];
 		// On l'insère dans la lable images
 		$conn->exec("insert into images (file) values ($id_file)");
+
+		foreach($histo as $ind => $col){
+		
+			$res = $conn->exec("SELECT id_color FROM color WHERE r=".$col->red." AND g=".$col->green." AND b=".$col->blue); 
+			$row = $res->fetchArray(SQLITE3_NUM);
+			if($row['count']==0){
+				$id
+				$conn->exec("SELECT last_row");
+
+			}
+			//select last_row
+
+			$conn->exec("INSERT INTO COLOR ");
+
+		}
+
+		$conn->exec("INSERT INTO have_color ");
 		
 		echo "fin requete\n";
 	}
