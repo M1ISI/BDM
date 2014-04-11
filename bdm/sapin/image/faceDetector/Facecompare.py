@@ -5,8 +5,8 @@ import numpy as np
 
 from matplotlib import pyplot as plt # apt-get install pyhthon-matplotlib
 
-img_source_name = 'Lenna.png'
-img_template_name = 'Lenna_crop.png'
+img_source_name = 'images/Lenna.png'
+img_template_name = 'images/Lenna_crop.png'
 if len(sys.argv) > 2 : # au moins deux arguments
 	img_source_name = sys.argv[1]
 	img_template_name = sys.argv[2]

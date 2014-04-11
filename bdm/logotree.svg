@@ -10,7 +10,7 @@
 	var saule_click = false;
 	var buisson_click = false;
 </script>
-<g id="sapin de fond">
+<g id="sapin_de_fond">
 	<path class="feuillage sapin" fill="#85E26C" stroke="#000000" stroke-width="6" stroke-miterlimit="10" d="M226.076,33.54c0,0-49.914,64.885-57.328,76.356
 		c-6.621,10.243,26.483-0.931,26.483-0.931s-27.011,61.395-42.613,72.197c-32.276,22.347,30.198,9.745,30.198,9.745
 		s-37.398,66.797-51.311,76.355c-15.724,10.805,95.913,1.217,95.913,1.217s103.205,11.82,94.745-0.285
@@ -23,7 +23,7 @@
 		c-1.766-2.564-2.669-1.83-4.591-4.447c-1.849-2.52-2.148-7.941-2.727-10.932c-1.732-8.961-1.29-16.205-1.29-25.439l0.036-1.404
 		L226.323,268.57z"/>
 </g>
-<g id="pommier de fond">
+<g id="pommier_de_fond">
 	<g>
 		<path fill="#7E5422" d="M107.774,182.276c0,27.046,2.64,53.608,2.2,80.652c0,12.076-0.917,26.545-3.997,38.618
 			c-1.761,5.796-5.246,10.163-8.766,14.994c-2.641,3.863-11.002,6.761-12.763,10.626l-1.32,0.964
@@ -173,7 +173,7 @@
 		</g>
 	</g>
 </g>
-<g id="saule de fond">
+<g id="saule_de_fond">
 	<g>
 		<path fill="#BE6128" d="M358.825,213.89c4.664,22.506-0.778,39.386-11.662,57.873c-6.221,12.057-9.33,24.113-11.663,37.777
 			c-2.332,14.469,0.503,11.516-4.939,24.376c-0.777,0.804-6.204,3.758-8.277,6.704c19.696,8.039,12.958-14.599,26.176,6.169
@@ -321,7 +321,7 @@
 		</g>
 	</g>
 </g>
-<g id="buisson de fond">
+<g id="buisson_de_fond">
 	<g>
 		<path class="feuillage buisson" fill="#D465B0" d="M256.531,353.066c-6.061-7.322-6.061-0.915-9.523-0.915c-6.059,0-19.043,9.152-25.104,4.576
 			c-5.193,3.661-6.924,0.915-12.117,0.915c-0.867,0-2.598-1.83-3.463-1.83s-6.061,1.83-6.061,1.83c-1.73,0-6.059,1.831-8.656,0.915
@@ -392,8 +392,8 @@
 		<ellipse fill="#3D0A38" stroke="#000000" stroke-width="5" stroke-miterlimit="10" cx="287.96" cy="273.941" rx="6.483" ry="6.825"/>
 	
 		<ellipse fill="#3D0A38" stroke="#000000" stroke-width="5" stroke-miterlimit="10" cx="166.398" cy="307.958" rx="6.484" ry="6.825"/>
-</g>-->
-<g id="sapin de devant"
+</g>
+<g id="sapin_de_devant"
 onmouseover="
 document.getElementById('saule de devant').setAttribute('visibility', 'hidden');
 document.getElementById('buisson de devant').setAttribute('visibility', 'hidden');
@@ -438,7 +438,7 @@ else
 		L226.323,268.57z"/>
 </g>
 <!--<a xlink:href="pommier/Pommier.php" id="pommier" title="Recherche classique">-->
-<g id="pommier de devant"
+<g id="pommier_de_devant"
 onmouseover="
 /*
 document.getElementById('saule de devant').setAttribute('visibility', 'hidden');
@@ -625,7 +625,7 @@ else
 </g>
 <!--</a>
 <a xlink:href="saule/index2.php" id="saule" title="Recherche communautaire">-->
-<g id="saule de devant"
+<g id="saule_de_devant"
 onmouseover="
 /*
 document.getElementById('sapin de devant').setAttribute('visibility', 'hidden');
@@ -810,7 +810,7 @@ else
 </g>
 <!--</a>
 <a xlink:href="buisson/buisson.php" id="buisson" title="Recherche modeste">-->
-<g id="buisson de devant"
+<g id="buisson_de_devant"
 onmouseover="
 /*
 document.getElementById('saule de devant').setAttribute('visibility', 'hidden');
