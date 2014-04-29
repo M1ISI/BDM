@@ -15,6 +15,8 @@ Lors de l'installation sont aussi utilisés les fichiers suivants:
 - **reload.sh** : mise-à-jour des fichiers du site et relancement des services du serveur web
 - **reload_files.sh** : mise-à-jour des fichiers du site uniquement
 - **reload_web_server.sh** : relancement des services du serveur web uniquement
+- **get_images.sh** : script de récupération des images depuis un compte deviantart pour remplir la bdd
+- **urls** : contient les liens des images à télécharger
 
 ##Actualisation du serveur de développement
 
