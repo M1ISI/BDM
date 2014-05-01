@@ -9,14 +9,16 @@ Afin d'installer rapidement le serveur web il suffit de lancer le script **insta
 qui va télécharger les paquets nécessaires, les installer et faire une copie du site dans le dossier **/var/www/bdm**.
 
 Lors de l'installation sont aussi utilisés les fichiers suivants:
-- **default** : la configuration Nginx du site
-- **fcgiwrap** : script Perl de lancement du démon fcgiwrap au démarrage
-- **install_fcgiwrap.sh** : installation de l'exécutable fcgiwrap à partir des sources
-- **reload.sh** : mise-à-jour des fichiers du site et relancement des services du serveur web
-- **reload_files.sh** : mise-à-jour des fichiers du site uniquement
-- **reload_web_server.sh** : relancement des services du serveur web uniquement
-- **get_images.sh** : script de récupération des images depuis un compte deviantart pour remplir la bdd
-- **urls** : contient les liens des images à télécharger
+- [default] : la configuration Nginx du site
+- [fcgiwrap] : script Perl de lancement du démon fcgiwrap au démarrage
+- [install_fcgiwrap.sh] : installation de l'exécutable fcgiwrap à partir des sources
+- [reload.sh] : mise-à-jour des fichiers du site et relancement des services du serveur web
+- [reload_files.sh] : mise-à-jour des fichiers du site uniquement
+- [reload_web_server.sh] : relancement des services du serveur web uniquement
+- [get_images.sh] : script de récupération des images depuis un compte deviantart pour remplir la bdd
+- [urls] : contient les liens des images à télécharger
+- [set_php_show_errors.sh] : modifie la configuration de php-fpm pour afficher les erreurs php
+- [set_php_hide_errors.sh] : modifie la configuration de php-fpm pour ne plus afficher les erreurs php
 
 ##Actualisation du serveur de développement
 
