@@ -31,8 +31,8 @@ Ce que le serveur web nécessite:
 
 ###Le dépôt
 A la racine se trouvent deux dossiers:
-- [tools]: regroupe les outils (comprendre scripts) pour l'installation initiale d'un serveur web local pour le développement, la mise-à-jour du serveur local et de production.
-- [bdm]: contient les pages web et les programmes d'analyse multimédia
+- [tools](tools): regroupe les outils (comprendre scripts) pour l'installation initiale d'un serveur web local pour le développement, la mise-à-jour du serveur local et de production.
+- [bdm](bdm): contient les pages web et les programmes d'analyse multimédia
 
 ##Licence
 La licence retenue pour le projet est la licence MIT.
