@@ -111,7 +111,9 @@ if(isset($_FILES['text_file'])) {
 		// On insere le fichier en premier
 		$request = $db->prepare('INSERT INTO files (type, path, url) VALUES(:type, :path, :url)');
 		$request->bindValue(':type', $id_type);
-		$request->bindValue(':path', base64_encode(file_get_contents($_FILES['text_file']['name'])));
+		$name = $_FILES['text_file']['name'];
+		$path = "/tmp/$name";//obtenir le chemin du fichier qui est déjà dans "uploaded"
+		$request->bindValue(':path',base64_encode(file_get_contents($path)));
 		$request->bindValue(':url', "");
 		$request->execute();
 
