@@ -66,7 +66,7 @@ if(isset($_FILES['text_file'])) {
 
 		// On regarde si l'utilisateur à donner un fichier en français ou en anglais
 		if($_POST['lang'] == "fr")
-			exec("./cmd/tree-tagger-french $path > $tmp_path");
+			exec("./cmd/tree-tagger-french-utf8 $path > $tmp_path");
 		else
 			exec("./cmd/tree-tagger-english $path  > $tmp_path");
 			
