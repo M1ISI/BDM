@@ -15,7 +15,7 @@ Lors de l'installation sont aussi utilisés les fichiers suivants:
 - [reload.sh](reload.sh) : mise-à-jour des fichiers du site et relancement des services du serveur web
 - [reload_files.sh](reload_files.sh) : mise-à-jour des fichiers du site uniquement
 - [reload_web_server.sh](reload_web_server.sh) : relancement des services du serveur web uniquement
-- [get_images.sh](get_images.sh) : script de récupération des images depuis un compte deviantart pour remplir la bdd
+- [get_images.sh](get_images.sh) : script de récupération des images depuis un compte deviantart pour remplir la bdd. Il faut se placer dans le bon dossier pour lancer le script (!! la BDD doit être vide !!)
 - [urls](urls) : contient les liens des images à télécharger
 - [set_php_show_errors.sh](set_php_show_errors.sh) : modifie la configuration de php-fpm pour afficher les erreurs php
 - [set_php_hide_errors.sh](set_php_hide_errors.sh) : modifie la configuration de php-fpm pour ne plus afficher les erreurs php
