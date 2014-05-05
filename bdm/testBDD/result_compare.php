@@ -20,12 +20,28 @@ function hex2rgb($hex)
    return $rgb; // returns an array with the rgb values
 }
 
+function exist($result, $val)
+{
+	$exist = false;
+	
+	foreach($result as $res)
+	{
+		if($res == $val)
+			$exist = true;
+	}
+	
+	return $exist;
+}
+
 $db = new SQLite3('test.db');
 $commonColor = new GetMostCommonColors();
 
 $colors = $commonColor->Get_Color($_FILES['image']['tmp_name']);
 
 echo "<h1>Resultats</h1>";
+
+$i = 0;
+$result = array();
 
 foreach($colors as $color => $percent)
 {	
@@ -49,16 +65,24 @@ foreach($colors as $color => $percent)
 	
 	$query  = "SELECT path FROM files WHERE id_file IN ";
 	$query .= "(SELECT file FROM images WHERE id_image IN ";
-	$query .= "(SELECT image FROM have_color WHERE percent >= ". $percent ." AND color IN ";
+	$query .= "(SELECT image FROM have_color WHERE percent <= ". $percent ." AND color IN ";
 	$query .= "(SELECT id_color FROM colors WHERE r=".$r." AND g=".$g." AND b=".$b.")))";
 	
 	$res = $db->query($query);
 	
 	while ($row = $res->fetchArray(SQLITE3_NUM))
 	{
-		echo "<img src='http://localhost/testBDD/". $row[0] ."' />";
+		if(!exist($result, $row[0]))
+		{
+			array_push($result,$row[0]);
+		}
+		//echo "<img src='http://localhost/testBDD/". $row[0] ."' />";
 	}
-	
+}
+
+foreach($result as $res)
+{
+	echo "<img src='http://localhost/testBDD/". $res ."' />";
 }
 
 ?>
