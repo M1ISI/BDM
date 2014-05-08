@@ -113,7 +113,7 @@ if(isset($_FILES['text_file'])) {
 		$request->bindValue(':type', $id_type);
 		$name = $_FILES['text_file']['name'];
 		$path = "/tmp/$name";//obtenir le chemin du fichier qui est déjà dans "uploaded"
-		$request->bindValue(':path',base64_encode(file_get_contents($path)));
+		$request->bindValue(':path',$path);
 		$request->bindValue(':url', "");
 		$request->execute();
 
