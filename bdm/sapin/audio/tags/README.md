@@ -13,12 +13,15 @@ Il va parcourir toute l'arborescence récursivement, et retourner sur la sortie 
 
 ### Sortie
 
-Pour le moment le programme affiche sur la sortie standard les informations des morceaux. Il sera aisément possible de modifier le programme afin d'écrire un fichier structuré pour une importation simple dans la base de données.
+Pour le moment le programme affiche sur la sortie standard les informations des morceaux. Il existe une version affichant les TAGs extraits (mp3tag_v2), et une seconde les insérant dans la base de données (mp3tag_addDb).
 
 
 ## Compilation
 Utiliser le Makefile fourni :
 	$# make
+
+Pour compiler le programme gérant l'insertion dans la base de données :
+    $# make mp3tag_addDb
 
 Pour nettoyer le répertoire : 
 	$# make clean
