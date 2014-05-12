@@ -16,6 +16,7 @@
 		//Remplacement des espaces par des "+"
 
 		$search = str_replace(" ","+",$search );
+		$search = substr($search, 0, 1024);			// pour éviter les erreurs dues à une chaîne trop longue
 
 		if($search!= "")
 		{

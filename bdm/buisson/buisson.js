@@ -257,7 +257,7 @@ function getResults(chaine)
 		type: 'GET',
 		url: 'https://duckduckgo.com/',
 		data: {q: chaine, format: 'json'},
-		jsonpCallback: 'jsonp',
+		/*jsonpCallback: 'jsonpResults',*/
 		dataType: 'jsonp',
 		success: function(data){	
 			if(data.RelatedTopics.length > 0)
@@ -301,7 +301,13 @@ function getResults(chaine)
 			}
 		},
 		error: function(xhr, status, error){
-			$('p').append("erreur...");
+			// decommenter si vous avez des problemes lors de la requete
+			//alert("xhr="+xhr+" status="+status+" error="+error);
 		}
 	});
 }
+
+/*function jsonpResults(arg1)
+{
+	// none
+}*/

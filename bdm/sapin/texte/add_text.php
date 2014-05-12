@@ -52,21 +52,21 @@ if(isset($_FILES['text_file'])) {
 				//file_put_contents('tmp.txt', $pdf->output());
 				file_put_contents('tmp.txt', $pdf->output()); // on le stocke dans un txt temporaire
 				$path = 'tmp.txt';                   // le nouveau path est celui du temporaire
-				$text = file_get_contents($path);    // le contenu du text est stocké ici
+				$text = file_get_contents($path);    // le contenu du txt est stocké ici
 			break;
 			case "application/vnd.oasis.opendocument.text":			//odt
 				$text = extracttext($path);          // on extrait le texte du fichier 
 				file_put_contents('tmp.txt', $text); // on le stocke dans un txt temporaire
 				$path = 'tmp.txt';                   // le nouveau path est celui du temporaire
-				$text = file_get_contents($path);    // le contenu du text est stocké ici
+				$text = file_get_contents($path);    // le contenu du txt est stocké ici
 				break;
 			default :	// txt en general
-				$text = file_get_contents($path);
+				$text = file_get_contents($path);    // le contenu du txt est stocké ici
 		}
 
 		// On regarde si l'utilisateur à donner un fichier en français ou en anglais
 		if($_POST['lang'] == "fr")
-			exec("./cmd/tree-tagger-french $path > $tmp_path");
+			exec("./cmd/tree-tagger-french-utf8 $path > $tmp_path");
 		else
 			exec("./cmd/tree-tagger-english $path  > $tmp_path");
 			
@@ -111,7 +111,9 @@ if(isset($_FILES['text_file'])) {
 		// On insere le fichier en premier
 		$request = $db->prepare('INSERT INTO files (type, path, url) VALUES(:type, :path, :url)');
 		$request->bindValue(':type', $id_type);
-		$request->bindValue(':path', base64_encode(file_get_contents($_FILES['text_file']['name'])));
+		$name = $_FILES['text_file']['name'];
+		$path = "/tmp/$name";//obtenir le chemin du fichier qui est déjà dans "uploaded"
+		$request->bindValue(':path',$path);
 		$request->bindValue(':url', "");
 		$request->execute();
 

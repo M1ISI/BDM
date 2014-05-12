@@ -26,14 +26,14 @@ Nous avons mis en place un [serveur de production](http://fritmayo.zor-en.com/BD
 Pour les phases de développement nous utilisons des serveurs web déployés localement.
 
 Ce que le serveur web nécessite:
-- PHP
+- [PHP](http://www.php.net/)
 - SQLite
 
 ###Le dépôt
 A la racine se trouvent deux dossiers:
-- tools: regroupe les outils (comprendre scripts) pour l'installation initiale d'un serveur web local pour le développement, la mise-à-jour du serveur local et de production.
-- bdm: contient les pages web et les programmes d'analyse multimédia
+- [tools](tools): regroupe les outils (comprendre scripts) pour l'installation initiale d'un serveur web local pour le développement, la mise-à-jour du serveur local et de production.
+- [bdm](bdm): contient les pages web et les programmes d'analyse multimédia
 
 ##Licence
 La licence retenue pour le projet est la licence MIT.
-Pour plus d'informations, se reporter au fichier LICENSE.txt à la racine du dépôt.
+Pour plus d'informations, se reporter à [LICENSE.md].
