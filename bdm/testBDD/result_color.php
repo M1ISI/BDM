@@ -55,7 +55,7 @@ $res = $db->query($query);
 
 while ($row = $res->fetchArray(SQLITE3_NUM))
 {
-	echo "<img src='http://localhost/testBDD/". $row[0] ."' />";
+	echo "<img src='". $row[0] ."' />";
 }
 
 ?>

@@ -14,6 +14,7 @@
 	<form enctype="multipart/form-data" action="result_compare.php" method="post" name="compare">
 		<input name="image"  type="file" />
 		<input type="hidden" name="kind" value="image" />
+		<input type="checkbox" name="black_and_white" value="1">Inclure le noir et blanc dans la recherche</input>
 		<button type="submit">Rechercher</button>
 	</form>
 	

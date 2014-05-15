@@ -41,7 +41,7 @@ if(isset($_FILES['text_file'])) {
 		
 		
 		//On analyse le texte avec le programme d'analyse PERL et on récupère le vecteur de mots.
-		$tmp_path = "/tmp/text_analyse_$name";
+		$tmp_path = "/tmp/text_analyse_".str_replace(array(" "), array("_"), $name);
 		
 		switch($_FILES['text_file']['type'])
 		{
@@ -66,11 +66,11 @@ if(isset($_FILES['text_file'])) {
 
 		// On regarde si l'utilisateur à donner un fichier en français ou en anglais
 		if($_POST['lang'] == "fr")
-			exec("./cmd/tree-tagger-french-utf8 $path > $tmp_path");
+			exec("./cmd/tree-tagger-french $path > $tmp_path");
 		else
 			exec("./cmd/tree-tagger-english $path  > $tmp_path");
 			
-			
+		echo $tmp_path;
 		$table = preg_split("/[\s]+/", file_get_contents($tmp_path));
 		$word_total = 0;
 		/*for($i=0; $i<sizeof($table); $i++) {
@@ -92,8 +92,8 @@ if(isset($_FILES['text_file'])) {
 		//On crée une entrée pour le texte et ses mots clefs dans la base de données.
 		$db = new SQLite3('test.db');
 
-		//On insère le type s'il n'existe pas
-		$request = $db->query("SELECT id_type FROM types WHERE type='".$vector[$i][0]."'");
+		//On vérifie si le type du fichier existe
+		$request = $db->query("SELECT id_type FROM types WHERE type='".$_FILES['text_file']['type']."'");
 		$row = $request->fetchArray(SQLITE3_NUM);
 		// S'il n'existe pas on le crée et on récupère son identifiant
 		if( $row['count'] == 0)
