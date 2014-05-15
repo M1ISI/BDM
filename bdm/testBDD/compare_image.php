@@ -14,7 +14,12 @@
 	<form enctype="multipart/form-data" action="result_compare.php" method="post" name="compare">
 		<input name="image"  type="file" />
 		<input type="hidden" name="kind" value="image" />
-		<input type="checkbox" name="black_and_white" value="1">Inclure le noir et blanc dans la recherche</input>
+		<select name="color_filter">
+			<option value="none" selected>Couleurs &agrave; filtrer</option>
+			<option value="white"> Blanc </option>
+			<option value="black"> Noir </option>
+			<option value="blackwhite"> Noir et Blanc </option>
+		</select>
 		<button type="submit">Rechercher</button>
 	</form>
 	

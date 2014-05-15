@@ -63,7 +63,15 @@ foreach($colors as $color => $percent)
 		}
 	}
 	
-	if(isset($_POST['black_and_white']) && $_POST['black_and_white'] == "1" && ($r == 0 && $g == 0 && $b == 0) || ($r == 255 && $g == 255 && $b == 255))
+	$if_black = ($r == 0 && $g == 0 && $b == 0);
+	$if_white = ($r == 255 && $g == 255 && $b == 255);
+	
+	if($_POST['color_filter'] == "blackwhite" && $if_black || $if_white)
+	{
+		// do nothing
+	}
+	else if(($_POST['color_filter'] == "black" && $if_black) 
+	|| ($_POST['color_filter'] == "white" && $if_white))
 	{
 		//do nothing
 	}
