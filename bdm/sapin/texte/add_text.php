@@ -12,6 +12,10 @@
 		</select>
 		<input type="submit">
 	</form>
+	
+	<p>
+		<a href="search.php">Revenir à la recherche</a>
+	</p>
 </body>
 </html>
 

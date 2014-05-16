@@ -34,5 +34,10 @@
 		<button type="submit">Rechercher</button>
 	</form>
 	
+	<p>
+		<a href="../sapin/">Revenir au sapin</a> &middot; 
+		<a href="../index.php">Revenir à l'accueil principal</a>
+	</p>
+	
 	</body>
 </html>

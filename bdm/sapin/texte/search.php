@@ -9,6 +9,12 @@
 		<input name="field" />
 		<input type="submit" />
 	</form>
+	
+	<p>
+		<a href="add_text.php">Importer un nouveau fichier</a> &middot; 
+		<a href="../">Revenir au sapin</a> &middot; 
+		<a href="../../index.php">Revenir à l'accueil principal</a>
+	</p>
 </body>
 </html>
 
