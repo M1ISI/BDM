@@ -40,9 +40,15 @@ function click_buisson(afficher)
 function click_saule(afficher)
 {
 	if(afficher)
+	{
 		$('#saule').show();
+		$('#sauleButton').show();
+	}
 	else
+	{
 		$('#saule').hide();
+		$('#sauleButton').hide();
+	}
 }
 
 function click_sapin(afficher)
@@ -108,6 +114,7 @@ function click_sapin(afficher)
 	<div id="saule"></div>
 </div>
 
+<a href="./saule/index2.php"><input type="button" id="sauleButton" name="saule" value = "Accès recherche par réseaux sociaux" /></a>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="https://www.google.com/jsapi"></script>
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
@@ -163,9 +170,9 @@ $('document').ready(function(){
 		var sapin = $('#sapin');
 		var saule = $('#saule');
 
-		var checkFacebook = $('<input type="checkbox" id="facebook" name="facebook" value="Facebook">Facebook</input>');
-		var checkTwitter = $('<input type="checkbox" id="twitter" name="twitter" value="Twitter">Twitter</input>');
-		var checkGoogle = $('<input type="checkbox" id="google" name="google" value="Google+" onclick="">Google+</input>');
+	//	var checkFacebook = $('<input type="checkbox" id="facebook" name="facebook" value="Facebook">Facebook</input>');
+	//	var checkTwitter = $('<input type="checkbox" id="twitter" name="twitter" value="Twitter">Twitter</input>');
+	//	var checkGoogle = $('<input type="checkbox" id="google" name="google" value="Google+" onclick="">Google+</input>');
 
 		var champ = $('#recherche').val(); // récupere la valeur du champ
 		if(champ == '')
@@ -204,13 +211,13 @@ $('document').ready(function(){
 		
 		if(!$('input[name="facebook"]').length)
 		{
-			checkFacebook.appendTo('#saule');
+		/*	checkFacebook.appendTo('#saule');
 			checkTwitter.appendTo('#saule');
-			checkGoogle.appendTo('#saule');
+			checkGoogle.appendTo('#saule');*/
 		}
 		
 		// Récupération de la variable $authUrl
-		$.ajax({
+	/*	$.ajax({
 			url: "script.php",
 			type: "post",
 			data: {},
@@ -221,15 +228,15 @@ $('document').ready(function(){
 				});
 			}
 		});
-		
-		$.ajax({
-			url: "http://fritmayo.zor-en.com/BDM/bdm/index.php", // TODO put this in a separate file?
+	*/	
+	/*	$.ajax({
+			url: "saule/index2.php", // TODO put this in a separate file?
 			type: "get",
 			data: {mainField: '' + champ},
 			success: function(data){
 				saule.html(data); // ajoute le HTML au paragraphe
 			}
-		});
+		});*/
 		
 	});
 
