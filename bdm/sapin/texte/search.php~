@@ -54,12 +54,11 @@ if(isset($_POST['field']))
 			}
 		}
 	}
-	echo '<ul>';
+	
 	foreach($result as $res)
 	{
-		echo "<li><a href='". $res ."'> $res </a></li>";
+		echo "<a href='". $res ."'> $res </a><br>";
 	}
-	echo '</ul>';
 }
 ?>
 </body>

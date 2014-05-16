@@ -98,7 +98,11 @@ function click_sapin(afficher)
 </div>
 
 <div id="resultats">
-	<div id="sapin"></div>
+	<div id="sapin">
+		<div id="music"></div>
+		<div id="texte"></div>
+		<div id="image"></div>
+	</div>
 	<div id="buisson"></div>
 	<div id="pommier">
 		<div id="suggestions">
@@ -202,12 +206,23 @@ $('document').ready(function(){
 		
 		/* Appel sapin */
 		$.ajax({
+			url: "sapin/texte/search.php",
+			type: "post",
+			data: {field: '' + champ},
+			success: function(data){
+				// data contient le html de la page "buisson.php" apres qu'elle ait reçu les données dans le post
+				sapin.children('div#texte').html(data); // ajoute le HTML au paragraphe
+			}
+		});
+
+		/* Appel sapin */
+		$.ajax({
 			url: "testBDD/searchMusic.php",
 			type: "get",
 			data: {recherche: '' + champ},
 			success: function(data){
 				// data contient le html de la page "buisson.php" apres qu'elle ait reçu les données dans le post
-				pommier.html(data); // ajoute le HTML au paragraphe
+				sapin.children('div#music').append(data); // ajoute le HTML au paragraphe
 			}
 		});
 

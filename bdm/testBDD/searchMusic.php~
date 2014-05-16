@@ -21,7 +21,7 @@
         $pdo->query("PRAGMA ENCODING=\"UTF-8\"");
 
         //Requête de recherche préparée ne tenant pas compte de la casse
-        $stmt = $pdo->prepare("SELECT m.TITLE, m.AUTHOR, m.YEAR, s.STYLE, f.URL FROM MUSICS m, STYLES s, FILES f WHERE (s.ID_STYLE = m.STYLE)  AND (m.FILE = f.ID_FILE) AND (m.AUTHOR LIKE :searchValue OR m.TITLE LIKE :searchValue OR m.YEAR LIKE :searchValue_year OR s.STYLE LIKE :searchValue) COLLATE NOCASE");
+        $stmt = $pdo->prepare("SELECT m.TITLE, m.AUTHOR, m.YEAR, s.STYLE, f.URL FROM MUSICS m, STYLES s, FILES f WHERE (s.ID_STYLE = m.STYLE)  AND (m.FILE = f.ID_FILE) AND (m.AUTHOR LIKE :searchValue OR m.TITLE LIKE :searchValue OR m.YEAR LIKE :searchValue_year OR s.STYLE LIKE :searchValue) COLLATE NOCASE GROUP BY m.TITLE, m.AUTHOR");
 
         //Remplissemnt de la requête, puis exécution.
         $stmt->execute(array('searchValue' => '%'.$searchValue.'%', 'searchValue_year' => $searchValue));
@@ -31,15 +31,11 @@
         die();
     }
 
-	echo'<pre>';
-		print_r($result);
-	echo '</pre>';
-
     // Affichage des résultats => pour le debug
 	echo '<ul>';
 	foreach($result as $r)
 	{
-		echo '<li>' . $r['TITLE'] . ' - ' . $r['AUTHOR'] . ' (' . $r['STYLE'] . ')</li>';
+		echo '<li><a href="' . $r['URL'] . '">' . $r['TITLE'] . ' - ' . $r['AUTHOR'] . ' (' . $r['STYLE'] . ')</a></li>';
 	}
 	echo '</ul>';
 ?>
