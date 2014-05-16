@@ -63,26 +63,41 @@ foreach($colors as $color => $percent)
 		}
 	}
 	
-	$query  = "SELECT path FROM files WHERE id_file IN ";
-	$query .= "(SELECT file FROM images WHERE id_image IN ";
-	$query .= "(SELECT image FROM have_color WHERE percent <= ". $percent ." AND color IN ";
-	$query .= "(SELECT id_color FROM colors WHERE r=".$r." AND g=".$g." AND b=".$b.")))";
+	$if_black = ($r == 0 && $g == 0 && $b == 0);
+	$if_white = ($r == 255 && $g == 255 && $b == 255);
 	
-	$res = $db->query($query);
-	
-	while ($row = $res->fetchArray(SQLITE3_NUM))
+	if($_POST['color_filter'] == "blackwhite" && $if_black || $if_white)
 	{
-		if(!exist($result, $row[0]))
+		// do nothing
+	}
+	else if(($_POST['color_filter'] == "black" && $if_black) 
+	|| ($_POST['color_filter'] == "white" && $if_white))
+	{
+		//do nothing
+	}
+	else
+	{
+		$query  = "SELECT path FROM files WHERE id_file IN ";
+		$query .= "(SELECT file FROM images WHERE id_image IN ";
+		$query .= "(SELECT image FROM have_color WHERE percent <= ". $percent ." AND color IN ";
+		$query .= "(SELECT id_color FROM colors WHERE r=".$r." AND g=".$g." AND b=".$b.")))";
+		
+		$res = $db->query($query);
+		
+		while ($row = $res->fetchArray(SQLITE3_NUM))
 		{
-			array_push($result,$row[0]);
+			if(!exist($result, $row[0]))
+			{
+				array_push($result,$row[0]);
+			}
+			//echo "<img src='http://localhost/testBDD/". $row[0] ."' />";
 		}
-		//echo "<img src='http://localhost/testBDD/". $row[0] ."' />";
 	}
 }
 
 foreach($result as $res)
 {
-	echo "<img src='http://localhost/testBDD/". $res ."' />";
+	echo "<img src='". $res ."' />";
 }
 
 ?>
