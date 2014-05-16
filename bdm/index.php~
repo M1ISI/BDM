@@ -207,7 +207,7 @@ $('document').ready(function(){
 			data: {recherche: '' + champ},
 			success: function(data){
 				// data contient le html de la page "buisson.php" apres qu'elle ait reçu les données dans le post
-				sapin.html(data); // ajoute le HTML au paragraphe
+				pommier.html(data); // ajoute le HTML au paragraphe
 			}
 		});
 
