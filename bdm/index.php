@@ -18,7 +18,7 @@ twitter_connection();
 	<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
 </head>
 <body>
-<h1>Tree Fest</h1>
+<h1>ISI Search</h1>
 <script>
 
 function click_pommier(afficher)
@@ -54,8 +54,24 @@ function click_sapin(afficher)
 }
 
 </script>
-<!-- Liens vers les pages d'aides et de contacts -->
-<p><a href="contact/help.php">Aide</a> <a href="contact/index.php">Nous contacter</a> <a href="contact/help.php#mentions_legales">Mentions Légales</a></p>
+<!-- Changement de langue et Liens vers les pages d'aides et de contacts -->
+<p><a href="index.php?lang=fr"><img style='border:none' src='contact/images/fr.png' width=20 height=20></a>
+	<a href="index.php?lang=en"><img style='border:none' src='contact/images/us.png' width=20 height=20></a>
+<?php
+	if(isset($_GET['lang']) && $_GET['lang']=="en")
+	{
+		echo '<a href="contact/help.php?lang=en">Help</a> ' ;
+		echo '<a href="contact/index.php?lang=en">Contact</a> ' ;
+		echo '<a href="contact/help.php?lang=en#mentions_legales">Legal information</a> ';
+	}
+	else
+	{
+		echo '<a href="contact/help.php">Aide</a> ' ;
+		echo '<a href="contact/index.php">Nous contacter</a> ' ;
+		echo '<a href="contact/help.php#mentions_legales">Mentions Légales</a> ';
+	}
+?>
+</p>
 
 <!--<img src="http://imageshack.com/a/img842/1300/nt7j.png" /><br /> -->
 <div id="content" style="text-align:center;">
@@ -69,7 +85,12 @@ function click_sapin(afficher)
 <input type="text" id="recherche" />
 <select id="langue">
 	<option value="fr">Francais</option>
-	<option value="en">English</option>
+	<?php 
+		if(isset($_GET['lang']) && $_GET['lang']=="en")
+			echo '<option value="en" selected>English</option>';
+		else
+			echo '<option value="en">English</option>';
+	?>
 	<option value="es">Espanol</option>
 	<option value="de">Deutsch</option>
 </select>
@@ -180,6 +201,7 @@ $('document').ready(function(){
 		
 		/* Appel saule */
 		// Ajout des checkbox si elles n'existent pas
+		
 		if(!$('input[name="facebook"]').length)
 		{
 			checkFacebook.appendTo('#saule');
