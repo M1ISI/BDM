@@ -54,7 +54,7 @@ if(isset($_POST['field']))
 			}
 		}
 	}
-	echo '<ul>';
+	echo '<p>Texte : </p><ul>';
 	foreach($result as $res)
 	{
 		echo "<li><a href='". $res ."'> $res </a></li>";

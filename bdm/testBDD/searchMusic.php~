@@ -21,7 +21,7 @@
         $pdo->query("PRAGMA ENCODING=\"UTF-8\"");
 
         //Requête de recherche préparée ne tenant pas compte de la casse
-        $stmt = $pdo->prepare("SELECT m.TITLE, m.AUTHOR, m.YEAR, s.STYLE, f.URL FROM MUSICS m, STYLES s, FILES f WHERE (s.ID_STYLE = m.STYLE)  AND (m.FILE = f.ID_FILE) AND (m.AUTHOR LIKE :searchValue OR m.TITLE LIKE :searchValue OR m.YEAR LIKE :searchValue_year OR s.STYLE LIKE :searchValue) COLLATE NOCASE GROUP BY m.TITLE, m.AUTHOR");
+        $stmt = $pdo->prepare("SELECT m.TITLE, m.AUTHOR, m.YEAR, s.STYLE, f.URL FROM MUSICS m, STYLES s, FILES f WHERE (s.ID_STYLE = m.STYLE)  AND (m.FILE = f.ID_FILE) AND (m.AUTHOR LIKE :searchValue OR m.TITLE LIKE :searchValue OR m.YEAR LIKE :searchValue_year OR s.STYLE LIKE :searchValue) COLLATE NOCASE GROUP BY m.TITLE");
 
         //Remplissemnt de la requête, puis exécution.
         $stmt->execute(array('searchValue' => '%'.$searchValue.'%', 'searchValue_year' => $searchValue));

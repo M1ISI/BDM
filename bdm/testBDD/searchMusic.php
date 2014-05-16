@@ -32,7 +32,7 @@
     }
 
     // Affichage des résultats => pour le debug
-	echo '<ul>';
+	echo '<p>Musiques : </p><ul>';
 	foreach($result as $r)
 	{
 		echo '<li><a href="' . $r['URL'] . '">' . $r['TITLE'] . ' - ' . $r['AUTHOR'] . ' (' . $r['STYLE'] . ')</a></li>';
