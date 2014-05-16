@@ -24,9 +24,9 @@
 	
 		// contenu
 		if(isset($_GET['lang']) && $_GET['lang']=="en")
-			echo '<p> To contact the developpers you can create an issue directly on <a href="https://github.com/M1ISI/BDM/issues" target=_blank>our github page</a> </p><p>or</p><p><a href="mailto:luisjomen2a@gmail.com" target=_blank>Send us an e-mail.</a></p>';
+			echo '<p> To contact the developpers you can create an issue directly on <a href="https://github.com/M1ISI/BDM/issues" target=_blank>our github page</a> </p><p>or</p><p><a href="mailto:bdmisi@aius.u-strasbg.fr" target=_blank>Send us an e-mail.</a></p>';
 		else
-			echo '<p>Pour faire un retour aux développeurs vous pouvez créer une issue directement sur <a href="https://github.com/M1ISI/BDM/issues" target=_blank>notre page github</a> </p><p>ou</p><p><a href="mailto:luisjomen2a@gmail.com" target=_blank>envoyez nous un mail directement</a>.</p>';	
+			echo '<p>Pour faire un retour aux développeurs vous pouvez créer une issue directement sur <a href="https://github.com/M1ISI/BDM/issues" target=_blank>notre page github</a> </p><p>ou</p><p><a href="mailto:bdmisi@aius.u-strasbg.fr" target=_blank>envoyez nous un mail directement</a>.</p>';	
 			
 	?>
 	</body>
