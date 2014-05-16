@@ -1,0 +1,7 @@
+Pour le moment, dû à des problèmes d'opencv, le fichier ppm2ptlist n'est pas débuggué. Au point où ça en était,
+on seuillait (voir ../squelettisation/threshold.cpp) deux images en .ppm pour comparer leurs ensembles de points via
+un algorithme d'Hausdorff (hausdorff_distance.cpp). Pour convertir le .ppm en liste de points, utiliser, après
+avoir débuggué, le fichier ppm2ptlist.cpp.
+
+Après la réunion, il parrait qu'on préférerait trouver un squelette par image plutôt qu'une comparaison via Hausdorff...
+Bon courage !

@@ -12,8 +12,7 @@
     }
 
     // A décommenter lorsque ce sera intégré dans la page principale
-    //$searchValue = $_GET['recherche'];
-    $searchValue = "Tr";
+    $searchValue = $_GET['recherche'];
 
     // Exécution de la requête de recherche
     try 
@@ -22,7 +21,7 @@
         $pdo->query("PRAGMA ENCODING=\"UTF-8\"");
 
         //Requête de recherche préparée ne tenant pas compte de la casse
-        $stmt = $pdo->prepare("SELECT m.TITLE, m.AUTHOR, m.YEAR, s.STYLE FROM MUSICS m, STYLES s WHERE (s.ID_STYLE = m.STYLE) AND (m.AUTHOR LIKE :searchValue OR m.TITLE LIKE :searchValue OR m.YEAR LIKE :searchValue_year OR s.STYLE LIKE :searchValue) COLLATE NOCASE");
+        $stmt = $pdo->prepare("SELECT m.TITLE, m.AUTHOR, m.YEAR, s.STYLE, f.URL FROM MUSICS m, STYLES s, FILES f WHERE (s.ID_STYLE = m.STYLE)  AND (m.FILE = f.ID_FILE) AND (m.AUTHOR LIKE :searchValue OR m.TITLE LIKE :searchValue OR m.YEAR LIKE :searchValue_year OR s.STYLE LIKE :searchValue) COLLATE NOCASE");
 
         //Remplissemnt de la requête, puis exécution.
         $stmt->execute(array('searchValue' => '%'.$searchValue.'%', 'searchValue_year' => $searchValue));
@@ -33,7 +32,10 @@
     }
 
     // Affichage des résultats => pour le debug
-    echo "<pre>\n";
-    print_r($result);
-    echo "</pre>\n";
+	echo '<ul>';
+	foreach($result as $r)
+	{
+		echo '<li><a href="' . $r['URL'] . '">' . $r['TITLE'] . ' - ' . $r['AUTHOR'] . ' (' . $r['STYLE'] . ')</a></li>';
+	}
+	echo '</ul>';
 ?>
