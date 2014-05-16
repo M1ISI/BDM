@@ -47,10 +47,11 @@ function click_saule(afficher)
 
 function click_sapin(afficher)
 {
-	if(afficher)
+	/*if(afficher)
 		$('#sapin').show();
 	else
-		$('#sapin').hide();
+		$('#sapin').hide();*/
+	window.location.href = "sapin/index.html";
 }
 
 </script>
