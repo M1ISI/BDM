@@ -395,15 +395,15 @@
 </g>
 <g id="sapin_de_devant"
 onmouseover="
-document.getElementById('saule de devant').setAttribute('visibility', 'hidden');
-document.getElementById('buisson de devant').setAttribute('visibility', 'hidden');
-document.getElementById('pommier de devant').setAttribute('visibility', 'hidden');
+document.getElementById('saule_de_devant').setAttribute('visibility', 'hidden');
+document.getElementById('buisson_de_devant').setAttribute('visibility', 'hidden');
+document.getElementById('pommier_de_devant').setAttribute('visibility', 'hidden');
 "
 onmouseout=
 "
-document.getElementById('saule de devant').setAttribute('visibility', 'visible');
-document.getElementById('buisson de devant').setAttribute('visibility', 'visible');
-document.getElementById('pommier de devant').setAttribute('visibility', 'visible');
+document.getElementById('saule_de_devant').setAttribute('visibility', 'visible');
+document.getElementById('buisson_de_devant').setAttribute('visibility', 'visible');
+document.getElementById('pommier_de_devant').setAttribute('visibility', 'visible');
 "
 onclick=
 "
