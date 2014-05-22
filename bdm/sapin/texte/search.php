@@ -4,6 +4,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
 <body>
+<!--
 	<form action="" method="post">
 		<label for="field" name="lbl_field">Recherche : </label>
 		<input name="field" />
@@ -15,9 +16,7 @@
 		<a href="../">Revenir au sapin</a> &middot; 
 		<a href="../../index.php">Revenir à l'accueil principal</a>
 	</p>
-</body>
-</html>
-
+-->
 <?php
 function exist($result, $val)
 {
@@ -55,10 +54,13 @@ if(isset($_POST['field']))
 			}
 		}
 	}
-	
+	echo '<p>Texte : </p><ul>';
 	foreach($result as $res)
 	{
-		echo "<a href='". $res ."'> $res </a><br>";
+		echo "<li><a href='". $res ."'> $res </a></li>";
 	}
+	echo '</ul>';
 }
 ?>
+</body>
+</html>

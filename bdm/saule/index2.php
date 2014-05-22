@@ -45,6 +45,8 @@
 				} else {
 					echo "<input type=\"button\" class=\"logout\" value=\"Google + Logout\" onclick=\"document.location.href='?logout'\"/>";
 				}
+				
+				echo "<input type=\"button\" value=\"Retour\" onclick=\"document.location.href=' ../index.php '\"/>\n";
 					
 			?>
 	  <!--      <p>
