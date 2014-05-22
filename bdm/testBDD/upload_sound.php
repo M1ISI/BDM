@@ -1,7 +1,7 @@
 <?php
 if($_FILES)
 {
-	$dossier = '/sons';
+	$dossier = 'sons';
 	$fichier = basename($_FILES['avatar']['name']);
 	$taille_maxi = 10000000;
 	$taille = filesize($_FILES['avatar']['tmp_name']);
