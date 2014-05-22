@@ -47,3 +47,4 @@ if($_FILES)
      Fichier : <input type="file" name="avatar">
      <input type="submit" name="envoyer" value="Envoyer le fichier">
 </form>
+<input type='button' value='Fermer' onClick='self.close()' name="button"> 
