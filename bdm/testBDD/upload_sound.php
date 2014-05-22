@@ -3,6 +3,7 @@ if($_FILES)
 {
 	$dossier = 'sons';
 	$fichier = basename($_FILES['avatar']['name']);
+	echo 'name : '.$fichier;
 	$taille_maxi = 10000000;
 	$taille = filesize($_FILES['avatar']['tmp_name']);
 	$extensions = array('.mp3', '.MP3');
