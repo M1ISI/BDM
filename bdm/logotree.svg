@@ -931,7 +931,7 @@ document.getElementById('go').setAttribute('visibility', 'hidden');
 "
 onclick=
 "
-window.open('upload.php','help','width=600, height=200')
+window.open('upload.php','help','width=600, height=500')
 "
 >
 	<g>
