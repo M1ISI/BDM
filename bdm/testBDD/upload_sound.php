@@ -4,7 +4,7 @@ if($_FILES)
 	$dossier = 'sons';
 	$fichier = basename($_FILES['avatar']['name']);
 	echo 'Upload du fichier : '.$fichier;
-	$taille_maxi = 10000000;
+	$taille_maxi = 100000000;
 	$taille = filesize($_FILES['avatar']['tmp_name']);
 	$extensions = array('.mp3', '.MP3');
 	$extension = strrchr($_FILES['avatar']['name'], '.'); 
@@ -43,7 +43,7 @@ if($_FILES)
 ?>
 <div> Upload de morceaux mp3. </div>
 <form method="POST" action="upload_sound.php" enctype="multipart/form-data">
-     <input type="hidden" name="MAX_FILE_SIZE" value="10000000">
+     <input type="hidden" name="MAX_FILE_SIZE" value="100000000">
      Fichier : <input type="file" name="avatar">
      <input type="submit" name="envoyer" value="Envoyer le fichier">
 </form>
