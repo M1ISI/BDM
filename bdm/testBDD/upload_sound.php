@@ -41,7 +41,7 @@ if($_FILES)
 	}
 }
 ?>
-<div> Upload de morceaux mp3 </div>
+<div> Upload de morceaux mp3. </div>
 <form method="POST" action="upload_sound.php" enctype="multipart/form-data">
      <input type="hidden" name="MAX_FILE_SIZE" value="10000000">
      Fichier : <input type="file" name="avatar">
