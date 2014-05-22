@@ -16,6 +16,12 @@ twitter_connection();
 	<title>ISI Search</title>
 	<link rel="stylesheet" type="text/css" href="style.css" />
 	<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+	<link rel="stylesheet" href="css/colorpicker.css" type="text/css" />
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/colorpicker.js"></script>
+	<script type="text/javascript" src="js/eye.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
+	<script type="text/javascript" src="js/layout.js?ver=1.0.2"></script>
 </head>
 <body>
 <h1>ISI Search</h1>
@@ -53,12 +59,40 @@ function click_saule(afficher)
 
 function click_sapin(afficher)
 {
-	/*if(afficher)
+	if(afficher)
+	{
 		$('#sapin').show();
+		$('#customWidget').show();
+	}
 	else
-		$('#sapin').hide();*/
-	window.location.href = "sapin/index.html";
+	{
+		$('#sapin').hide();
+		$('#customWidget').hide();
+	}
+	//window.location.href = "sapin/index.html";
 }
+
+//$('#colorpickerHolder').ColorPicker({flat: true});
+/*$('#colorpickerHolder').ColorPicker({
+	flat: true,
+	color: '#00ff00',
+	onSubmit: function(hsb, hex, rgb) {
+		$('#colorSelector div').css('backgroundColor', '#' + hex);
+		$.ajax({
+			url: "testBDD/result_color_miniature.php",
+			type: "post",
+			data: {colorpickerField1: '' + hex},
+			success: function(data){
+				sapin.children('div#image').html(data); // ajoute le HTML au paragraphe
+			}
+		});
+	}
+});
+var widt = false;
+$('#colorSelector').bind('click', function() {
+	$('#colorpickerHolder').stop().animate({height: widt ? 0 : 173}, 500);
+	widt = !widt;
+});*/
 
 </script>
 <!-- Changement de langue et Liens vers les pages d'aides et de contacts -->
@@ -101,6 +135,12 @@ function click_sapin(afficher)
 	<option value="es">Espanol</option>
 	<option value="de">Deutsch</option>
 </select>
+
+<!--<p id="colorSelector" style="position:absolute;right:50px;"></p>-->
+<div id="customWidget" style="position:absolute;right:500px;">
+	<div id="colorSelector"><div style="background-color: #00ff00"></div></div>
+	<div id="colorpickerHolder">
+	</div>
 </div>
 
 <div id="resultats">
