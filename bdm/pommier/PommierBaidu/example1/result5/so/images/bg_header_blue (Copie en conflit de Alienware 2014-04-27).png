@@ -1,0 +1,20 @@
+m="Bna" component="Win">
+;;4403;0;4403
+</record>
+<record program="Bna" component="blob">
+http://dist.blizzard.com.edgesuite.net/tools-pod/Battle.net/Blob.Battle.net;DD9C30551E84BC00E2F0A8919C62FB4B;8A962862ECC89494F53A6E042259D551;0
+</record>
+</patch>
+19:24:02.9288 Post Request to http://frFR.patch.battle.net:1119/patch:
+<version program="Agnt"><record program="Agnt" component="cdn" version="1" /><record program="Agnt" component="cfg" version="1" /><record program="Agnt" component="Win" version="2816" /><record program="Agnt" component="blob" version="1" /></version>
+19:24:03.3316 Post Response:
+<patch>
+<record program="Agnt" component="cdn">
+dist.blizzard.com.edgesuite.net|llnw.blizzard.com
+</record>
+<record program="Agnt" component="Win">
+;;2816;0;2816
+</record>
+</patch>
+19:24:03.3317 Post Request to http://public-test.patch.battle.net:1119/patch:
+<version program="AgtB"><record program="Agnt" component="cdn" version="1" /><record program="Agnt" component="cfg" version

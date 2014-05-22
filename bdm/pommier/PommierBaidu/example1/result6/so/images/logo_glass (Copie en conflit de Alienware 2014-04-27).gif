@@ -1,0 +1,13 @@
+ - 0
+19:02:49.2849 OnComplete: handle - 0x03b21688, result - 0, running - 1, request - found
+19:24:02.9305 Queue Request for http://frFR.patch.battle.net:1119/patch : handle - 0x03b21688, index - 197, running - 0
+19:24:03.3315 OnComplete: handle - 0x03b21688, result - 0, running - 1, request - found
+19:24:03.3331 Queue Request for http://public-test.patch.battle.net:1119/patch : handle - 0x03b21688, index - 198, running - 0
+19:24:04.1283 OnComplete: handle - 0x03b21688, result - 0, running - 1, request - found
+19:35:52.6879 Queue Request for http://eu.patch.battle.net:1119/patch : handle - 0x03b21688, index - 199, running - 0
+19:35:53.7425 OnComplete: handle - 0x03b21688, result - 0, running - 1, request - found
+19:35:53.7450 Queue Request for http://dist.blizzard.com.edgesuite.net/d3-pod-retail/EU/20813.direct/d3-23119-137D06EF773BC6F7BB015C088AAC8568.mfil : handle - 0x03b21688, index - 200, running - 0
+19:35:55.3505 OnComplete: handle - 0x03b21688, result - 0, running - 1, request - found
+20:02:49.5100 Queue Request for http://eu.patch.battle.net:1119/patch : handle - 0x03b1edf0, index - 201, running - 0
+20:02:50.8150 OnComplete: handle - 0x03b1edf0, result - 0, running - 1, request - found
+20:02:50.8169 Queue Request for 

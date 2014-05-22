@@ -1,0 +1,10 @@
+
+2014.04.26 22:49:59.053133000	>>> Platform::WaitForBasicInitialized 
+2014.04.26 22:49:59.055706300	>>> Platform::WaitForBasicInitialized success.
+2014.04.26 22:49:59.076602300	--- OS memory stats -----
+2014.04.26 22:49:59.079249700	Virtual size: 1004.81 Mb
+2014.04.26 22:49:59.081542700	Total free: 3092.73 Mb
+2014.04.26 22:49:59.083756000	Largest free block: 2046.30 Mb
+2014.04.26 22:49:59.085978000	--- OS memory stats end-----
+2014.04.26 22:49:59.088223000	SendCustom hero:Flore id:9 count:5
+2014.04.26 22:50:04.533353000	>>> Flore BnetParty::CreateGame params={ Flore Private COOP ResumeFromSave act=5 snoQuest=257120 "La sorcière" step=67 handicap=3 } 

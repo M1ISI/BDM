@@ -1,0 +1,3 @@
+ONE) }|HandicapLevel={ int: 3 }|Game.ContentLevel={ none: (NONE) }|version={ string: "2.0.4" }|MonsterLevel={ none: (NONE) }|MatchmakingPartition={ int: 6 }|Game.CurrentAct={ none: (NONE) }|
+2014.04.26 22:47:09.863747700	>>> (no hero selected) RefreshFactories Coop game factory factoryId=9128937561323628967 attributes=ServerPool={ string: "Default" }|Game.CurrentQuest={ none: (NONE) }|Game.Tag={ none: (NONE) }|HandicapLevel={ int: 9 }|Game.ContentLevel={ none: (NONE) }|version={ string: "2.0.4" }|MonsterLevel={ none: (NONE) }|MatchmakingPartition={ int: 7 }|Game.CurrentAct={ none: (NONE) }|
+2014.04.26 22:47:09.865882700	>>> (no hero selected) RefreshFactories Co
