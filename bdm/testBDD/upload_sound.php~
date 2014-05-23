@@ -32,7 +32,8 @@ if($_FILES)
 		 {
 			  echo 'Echec de l\'upload !';
 		 }
-        //exécution du programme C ==> attention aux droits
+		 // !!!!!!!!!!!!!!!!!! ICI CYRIL !!!!!!!!!!!!!!!!!!!!
+		 //echo exec('algo son'); 
         exec("../sapin/audio/tags/mp3tag_addDb.c " . $dossier);
 	}
 	else
