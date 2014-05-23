@@ -1,7 +1,7 @@
 <?php
 if($_FILES)
 {
-	$dossier = 'sons';
+	$dossier = './sons';
 	$fichier = basename($_FILES['avatar']['name']);
 	//echo 'Upload du fichier : '.$fichier;
 	$taille_maxi = 100000000;
@@ -23,7 +23,7 @@ if($_FILES)
 		 //$fichier = strtr($fichier, 
 		//	  '����������������������������������������������������', 
 		//	  'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
-		 //$fichier = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier);
+		 $fichier = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier);
 		 if(move_uploaded_file($_FILES['avatar']['tmp_name'], "$dossier/$fichier")) //Si la fonction renvoie TRUE, c'est que �a a fonctionn�...
 		 {
 			  echo 'Upload effectu� avec succ�s !';
