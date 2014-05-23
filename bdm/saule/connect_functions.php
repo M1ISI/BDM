@@ -154,7 +154,9 @@
                 error_log($e->getType());
                 error_log($e->getMessage());
             }   
-        }
+        }else{
+			echo "Vous n'êtes pas connecté à Facebook";
+		}
     }
 
     function twitter_search($twitter)
