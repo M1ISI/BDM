@@ -15,7 +15,7 @@ if($_FILES)
 	}
 	if($taille>$taille_maxi)
 	{
-		 $erreur = 'Le fichier est trop gros (>10 Mo).';
+		 $erreur = 'Le fichier est trop gros (>100 Mo).';
 	}
 	if(!isset($erreur)) //S'il n'y a pas d'erreur, on upload
 	{
