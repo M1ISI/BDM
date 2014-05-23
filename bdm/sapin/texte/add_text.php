@@ -14,7 +14,7 @@
 	</form>
 	
 	<p>
-		<a href="search.php">Revenir à la recherche</a>
+		<button type="button" onclick="self.close()">Fermer</button>
 	</p>
 </body>
 </html>

@@ -35,8 +35,7 @@
 	</form>
 	
 	<p>
-		<a href="../sapin/">Revenir au sapin</a> &middot; 
-		<a href="../index.php">Revenir à l'accueil principal</a>
+		<button type="button" onclick="self.close()">Fermer</button>
 	</p>
 	
 	</body>
