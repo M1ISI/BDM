@@ -13,8 +13,8 @@
         global $facebook, $user_id;
 
 	    $config_fb = array(
-	        'appId' => '1449580138609793',
-	        'secret' => 'bff79031538d7fe767ea8c7aa854d0cb',
+	        'appId' => '640588135995329',
+	        'secret' => '2d090b6ee3dd0d5f3c72ffaee8b83f3e',
 	        'allowSignedRequest' => false // optional but should be set to false for non-canvas apps
 	    );
 
@@ -132,7 +132,7 @@
 				    echo '/picture\' width="50" height="50"  /><a href="'.$ret_obj[$i]['page_url'].'">'.$ret_obj[$i]['name'].'</a> ';
 				    echo $ret_obj[$i]['fan_count'].'<br/>'.$ret_obj[$i]['general_info'].'<br/>'.$ret_obj[$i]['description'].'<br/>';
 			    }
-			    echo '<br/><br/><br/>';
+			    
 		    }
 			
 		    //Affiche la liste des amis
@@ -157,6 +157,7 @@
         }else{
 			echo "Vous n'êtes pas connecté à Facebook";
 		}
+		echo '<br/><br/><br/>';
     }
 
     function twitter_search($twitter)
