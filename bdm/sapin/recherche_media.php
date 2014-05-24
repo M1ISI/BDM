@@ -24,7 +24,7 @@
         echo "</pre>\n";*/
 
         if (!isset($mimetype) || count($mimetype) < 2)
-            die("Error : mimetype was a wrong structure\n");
+            die("Error : mimetype has a wrong structure\n");
 
         // $m_type contient le type 'global' (image, text,...) et $m_type_accurate contient le type précis (png, x-php, plain,...).
         // $mimetype[1] contient le résultat de la commande unix file -i, mais tronquée à la seconde partie, c-a-d un truc du genre text/plain;

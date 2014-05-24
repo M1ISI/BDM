@@ -41,7 +41,8 @@ if(isset($_FILES['text_file'])) {
 		//On déplace le fichier du texte dans le dossier correspondant.
 		$name = $_FILES['text_file']['name'];
 		$path = "./$name";
-		move_uploaded_file($_FILES['text_file']['tmp_name'], $path);
+		//move_uploaded_file($_FILES['text_file']['tmp_name'], $path);
+		move_uploaded_file($_FILES['text_file']['tmp_name'], "./fichiers_test/".$name);
 		
 		
 		//On analyse le texte avec le programme d'analyse PERL et on récupère le vecteur de mots.
@@ -65,8 +66,28 @@ if(isset($_FILES['text_file'])) {
 				$text = file_get_contents($path);    // le contenu du txt est stocké ici
 				break;
 			default :	// txt en general
-				$text = file_get_contents($path);    // le contenu du txt est stocké ici
+				$text = file_get_contents("./fichiers_test/".$name);    // le contenu du txt est stocké ici
 		}
+		/*switch($_FILES['text_file']['type'])
+		{
+			case "application/pdf": // pdf
+				$pdf = new PDF2Text();
+				$pdf->setFilename($path);
+				$pdf->decodePDF();
+				//file_put_contents('tmp.txt', $pdf->output());
+				file_put_contents('tmp.txt', $pdf->output()); // on le stocke dans un txt temporaire
+				$path = 'tmp.txt';                   // le nouveau path est celui du temporaire
+				$text = file_get_contents($path);    // le contenu du txt est stocké ici
+			break;
+			case "application/vnd.oasis.opendocument.text":			//odt
+				$text = extracttext($path);          // on extrait le texte du fichier 
+				file_put_contents('tmp.txt', $text); // on le stocke dans un txt temporaire
+				$path = 'tmp.txt';                   // le nouveau path est celui du temporaire
+				$text = file_get_contents($path);    // le contenu du txt est stocké ici
+				break;
+			default :	// txt en general
+				$text = file_get_contents($path);    // le contenu du txt est stocké ici
+		}*/
 
 		// On regarde si l'utilisateur à donner un fichier en français ou en anglais
 		if($_POST['lang'] == "fr")
@@ -92,15 +113,30 @@ if(isset($_FILES['text_file'])) {
 		{
 			$word_count += $vector[$i][1];
 		}
-		
+
 		//On crée une entrée pour le texte et ses mots clefs dans la base de données.
-		$db = new SQLite3('test.db');
+        try {
+    		$db = new SQLite3('./test.db');
+        } catch(Exception $e) {
+            echo "Impossible d'accéder à la base de données SQLite : ".$e->getMessage();
+            die();
+        }
+        // Connexion à la base de données
+        /*try
+        {
+            $db = new PDO('sqlite:/opt/lampp/htdocs/BDM/bdm/testBDD/test.db');
+            $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // ERRMODE_WARNING | ERRMODE_EXCEPTION | ERRMODE_SILENT
+        } catch(Exception $e) {
+            echo "Impossible d'accéder à la base de données SQLite : ".$e->getMessage();
+            die();
+        }*/
 
 		//On vérifie si le type du fichier existe
 		$request = $db->query("SELECT id_type FROM types WHERE type='".$_FILES['text_file']['type']."'");
 		$row = $request->fetchArray(SQLITE3_NUM);
 		// S'il n'existe pas on le crée et on récupère son identifiant
-		if( $row['count'] == 0)
+		if( $row[0] == 0)
 		{
 			$db->exec("insert into types (type) values ('".$_FILES['text_file']['type']."')"); // on insère le type
 			$request = $db->query("select last_insert_rowid()"); // on récupère le dernier id ajouté
@@ -111,14 +147,14 @@ if(isset($_FILES['text_file'])) {
 		{
 			$id_type = $row[0];
 		}
-		
+
 		// On insere le fichier en premier
-		$request = $db->prepare('INSERT INTO files (type, path, url) VALUES(:type, :path, :url)');
+		$request = $db->prepare('INSERT INTO FILES (type, path) VALUES(:type, :path)');
 		$request->bindValue(':type', $id_type);
 		$name = $_FILES['text_file']['name'];
 		$path = "/tmp/$name";//obtenir le chemin du fichier qui est déjà dans "uploaded"
 		$request->bindValue(':path',$path);
-		$request->bindValue(':url', "");
+		//$request->bindValue(':url', "");
 		$request->execute();
 
 		$request = $db->query("select last_insert_rowid()"); // on récupère le dernier id ajouté (celui du fichier)

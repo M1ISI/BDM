@@ -24,7 +24,7 @@
         echo "</pre>\n";*/
 
         if (!isset($mimetype) || count($mimetype) < 2)
-            die("Error : mimetype was a wrong structure\n");
+            die("Error : mimetype as a wrong structure\n");
 
         // $m_type contient le type 'global' (image, text,...) et $m_type_accurate contient le type précis (png, x-php, plain,...).
         // $mimetype[1] contient le résultat de la commande unix file -i, mais tronquée à la seconde partie, c-a-d un truc du genre text/plain;
@@ -66,8 +66,13 @@
             case "image" :
                 // ~> point d'entrée du traitement des images <~
                 echo "<p>image</p>\n";
-                //exec
-                //exec("python sapin/faceDetector/findFace.py " . $filePath
+                //exec("./sapin/images/squelettisation/squelette.c " . $filePath);
+                //include(sapin/images/couleurs/color.php);
+                //exec("python sapin/images/faceDetector/findFace.py " . $filePath);
+                //si visages :
+                //exec("python sapin/images/faceDetector/Facecompare.py");
+                //sinon (voire même dans tous les cas)
+                //exec(...comparaison d'images...);
             break;
 
             case "application" :
