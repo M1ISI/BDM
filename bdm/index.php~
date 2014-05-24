@@ -225,7 +225,6 @@ $('document').ready(function(){
 			buisson.html('');
 			pommier.html('');
             sapin.children('div#music').html('');
-            sapin.children('div#texte').html('');
 			return false;
 		}
 
