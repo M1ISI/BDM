@@ -1,11 +1,14 @@
 <?php
 if($_FILES)
 {
-	$dossier = './sons';
+    echo '<pre>';
+    print_r($_FILES['avatar']);
+    echo '</pre>';
+	$dossier = '../music_folder';
 	$fichier = basename($_FILES['avatar']['name']);
 	//echo 'Upload du fichier : '.$fichier;
 	$taille_maxi = 100000000;
-	$taille = filesize($_FILES['avatar']['tmp_name']);
+	$taille = $_FILES['avatar']['size'];
 	$extensions = array('.mp3', '.MP3');
 	$extension = strrchr($_FILES['avatar']['name'], '.'); 
 	//D�but des v�rifications de s�curit�...
@@ -20,20 +23,17 @@ if($_FILES)
 	if(!isset($erreur)) //S'il n'y a pas d'erreur, on upload
 	{
 		 //On formate le nom du fichier ici...
-		 //$fichier = strtr($fichier, 
-		//	  '����������������������������������������������������', 
-		//	  'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
 		 $fichier = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier);
-		 if(move_uploaded_file($_FILES['avatar']['tmp_name'], "$dossier/$fichier")) //Si la fonction renvoie TRUE, c'est que �a a fonctionn�...
+		 if(move_uploaded_file($_FILES['avatar']['tmp_name'], "../sapin/audio/music_folder/" . $fichier)) //Si la fonction renvoie TRUE, c'est que ca a fonctionné...
 		 {
-			  echo 'Upload effectu� avec succ�s !';
+			  echo 'Upload reussi !';
 		 }
 		 else //Sinon (la fonction renvoie FALSE).
 		 {
 			  echo 'Echec de l\'upload !';
 		 }
         //exécution du programme C ==> attention aux droits
-        exec("../sapin/audio/tags/mp3tag_addDb.c " . $dossier);
+        exec("../sapin/audio/tags/mp3tag_addFileToDb.c " . $fichier);
 	}
 	else
 	{
