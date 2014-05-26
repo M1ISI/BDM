@@ -33,7 +33,9 @@ if($_FILES)
 			  echo 'Echec de l\'upload !';
 		 }
         //exécution du programme C ==> attention aux droits
-        exec("../sapin/audio/tags/mp3tag_addFileToDb.c " . $fichier);
+        echo "../sapin/audio/tags/mp3tag_addFileToDb.c ../sapin/audio/music_folder/" . $fichier;
+        //echo exec("cd /opt/lampp/htdocs/BDM/bdm/sapin/audio/tags/ && pwd");
+        echo exec("cd /opt/lampp/htdocs/BDM/bdm/sapin/audio/tags/ && ./mp3tag ../music_folder/" . $fichier);
 	}
 	else
 	{
@@ -41,7 +43,7 @@ if($_FILES)
 	}
 }
 ?>
-<div> Upload de morceaux mp3. </div>
+<div><br/> Upload de morceaux mp3. </div>
 <form method="POST" action="upload_sound.php" enctype="multipart/form-data">
      <input type="hidden" name="MAX_FILE_SIZE" value="100000000">
      Fichier : <input type="file" name="avatar">

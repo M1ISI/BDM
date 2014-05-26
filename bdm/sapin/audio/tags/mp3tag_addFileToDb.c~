@@ -169,7 +169,7 @@ void dirExplorer(char* upFile, sqlite3* db)
                     return;
                 }
                 else
-                    fprintf(stdout, "Embedding tags is successful");
+                    fprintf(stdout, "Embedding tags is successful\n");
 			}
 			//Sinon
 			else

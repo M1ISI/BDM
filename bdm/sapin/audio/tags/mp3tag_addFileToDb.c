@@ -62,7 +62,7 @@ sqlite3* connectToDb()
     sqlite3 *db;
     int rc;
 
-    rc = sqlite3_open(DB_PATH, &db);
+    rc = sqlite3_open("../../../testBDD/test.db", &db);
 
     if (rc != SQLITE_OK)
     {
