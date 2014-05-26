@@ -115,7 +115,7 @@ void dirExplorer(char* upFile, sqlite3* db)
 		exit(-1); // Mauvais chemin par exemple
 	}*/
 
-	printf("File reached successfully \n");
+	printf("Openning file\n");
 
 	/*while ((file = readdir(directory)) != NULL)
 	{*/

@@ -1,0 +1,130 @@
+LAFFELY Cyril
+
+TP7
+
+Exercice 1 :
+1) Ces tables correspondent à :
+	- raw : Permet des options de préroutage. Elle dispose d'une priorité accrue comparée aux autres tables.
+	- filter : Sert a faire des filtres sur les connections
+	- nat : Est utilisée pour faire du NAT
+	- mangle : Elle est utilisée pour marquer des paquets
+
+2) Utilisation de la commande :
+	>$ apt-get install iptables
+
+
+Exercice 2 :
+1) Il faut utiliser la commande :
+	>$ iptables -t filter -L
+
+2) Il faut utiliser la même commande, mais remplacer filter par nat, raw et mangle
+
+3) J'ai utilisé :
+	>$ ssh -X root@pcj410
+Pour l'instant, les règles sur la machine de mon voisin sont les même que sur la mienne. Il n'y a qu'une ligne qui a été ajoutée :
+ACCEPT     all  --  anywhere             anywhere             ctstate ESTABLISHED
+
+4) Filtrer selon l'adresse IP source :
+	>$ iptables -s adresseIPABannir
+
+Adresse IP de destination :
+	>$ iptables -d adresseIPABannir
+
+Le protocole de couche supérieur :
+	>$ iptables -t filter -A INPUT -p tcp		=> pour tcp
+	>$ iptables -t filter -A INPUT -p udp		=> pour udp
+	...
+
+Le port destinataire :
+	>$ iptables -t filter -A INPUT -p tcp --dport 80
+
+Le port source :
+	>$ iptables -t filter -A INPUT -p tcp --sport 80
+Dans les deux cas précédents, il est obligatoire d'indiquer le protocole (-p)
+
+L'interface réseau d'entrée :
+	>$ iptables -A INPUT -i eth0
+
+L'interface réseau de sortie :
+	>$ iptables -A OUTPUT -o eth0
+
+Pour toutes ces commandes, il suffit d'ajouter l'option -j [ACCEPT/DROP/REJECT] pour indiquer l'action a faire
+
+5) Pour empecher ssh, il faut utiliser la commande :
+	>$ iptables -t filter -A INPUT -p tcp --dport 22 -j DROP
+
+6) La connexion est refusée
+
+7) Il faut changer DROP par REJECT :
+	>$ iptables -t filter -A INPUT -p tcp --dport 22 -j REJECT
+
+8) Au départ, je n'ai aucune règle. J'ajoute celle-ci
+	>$ iptables -t filter -A INPUT -p tcp --dport 22 -s pcj410 -j ACCEPT
+	>$ iptables -t filter -A INPUT -p tcp --dport 22 -j REJECT
+
+9) J'ai utilisé :
+	>$ iptables -t filter -L
+
+Et j'obtiens :
+ACCEPT     tcp  --  pcj410.u-strasbg.fr  anywhere             tcp dpt:ssh
+DROP       tcp  --  anywhere             anywhere             tcp dpt:ssh
+
+10) La commande requise est la suivante :
+	>$ iptables -t filter -Z
+
+11) Il faut utiliser le point d'exclamation devant la règle a inverser
+	>$ iptables -t filter -A INPUT ! -p tcp -j ACCEPT
+
+12) La commande est la suivante :
+	>$ iptables -t filter -L --line-numbers
+
+13) Pour supprimer une règle en particulier :
+	>$ iptables -t filter -d INPUT -D numéro
+Pour les supprimer toutes on peut enlever -t filter pour supprimer également celles des autres tables) :
+	>$ iptables -t filter -F
+
+14) Il faut utiliser l'option --modprobe=command
+
+15) Les différents modules existants se trouvent dans la section "MATCH EXTENSIONS" du manuel. On y trouve par exemple :
+	- addrtype
+	- hashlimit
+	- icmp
+	- ...
+
+16) Il faut utiliser la commande suivante :
+	>$ iptables -t filter -A INPUT -m multiport -p tcp --dports 1:10,80:1023 -j REJECT
+
+17) J'ai eu recours à la commande :
+	>$ iptables -t filter -F INPUT
+
+18) La commande est la suivante :
+	>$ iptables -N sshchain
+
+19) Je n'ai pas trouvé comment rediriger une chaine (INPUT) et un protocole(TCP) et un port(22)
+
+20) Dans TARGET EXTENSIONS, on y trouve la catégorie logs (ou ulog pour les logs spécifiques a un utilisateur). Pour faire transiter une chaine, il faut utiliser l'option -j
+/var/log/kern.log correspond au log système.
+
+21) Il faut utiliser l'option -P pour modifier les règles par défaut :
+	>$ iptables -P INPUT DROP
+
+22) On peut utiliser les commandes suivantes :
+	>$ iptables -t filter -A INPUT -p tcp --dport 22 -j ACCEPT
+	>$ iptables -t filter -A INPUT -p tcp --dport 23 -j ACCEPT
+Je n'ai pas trouvé comment logguer les connexions ssh.
+
+23) On change la politique par défaut : 
+	>$ iptables -P INPUT ACCEPT
+Puis bloquer l'accès
+	>$ iptables -t filter -A OUTPUT -p tcp --dport 443 -j DROP
+	>$ iptables -t filter -A OUTPUT -p tcp --dport 80 -j DROP
+
+24)
+
+25) On peut bloquer le nombre de ping par seconde
+	>$ iptables -A FORWARD -p icmp --icmp-type echo-request -m limit --limit 1/second -j ACCEPT
+
+Je n'ai malheureusement pas eu le temps d'aller plus loin pendant le TP.
+
+
+

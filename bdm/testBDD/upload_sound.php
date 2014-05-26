@@ -1,9 +1,9 @@
 <?php
 if($_FILES)
 {
-    echo '<pre>';
+    /*echo '<pre>';
     print_r($_FILES['avatar']);
-    echo '</pre>';
+    echo '</pre>';*/
 	$dossier = '../music_folder';
 	$fichier = basename($_FILES['avatar']['name']);
 	//echo 'Upload du fichier : '.$fichier;
@@ -24,7 +24,7 @@ if($_FILES)
 	{
 		 //On formate le nom du fichier ici...
 		 $fichier = preg_replace('/([^.a-z0-9]+)/i', '-', $fichier);
-		 if(move_uploaded_file($_FILES['avatar']['tmp_name'], "../sapin/audio/music_folder/" . $fichier)) //Si la fonction renvoie TRUE, c'est que ca a fonctionné...
+		 if(move_uploaded_file($_FILES['avatar']['tmp_name'], "/opt/lampp/htdocs/BDM/bdm/sapin/audio/music_folder/" . $fichier)) //Si la fonction renvoie TRUE, c'est que ca a fonctionné...
 		 {
 			  echo 'Upload reussi !';
 		 }
@@ -33,9 +33,7 @@ if($_FILES)
 			  echo 'Echec de l\'upload !';
 		 }
         //exécution du programme C ==> attention aux droits
-        echo "../sapin/audio/tags/mp3tag_addFileToDb.c ../sapin/audio/music_folder/" . $fichier;
-        //echo exec("cd /opt/lampp/htdocs/BDM/bdm/sapin/audio/tags/ && pwd");
-        echo exec("cd /opt/lampp/htdocs/BDM/bdm/sapin/audio/tags/ && ./mp3tag ../music_folder/" . $fichier);
+        exec("cd /opt/lampp/htdocs/BDM/bdm/sapin/audio/tags/ && ./mp3tag ../music_folder/" . $fichier);
 	}
 	else
 	{
